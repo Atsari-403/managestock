@@ -1,0 +1,135 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #080710;
+    min-height: 100vh;
+}
+
+.auth-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 20px;
+}
+
+.auth-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.auth-shape {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(15px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.auth-shape:first-child {
+    background: linear-gradient(#1845ad, #23a2f6);
+    left: 10%;
+    top: 20%;
+}
+
+.auth-shape:last-child {
+    background: linear-gradient(to right, #ff512f, #f09819);
+    right: 10%;
+    bottom: 20%;
+    animation-delay: -3s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.auth-container {
+    background: rgba(255, 255, 255, 0.13);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+.auth-input {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+.auth-input:focus {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: none !important;
+}
+
+.auth-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.auth-label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.auth-title {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.auth-button {
+    background: #ffffff;
+    color: #080710;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.auth-link {
+    color: #23a2f6;
+    text-decoration: none;
+}
+
+.auth-link:hover {
+    color: #1845ad;
+    text-decoration: underline;
+}
+
+.auth-text {
+    color: #ffffff;
+}
+
+.bi {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.bi:hover {
+    opacity: 1;
+}
+
+.position-relative .auth-input {
+    padding-right: 2.5rem;
+}
