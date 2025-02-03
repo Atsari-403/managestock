@@ -29,3 +29,7 @@ Route::get('/reports/daily', function () {
 Route::get('/absensi', function () {
     return view('absenteeism.absenteeism');
 })->name('absenteeism.absenteeism');
+
+Route::get('/order', function () {
+    return view('order.order');
+})->name('order.order');

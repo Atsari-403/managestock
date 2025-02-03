@@ -59,6 +59,15 @@
                                 <option value="failed">Failed</option>
                             </select>
                         </div>
+                        <!-- Report Type (Daily, Monthly, Yearly) -->
+                        <div class="col-md-2">
+                            <label class="form-label">Report Type</label>
+                            <select class="form-select">
+                                <option value="daily">Daily</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
                         <div class="col-md-3 d-flex align-items-end">
                             <button type="submit" class="btn btn-primary">Apply Filter</button>
                         </div>

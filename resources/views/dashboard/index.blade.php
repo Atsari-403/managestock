@@ -104,7 +104,7 @@
     <!-- Main Content -->
     <div class="row">
         <!-- Recent Transactions -->
-        <div class="col-xl-8 mb-4">
+        <div class="card border-0 shadow-sm">
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white py-3">
                     <div class="d-flex justify-content-between align-items-center">
@@ -170,36 +170,8 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="col-xl-4 mb-4">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white py-3">
-                    <h5 class="card-title mb-0">Aksi Cepat</h5>
-                </div>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary d-flex align-items-center gap-2 justify-content-center">
-                            <i class="bi bi-plus-circle"></i>
-                            <span>Tambah Transaksi</span>
-                        </button>
-                        <button class="btn btn-info text-white d-flex align-items-center gap-2 justify-content-center">
-                            <i class="bi bi-file-text"></i>
-                            <span>Buat Laporan</span>
-                        </button>
-                        <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
-                            <i class="bi bi-person-plus"></i>
-                            <span>Tambah Pelanggan</span>
-                        </button>
-                        <button class="btn btn-warning d-flex align-items-center gap-2 justify-content-center">
-                            <i class="bi bi-box"></i>
-                            <span>Kelola Stok</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Recent Activities -->
-            <div class="card border-0 shadow-sm">
+            <div class="card border-0 shadow-sm mt-3">
                 <div class="card-header bg-white py-3">
                     <h5 class="card-title mb-0">Aktivitas Terbaru</h5>
                 </div>
