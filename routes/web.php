@@ -33,3 +33,7 @@ Route::get('/absensi', function () {
 Route::get('/order', function () {
     return view('order.order');
 })->name('order.order');
+
+Route::get('/pulsa', function () {
+    return view('order.product.product');
+})->name('order.product.product');

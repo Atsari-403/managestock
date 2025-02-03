@@ -32,7 +32,7 @@
         <!-- Dummy Data with Icons -->
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="#" class="text-decoration-none">
+                <a href="{{route('order.product.product')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-phone" style="font-size: 50px;"></i>
                         <h5 class="card-title">Pulsa</h5>
@@ -101,7 +101,7 @@
             </div>
         </div>
         <!-- Additional Box for 'Lainnya' -->
-        <div class="col-md-3 col-sm-6 mb-4">
+        {{-- <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
                 <a href="#" class="text-decoration-none">
                     <div class="card-body text-center">
@@ -110,65 +110,7 @@
                     </div>
                 </a>
             </div>
-        </div>
-    </div>
-
-    <!-- Orders Table -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-header bg-white py-3">
-            <h5 class="card-title mb-0">Order Details</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Date & Time</th>
-                            <th>Customer</th>
-                            <th>Product</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#ORD12345</td>
-                            <td>2024-02-03 14:30</td>
-                            <td>John Doe</td>
-                            <td>Pulsa</td>
-                            <td>Rp 50.000</td>
-                            <td><span class="badge bg-success">Completed</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="tooltip" title="View Details">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                                <button class="btn btn-sm btn-light" data-bs-toggle="tooltip" title="Print">
-                                    <i class="bi bi-printer"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Add more rows as needed -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Pagination -->
-            <nav class="mt-4">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        </div> --}}
     </div>
 </div>
 @endsection
