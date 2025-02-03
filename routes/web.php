@@ -25,3 +25,7 @@ Route::get('/profile', function () {
 Route::get('/reports/daily', function () {
     return view('reports.daily');
 })->name('reports.daily');
+
+Route::get('/absensi', function () {
+    return view('absenteeism.absenteeism');
+})->name('absenteeism.absenteeism');

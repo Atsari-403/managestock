@@ -46,10 +46,8 @@
                     <i class="bi bi-gear"></i>
                     <span>Setting Profile</span>
                 </a>
-                <a class="nav-link {{ Request::is('attendance') ? 'active' : '' }}" href="">
-                    <i class="bi bi-clock"></i>
-                    <span>Absensi</span>
-                </a>
+                <a class="nav-link {{ Request::is('absenteeism') ? 'active' : '' }}" href="{{ route('absenteeism.absenteeism') }}"><i class="bi bi-clock"></i><span>Absensi</span></a> <!-- Tambahan Absensi -->
+
                 <a class="nav-link {{ Request::is('reports') ? 'active' : '' }}" href="{{ route('reports.daily') }}">
                     <i class="bi bi-file-text"></i>
                     <span>Report</span>
@@ -102,6 +100,7 @@
                 <a class="nav-link" href="#"><i class="bi bi-box"></i><span>Aksesoris</span></a>
             </div>
         </div>
+
 
         <a class="nav-link" href="#">
             <div class="d-flex align-items-center">

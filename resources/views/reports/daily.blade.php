@@ -3,7 +3,7 @@
 @section('title', 'Daily Report - Alpin Cell')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid mt-4">
     <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
