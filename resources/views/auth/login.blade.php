@@ -21,7 +21,7 @@
                 </div>
                 <h3 class="auth-title text-center mb-4 fs-2">Login Here</h3>
 
-                <form method="POST" action="">
+                <form method="POST" action="{{route('login')}}">
                     @csrf
 
                     <div class="mb-4">

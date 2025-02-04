@@ -23,7 +23,7 @@
         <h3 class="text-white mb-0">Alpin Cell</h3>
     </div>
     <nav class="nav flex-column">
-        <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
+        <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="{{route('dashboard')}}">
             <div class="d-flex align-items-center">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -89,11 +89,14 @@
                 <span>Notifikasi</span>
             </div>
         </a>
-        <a class="nav-link" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <div class="d-flex align-items-center">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Logout</span>
             </div>
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     </nav>
 </div>
