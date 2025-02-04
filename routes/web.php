@@ -10,10 +10,6 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard');
@@ -35,5 +31,29 @@ Route::get('/order', function () {
 })->name('order.order');
 
 Route::get('/pulsa', function () {
-    return view('order.product.product');
+    return view('order.product.pulsa');
 })->name('order.product.product');
+
+Route::get('/e-wallet', function () {
+    return view('order.product.e-wallet');
+})->name('order.product.e-wallet');
+
+Route::get('/topupgame', function () {
+    return view('order.product.topupgame');
+})->name('order.product.topupgame');
+
+Route::get('/voucher', function () {
+    return view('order.product.voucher');
+})->name('order.product.voucher');
+
+Route::get('/accessories', function () {
+    return view('order.product.accessories');
+})->name('order.product.accessories');
+
+Route::get('/transaksi', function () {
+    return view('order.product.transaksi');
+})->name('order.product.transaksi');
+
+Route::get('/ppb', function () {
+    return view('order.product.ppb');
+})->name('order.product.ppb');

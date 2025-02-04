@@ -1,0 +1,106 @@
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-body .card-title {
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.card {
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.bg-purple {
+    background-color: #6f42c1;
+}
+
+.text-purple {
+    color: #6f42c1;
+}
+
+.btn-purple {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: #5a32a3;
+    border-color: #5a32a3;
+    color: white;
+}
+
+.card-body .form-control,
+.card-body .form-select {
+    border-radius: 8px;
+}
+
+.card-body .d-flex button {
+    width: 48%;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+}
+
+.text-warning {
+    color: #ffc107;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+    color: white;
+}
+
+.bg-secondary {
+    background-color: #6c757d;
+}
+
+.text-secondary {
+    color: #6c757d;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+    color: white;
+}
+
+.bg-dark {
+    background-color: #343a40;
+}
+
+.text-dark {
+    color: #343a40;
+}
+
+.btn-dark {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}
+
+.btn-dark:hover {
+    background-color: #23272b;
+    border-color: #23272b;
+    color: white;
+}

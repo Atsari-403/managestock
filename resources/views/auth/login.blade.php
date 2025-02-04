@@ -19,7 +19,7 @@
                         <img src="{{ ('image/logo.png') }}" alt="Alpin Cell Logo" class="auth-logo img-fluid mb-3">
                     </div>
                 </div>
-                <h3 class="auth-title text-center mb-4 fs-2">Login Here</h3>
+                <h3 class="auth-title text-center mb-4 fs-2">Login</h3>
 
                 <form method="POST" action="">
                     @csrf
@@ -64,11 +64,6 @@
                             </a>
                         </div>
                     @endif
-
-                    <div class="text-center mt-3">
-                        <span class="auth-text">Belum punya akun?</span>
-                        <a class="auth-link ms-2" href="/register">Daftar di sini</a>
-                    </div>
                 </form>
             </div>
         </div>

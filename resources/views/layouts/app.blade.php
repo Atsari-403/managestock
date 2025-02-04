@@ -16,8 +16,8 @@
     @yield('styles')
 </head>
 <body>
-    <!-- Tambahkan setelah tag body -->
-<div class="sidebar-overlay"></div>
+    
+    <div class="sidebar-overlay"></div>
 
     <div class="dashboard-container">
         @include('layouts.sidebar')
@@ -29,6 +29,7 @@
 
     <!-- Bootstrap JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Dashboard JS -->
     <script src="{{ asset('js/sidebar.js') }}"></script>
     @yield('scripts')
 </body>

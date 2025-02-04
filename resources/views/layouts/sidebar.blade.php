@@ -5,7 +5,7 @@
 <nav class="mobile-nav d-md-none">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-            <img src="{{ asset('image/logo.png') }}" alt="Logo" class="me-2" width="40" height="40">
+            <img src="{{ asset('image/logo.png') }}" alt="Logo" class="me-2" width="50" height="50">
             <h4 class="text-white mb-0">Alpin Cell</h4>
         </div>
         <div class="hamburger-icon" id="sidebarToggle">
@@ -19,7 +19,7 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="d-flex align-items-center mb-4">
-        <img src="{{ asset('image/logo.png') }}" alt="Logo" class="me-2" width="40" height="40">
+        <img src="{{ asset('image/logo.png') }}" alt="Logo" class="me-2" width="50" height="50">
         <h3 class="text-white mb-0">Alpin Cell</h3>
     </div>
     <nav class="nav flex-column">
@@ -64,6 +64,7 @@
                 <a class="nav-link" href="#"><i class="bi bi-tag"></i><span>Product Types</span></a>
             </div>
         </div>
+
         <!-- Orders CRUD Section -->
         <a class="nav-link {{ Request::routeIs('order.order') ? 'active' : '' }}" href="{{ route('order.order') }}">
                 <i class="bi bi-boxes"></i>
