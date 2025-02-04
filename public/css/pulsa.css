@@ -1,0 +1,29 @@
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-body .card-title {
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.card {
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.modal-dialog {
+    max-width: 500px;
+}
+
+.modal-body .form-control {
+    border-radius: 8px;
+}
+
+.modal-body .d-flex button {
+    width: 48%;
+}

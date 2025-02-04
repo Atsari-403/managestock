@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="#" class="text-decoration-none">
+                <a href="{{route('order.product.e-wallet')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-wallet2" style="font-size: 50px;"></i>
                         <h5 class="card-title">E-wallet</h5>
@@ -52,7 +52,7 @@
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="#" class="text-decoration-none">
+                <a href="{{route('order.product.transaksi')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-cart" style="font-size: 50px;"></i>
                         <h5 class="card-title">Transaksi</h5>
@@ -62,17 +62,17 @@
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="#" class="text-decoration-none">
+                <a href="{{route('order.product.ppb')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-credit-card" style="font-size: 50px;"></i>
-                        <h5 class="card-title">Pembayaran</h5>
+                        <h5 class="card-title">Pembayaran Pasca Bayar</h5>
                     </div>
                 </a>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="#" class="text-decoration-none">
+                <a href="{{route('order.product.topupgame')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-controller" style="font-size: 50px;"></i>
                         <h5 class="card-title">Top Up Game</h5>
@@ -82,7 +82,7 @@
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="#" class="text-decoration-none">
+                <a href="{{route('order.product.voucher')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-ticket-perforated" style="font-size: 50px;"></i>
                         <h5 class="card-title">Voucher</h5>
@@ -92,7 +92,7 @@
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="#" class="text-decoration-none">
+                <a href="{{route('order.product.accessories')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-box" style="font-size: 50px;"></i>
                         <h5 class="card-title">Accessories</h5>
