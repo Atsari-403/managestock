@@ -5,21 +5,7 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="mb-0">Profile Settings</h3>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-dashboard-header title="Setting Profile"></x-dashboard-header>
 
     <div class="row">
         <!-- Profile Picture Section -->

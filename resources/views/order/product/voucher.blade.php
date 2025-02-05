@@ -4,14 +4,7 @@
 
 @section('content')
 <div class="container-fluid mt-4">
-    <div class="row mb-4">
-        <div class="col-12 d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Voucher Konter HP</h3>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#purchaseModal">
-                <i class="bi bi-cart-plus"></i> Input Pembelian
-            </button>
-        </div>
-    </div>
+    <x-dashboard-header title="Voucher"></x-dashboard-header>
 
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         @foreach(['Telkomsel', 'Indosat', 'XL', 'Axis', 'Smartfren'] as $brand)

@@ -5,22 +5,7 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="mb-0">Add New User</h3>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('indexuser') }}" class="text-decoration-none">Users</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add New User</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-dashboard-header title="Add User"></x-dashboard-header>
 
     <div class="row">
         <!-- Add User Form Section -->

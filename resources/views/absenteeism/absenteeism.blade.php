@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="text-center mb-4 fw-bold text-primary">Absensi Kehadiran</h2>
+    <x-dashboard-header title="Attendance"></x-dashboard-header>
 
     <div class="row justify-content-center">
         <div class="col-12">

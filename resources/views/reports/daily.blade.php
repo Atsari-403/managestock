@@ -5,27 +5,7 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="mb-0">Daily Report</h3>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Daily Report</li>
-                        </ol>
-                    </nav>
-                </div>
-                <div>
-                    <button class="btn btn-primary d-flex align-items-center gap-2">
-                        <i class="bi bi-download"></i>
-                        Export Report
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-dashboard-header  title="Report"></x-dashboard-header>
 
     <!-- Filter Section -->
     <div class="row mb-4">
