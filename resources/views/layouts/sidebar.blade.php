@@ -29,7 +29,9 @@
                 <span>Dashboard</span>
             </div>
         </a>
-        <!-- User CRUD Section -->
+
+        @if (auth()->check()&&auth()->user()->role == 1)
+          <!-- User CRUD Section -->
         <a class="nav-link dropdown-toggle" href="#userMenu" data-bs-toggle="collapse" role="button">
             <div class="d-flex align-items-center justify-content-between w-100">
                 <div>
@@ -41,13 +43,13 @@
         </a>
         <div class="collapse" id="userMenu">
             <div class="dropdown-menu-items">
-                <a class="nav-link" href="#"><i class="bi bi-person-lines-fill"></i><span>Users</span></a>
-                <a class="nav-link" href="#"><i class="bi bi-person-plus"></i><span>Add User</span></a>
+                <a class="nav-link" href="{{route('indexuser')}}"><i class="bi bi-person-lines-fill"></i><span>Users</span></a>
+                <a class="nav-link" href="{{route('createuser')}}"><i class="bi bi-person-plus"></i><span>Add User</span></a>
             </div>
         </div>
 
-       <!-- Product CRUD Section -->
-        <a class="nav-link dropdown-toggle" href="#productMenu" data-bs-toggle="collapse" role="button">
+         <!-- Product CRUD Section -->
+         <a class="nav-link dropdown-toggle" href="#productMenu" data-bs-toggle="collapse" role="button">
             <div class="d-flex align-items-center justify-content-between w-100">
                 <div>
                     <i class="bi bi-box"></i>
@@ -64,6 +66,10 @@
                 <a class="nav-link" href="#"><i class="bi bi-tag"></i><span>Product Types</span></a>
             </div>
         </div>
+        @endif
+      
+        
+      
         <!-- Orders CRUD Section -->
         <a class="nav-link {{ Request::routeIs('order.order') ? 'active' : '' }}" href="{{ route('order.order') }}">
                 <i class="bi bi-boxes"></i>
@@ -83,12 +89,6 @@
             <i class="bi bi-gear"></i>
             <span>Setting Profile</span>
         </a>        
-        <a class="nav-link" href="#">
-            <div class="d-flex align-items-center">
-                <i class="bi bi-bell"></i>
-                <span>Notifikasi</span>
-            </div>
-        </a>
         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <div class="d-flex align-items-center">
                 <i class="bi bi-box-arrow-right"></i>

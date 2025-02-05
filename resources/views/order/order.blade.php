@@ -32,7 +32,7 @@
         <!-- Dummy Data with Icons -->
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-0">
-                <a href="{{route('order.product.product')}}" class="text-decoration-none">
+                <a href="{{route('order.product.pulsa')}}" class="text-decoration-none">
                     <div class="card-body text-center">
                         <i class="bi bi-phone" style="font-size: 50px;"></i>
                         <h5 class="card-title">Pulsa</h5>

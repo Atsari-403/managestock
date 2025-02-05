@@ -10,9 +10,11 @@ class LogOutController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate(); 
+        $request->session()->regenerateToken(); 
         return to_route('login');
     }
 }

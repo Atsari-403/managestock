@@ -31,23 +31,6 @@
                             <li><a class="dropdown-item" href="#">Update Sistem</a></li>
                         </ul>
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-light d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
-                            <img src="{{ asset('image/avatar.png') }}" alt="Profile" class="rounded-circle" width="32" height="32">
-                            <span>Admin</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item text-danger" href="#" 
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="bi bi-box-arrow-right me-2"></i>Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

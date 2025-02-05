@@ -2,12 +2,19 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login', [LoginController::class, 'loginform'])->name('login')->middleware('guest');
-Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+Route::post('login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest', 'throttle:5,1');
 Route::post('logout', LogOutController::class)->name('logout')->middleware('auth');
 
+
+Route::middleware(['isAdmin', 'auth'])->group(function(){
+    Route::get('users', [UserController::class, 'index'])->name('indexuser');
+    Route::get('users/create', [UserController::class, 'create'])->name('createuser');
+    
+});
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
@@ -32,17 +39,10 @@ Route::get('/order', function () {
     return view('order.order');
 })->name('order.order')->middleware('auth');
 
-Route::get('/pulsa', function () {
-    return view('order.product.product');
-})->name('order.product.product')->middleware('auth');
-
-Route::get('/order', function () {
-    return view('order.order');
-})->name('order.order')->middleware('auth');
 
 Route::get('/pulsa', function () {
     return view('order.product.pulsa');
-})->name('order.product.product')->middleware('auth');
+})->name('order.product.pulsa')->middleware('auth');
 
 Route::get('/e-wallet', function () {
     return view('order.product.e-wallet');
