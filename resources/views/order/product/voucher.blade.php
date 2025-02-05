@@ -5,40 +5,41 @@
 @section('content')
 <div class="container-fluid mt-4">
     <div class="row mb-4">
-        <div class="col-12 d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Voucher Konter HP</h3>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#purchaseModal">
-                <i class="bi bi-cart-plus"></i> Input Pembelian
-            </button>
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="mb-0">Voucher Konter HP</h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-decoration-none">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Voucher Konter HP</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach(['Telkomsel', 'Indosat', 'XL', 'Axis', 'Smartfren'] as $brand)
-            @foreach([5000, 10000, 25000, 50000, 100000, 150000] as $nominal)
-                <div class="col">
-                    <div class="card h-100 border-primary">
-                        <div class="card-header bg-primary text-white text-center">
-                            <h5 class="mb-0">{{ $brand }}</h5>
-                        </div>
-                        <div class="card-body text-center">
-                            <h4>Rp {{ number_format($nominal, 0, ',', '.') }}</h4>
-                        </div>
-                        <div class="card-footer text-center">
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#purchaseModal">
-                                <i class="bi bi-bag-plus"></i> Beli Voucher
-                            </button>
-                        </div>
+    <!-- Tampilkan provider saja -->
+    <div class="row mb-4">
+        @foreach(['Telkomsel', 'Indosat', 'XL', 'Axis', 'Smartfren', 'Tri'] as $brand)
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-3">{{ $brand }}</h5>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#purchaseModal" data-brand="{{ $brand }}">
+                            <i class="bi bi-bag-plus"></i> Beli Voucher
+                        </button>
                     </div>
                 </div>
-            @endforeach
+            </div>
         @endforeach
     </div>
 </div>
 
-<!-- Modal Input Pembelian -->
+<!-- Modal Input Pembelian Voucher -->
 <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered"> 
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="purchaseModalLabel">Input Pembelian Voucher</h5>
@@ -47,39 +48,19 @@
             <div class="modal-body">
                 <form action="" method="POST">
                     @csrf
+                    <!-- Menyimpan data provider yang dipilih -->
+                    <input type="hidden" name="brand" id="selectedBrand">
+                    
                     <div class="mb-3">
-                        <label class="form-label">Nama Karyawan</label>
-                        <input type="text" name="employee_name" class="form-control" required>
+                        <label for="type" class="form-label">Jenis Voucher</label>
+                        <input type="text" class="form-control" id="type" name="type" required>
                     </div>
+                    
                     <div class="mb-3">
-                        <label class="form-label">Nama Pembeli</label>
-                        <input type="text" name="buyer_name" class="form-control" required>
+                        <label for="price" class="form-label">Harga Voucher</label>
+                        <input type="number" class="form-control" id="price" name="price" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nomor HP Pembeli</label>
-                        <input type="text" name="buyer_phone" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Brand Voucher</label>
-                        <select name="brand" class="form-select" required>
-                            <option>Telkomsel</option>
-                            <option>Indosat</option>
-                            <option>XL</option>
-                            <option>Axis</option>
-                            <option>Smartfren</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nominal Voucher</label>
-                        <select name="nominal" class="form-select" required>
-                            <option>5000</option>
-                            <option>10000</option>
-                            <option>25000</option>
-                            <option>50000</option>
-                            <option>100000</option>
-                            <option>150000</option>
-                        </select>
-                    </div>
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -90,3 +71,5 @@
     </div>
 </div>
 @endsection
+
+

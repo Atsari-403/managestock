@@ -115,7 +115,7 @@
 
     <!-- Modal Form Pembayaran -->
     <div class="modal fade" id="modalPembayaran" tabindex="-1" aria-labelledby="modalPembayaranLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalPembayaranLabel">Pembayaran Pascabayar</h5>
@@ -125,8 +125,16 @@
                     <form action="#" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="amount" class="form-label">Nominal Pembayaran</label>
+                            <label for="customerId" class="form-label">ID Pelanggan</label>
+                            <input type="text" class="form-control" id="customerId" placeholder="Masukkan ID pelanggan" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Nominal Top Up</label>
                             <input type="number" class="form-control" id="amount" placeholder="Masukkan nominal" required>
+                        </div>
+                        <!-- Total Pembayaran (Nominal + fee 5000) -->
+                        <div class="mb-3">
+                            <p id="totalPembayaran" class="fw-bold">Total Pembayaran: Rp 0</p>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <button type="submit" class="btn btn-primary">Konfirmasi Pembayaran</button>
@@ -138,5 +146,23 @@
         </div>
     </div>
 </div>
+@endsection
 
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const fee = 5000; // Fee tetap Rp 5.000
+    const amountInput = document.getElementById('amount');
+    const totalPembayaranElement = document.getElementById('totalPembayaran');
+
+    if (amountInput) {
+        amountInput.addEventListener('input', function () {
+            const userInput = this.value.replace(/[^\d.,]/g, ''); // Remove any non-numeric characters except for . and ,
+            const amount = parseInt(userInput.replace(/[.,]/g, ''), 10) || 0;
+            const total = amount + fee;
+            totalPembayaranElement.textContent = 'Total Pembayaran: Rp ' + total.toLocaleString();
+        });
+    }
+});
+</script>
 @endsection

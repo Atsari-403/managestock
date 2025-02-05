@@ -37,7 +37,7 @@
                         </div>
                         <h5 class="card-title mb-0">DANA</h5>
                     </div>
-                    <a href="#" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up DANA
                     </a>
                 </div>
@@ -54,7 +54,7 @@
                         </div>
                         <h5 class="card-title mb-0">ShopeePay</h5>
                     </div>
-                    <a href="#" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up ShopeePay
                     </a>
                 </div>
@@ -71,7 +71,7 @@
                         </div>
                         <h5 class="card-title mb-0">GoPay Customer</h5>
                     </div>
-                    <a href="#" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up GoPay
                     </a>
                 </div>
@@ -88,7 +88,7 @@
                         </div>
                         <h5 class="card-title mb-0">GoPay Driver</h5>
                     </div>
-                    <a href="#" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up GoPay Driver
                     </a>
                 </div>
@@ -100,12 +100,12 @@
             <div class="card shadow-sm border-0">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <div class="rounded-circle bg-purple bg-opacity-10 p-3 me-3">
-                            <i class="bi bi-wallet fs-2 text-purple"></i>
+                        <div class="rounded-circle bg-purple bg-opacity-20 p-3 me-3">
+                            <i class="bi bi-badge-vo fs-2 text-white"></i>
                         </div>
                         <h5 class="card-title mb-0">OVO</h5>
                     </div>
-                    <a href="#" class="btn btn-purple w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-purple w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up OVO
                     </a>
                 </div>
@@ -122,7 +122,7 @@
                         </div>
                         <h5 class="card-title mb-0">Grab Customer</h5>
                     </div>
-                    <a href="#" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up Grab
                     </a>
                 </div>
@@ -139,7 +139,7 @@
                         </div>
                         <h5 class="card-title mb-0">Grab Driver</h5>
                     </div>
-                    <a href="#" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up Grab Driver
                     </a>
                 </div>
@@ -156,7 +156,7 @@
                         </div>
                         <h5 class="card-title mb-0">LinkAja</h5>
                     </div>
-                    <a href="#" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up LinkAja
                     </a>
                 </div>
@@ -173,7 +173,7 @@
                         </div>
                         <h5 class="card-title mb-0">Maxim</h5>
                     </div>
-                    <a href="#" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal" aria-expanded="false" aria-controls="formTopupModal">
+                    <a href="#" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
                         Top Up Maxim
                     </a>
                 </div>
@@ -181,9 +181,9 @@
         </div>
     </div>
 
-    <!-- Form Top Up (Collapse) -->
+    <!-- Form Top Up Modal -->
     <div class="modal fade" id="formTopupModal" tabindex="-1" aria-labelledby="formTopupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="formTopupModalLabel">Top Up E-Wallet</h5>
@@ -200,11 +200,11 @@
                             <label for="amount" class="form-label">Nominal Top Up</label>
                             <input type="number" class="form-control" id="amount" placeholder="Masukkan nominal" required>
                         </div>
+                        <!-- Elemen untuk menampilkan total top up -->
+                        <p id="totalAmount" class="fw-bold">Total Harga : Rp 0</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <button type="submit" class="btn btn-primary">Konfirmasi Top Up</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Batal
-                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         </div>
                     </form>
                 </div>
@@ -212,4 +212,22 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const amountInput = document.getElementById('amount');
+    const totalAmountElement = document.getElementById('totalAmount');
+
+    amountInput.addEventListener('input', function () {
+        // Mengambil nilai nominal top up atau default ke 0 jika tidak valid
+        const userInput = this.value.replace(/[^\d.,]/g, ''); // Remove any non-numeric characters except for . and ,
+        const amount = parseInt(userInput.replace(/[.,]/g, ''), 10) || 0;
+        const fee = 2000; // Fee tambahan
+        const total = amount + fee;
+        totalAmountElement.textContent = 'Total Top Up: Rp ' + total.toLocaleString();
+    });
+});
+</script>
 @endsection

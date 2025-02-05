@@ -50,7 +50,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3">
-                            <i class="bi bi-question-circle fs-2 text-success"></i>
+                            <i class="bi bi-lightning-charge fs-2 text-success"></i>
                         </div>
                         <h5 class="card-title mb-0">Kabel Data</h5>
                     </div>
@@ -132,7 +132,7 @@
 
     <!-- Modal Form Aksesoris -->
     <div class="modal fade" id="modalAksesoris" tabindex="-1" aria-labelledby="modalAksesorisLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalAksesorisLabel">Pembelian Aksesoris</h5>

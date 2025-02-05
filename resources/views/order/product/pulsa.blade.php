@@ -90,38 +90,37 @@
     </div>
 
     <!-- Modal Form to Input Phone Number and Price -->
-    <div class="modal fade" id="modalPulsa" tabindex="-1" aria-labelledby="modalPulsaLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalPulsaLabel">Isi Nomor Telepon dan Nominal Pulsa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="#" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Nomor Telepon</label>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="Masukkan nomor telepon" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="userPrice" class="form-label">Masukkan Nominal Pulsa</label>
-                            <input type="number" class="form-control" id="userPrice" placeholder="Masukkan harga" required>
-                        </div>
-                        <div class="mb-3">
-                            <p id="totalPrice" class="fw-bold">Total Harga: Rp 0</p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button type="submit" class="btn btn-primary">Konfirmasi Pembelian</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Batal
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="modal fade" id="modalPulsa" tabindex="-1" aria-labelledby="modalPulsaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPulsaLabel">Isi Nomor Telepon dan Nominal Pulsa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Nomor Telepon</label>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Masukkan nomor telepon" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userPrice" class="form-label">Masukkan Nominal Pulsa</label>
+                        <input type="number" class="form-control" id="userPrice" placeholder="Masukkan harga" required>
+                    </div>
+                    <div class="mb-3">
+                        <p id="totalPrice" class="fw-bold">Total Harga: Rp 0</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-primary">Konfirmasi Pembelian</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
 
 </div>
 
@@ -132,7 +131,8 @@
         const totalPriceElement = document.getElementById('totalPrice');
 
         userPriceInput.addEventListener('input', function () {
-            const userPrice = parseInt(this.value) || 0; // Get the user input or default to 0
+            const userInput = this.value.replace(/[^\d.,]/g, ''); // Remove any non-numeric characters except for . and ,
+            const userPrice = parseInt(userInput.replace(/[.,]/g, ''), 10) || 0; // Get the user input or default to 0, remove . and , and convert to number
             const totalPrice = userPrice + 2000; // Add 2000 to the user input
             totalPriceElement.textContent = 'Total Harga: Rp ' + totalPrice.toLocaleString(); // Update the total price display
         });
