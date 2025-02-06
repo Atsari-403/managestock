@@ -4,11 +4,9 @@
 
 @section('content')
 <div class="container-fluid mt-4">
-    <!-- Header -->
     <x-dashboard-header title="Setting Profile"></x-dashboard-header>
 
     <div class="row">
-        <!-- Profile Picture Section -->
         <div class="col-xl-4 col-lg-5 mb-4">
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white py-3">
@@ -16,15 +14,13 @@
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block mb-3">
-                        <img src="{{ asset('image/avatar.png') }}" alt="Profile" class="rounded-circle" width="150" height="150">
-                        <button class="btn btn-primary btn-sm position-absolute bottom-0 end-0 rounded-circle">
+                        <img src="{{ Auth::user()->picture ? Auth::user()->picture : asset('image/avatar.png') }}" 
+                             alt="Profile" class="rounded-circle" width="150" height="150">
+                        <label for="profile_picture" class="btn btn-primary btn-sm position-absolute bottom-0 end-0 rounded-circle">
                             <i class="bi bi-camera"></i>
-                        </button>
+                        </label>
                     </div>
                     <div class="small text-muted mb-3">Allowed JPG or PNG. Max size of 800K</div>
-                    <div class="d-grid">
-                        <button type="button" class="btn btn-outline-primary">Change Picture</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -36,34 +32,38 @@
                     <h5 class="card-title mb-0">Profile Details</h5>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <input type="file" name="picture" id="picture" class="d-none">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                    <input type="text" name="name" class="form-control" id="username" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                    <input type="email" class="form-control" id="email" placeholder="email@example.com">
+                                    <input type="email" name="email" class="form-control" id="email" value="{{ Auth::user()->email }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="phone" class="form-label">No. Telp</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                                    <input type="tel" class="form-control" id="phone" placeholder="08xxxxxxxxxx">
+                                    <input type="tel" name="phone_number" class="form-control" id="phone" value="{{ Auth::user()->phone_number }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="role" class="form-label">Role</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                                    <input type="text" class="form-control" id="role" value="Admin" disabled>
+                                    <input type="text" class="form-control" id="role" value="{{ Auth::user()->role }}" disabled>
                                 </div>
                             </div>
                         </div>
@@ -76,21 +76,21 @@
                                 <label for="currentPassword" class="form-label">Current Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" class="form-control" id="currentPassword">
+                                    <input type="password" name="current_password" class="form-control" id="currentPassword">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="newPassword" class="form-label">New Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" class="form-control" id="newPassword">
+                                    <input type="password" name="password" class="form-control" id="newPassword">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="confirmPassword" class="form-label">Confirm Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                    <input type="password" class="form-control" id="confirmPassword">
+                                    <input type="password" name="password_confirmation" class="form-control" id="confirmPassword">
                                 </div>
                             </div>
                         </div>
@@ -105,25 +105,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('styles')
-<style>
-    .card {
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .input-group-text {
-        background-color: #f8f9fa;
-    }
-
-    .form-control:focus {
-        box-shadow: none;
-        border-color: #0d6efd;
-    }
-</style>
 @endsection

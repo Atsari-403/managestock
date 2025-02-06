@@ -85,10 +85,11 @@
             <span>Report</span>
         </a>
         
-        <a class="nav-link {{ Request::routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">
+        <a class="nav-link {{ Request::routeIs('setting') ? 'active' : '' }}" href="{{ route('setting', ['id' => Auth::user()->id]) }}">
             <i class="bi bi-gear"></i>
             <span>Setting Profile</span>
-        </a>        
+        </a>
+                
         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <div class="d-flex align-items-center">
                 <i class="bi bi-box-arrow-right"></i>
