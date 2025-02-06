@@ -14,17 +14,21 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'John Doe',
-                'email' => 'johndoe@example.com',
+                'id'=>Str::uuid(),
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'role'=> 1,
                 'email_verified_at' => Carbon::now(),
-                'password' => Hash::make('password123'), // Hash password dengan Bcrypt
+                'password' => Hash::make('adminadmin'), // Hash password dengan Bcrypt
                 'remember_token' => Str::random(10),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
+                'id'=>Str::uuid(),
                 'name' => 'Jane Smith',
                 'email' => 'janesmith@example.com',
+                'role'=> 0,
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('securepass'),
                 'remember_token' => Str::random(10),

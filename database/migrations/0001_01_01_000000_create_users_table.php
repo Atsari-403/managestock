@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->boolean('role')->default(false);
-            $table->string('profile_picture')->nullable()->default('profile.png');
+            $table->string('picture')->nullable()->default('https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1738834420~exp=1738838020~hmac=37c950bba3df70c1e11b239b3079ce47d7c6c1578f1a5cb1ffd96ce5f7ca3e6d&w=740');
             $table->rememberToken();
             $table->timestamps();
         });
