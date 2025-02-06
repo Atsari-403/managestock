@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->boolean('role')->default(false);
-            $table->string('picture')->nullable()->default('profile.png');
+            $table->string('picture')->nullable()->default('https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1738810304~exp=1738813904~hmac=36ba34024a046ef13e67ad809abfc3e6db1db8b10b018403ecafd9dee223b6f1&w=740');
             $table->rememberToken();
             $table->timestamps();
         });
