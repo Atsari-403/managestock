@@ -4,6 +4,19 @@
 
 @section('content')
 <div class="container-fluid mt-4">
+    @if (session('status'))
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Profile Updated</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {{ session('status') }}
+            </div>
+        </div>
+    </div>
+@endif
     <x-dashboard-header title="Setting Profile"></x-dashboard-header>
 
     <div class="row justify-content-center">

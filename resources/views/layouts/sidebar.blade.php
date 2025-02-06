@@ -98,6 +98,15 @@
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
-        </form>
+        </form> 
+        <div class="border-top pt-3 mt-4">
+            <div class="d-flex align-items-center">
+                <img src="{{ Auth::user()->picture ? Auth::user()->picture : asset('image/avatar.png') }}" 
+                     alt="User Picture" class="rounded-circle" width="40" height="40">
+                <div class="ms-2">
+                    <p class="mb-0">{{ Auth::user()->name }}</p>
+                </div>
+            </div>
+        </div>               
     </nav>
 </div>

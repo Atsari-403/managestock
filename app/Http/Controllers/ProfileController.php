@@ -83,6 +83,7 @@ class ProfileController extends Controller
         if ($request->hasFile('picture')) {
             // Hapus gambar lama jika ada
             if ($user->picture && $user->picture !== 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1738810304~exp=1738813904~hmac=36ba34024a046ef13e67ad809abfc3e6db1db8b10b018403ecafd9dee223b6f1&w=740') {
+                $publicId = explode('/', parse_url($user->picture, PHP_URL_PATH));
                 $publicId = pathinfo($user->picture, PATHINFO_FILENAME);
                 Cloudinary::destroy($publicId);
             }
@@ -90,6 +91,8 @@ class ProfileController extends Controller
             // Upload gambar baru ke Cloudinary
             $uploadedFileUrl = Cloudinary::upload($request->file('picture')->getRealPath(), [
                 'folder' => 'profile_pictures', // Folder di Cloudinary
+                'verify_ssl' => false,
+                'resource_type' => 'image',
                 'transformation' => [
                     'width' => 400,
                     'height' => 400,
@@ -102,6 +105,8 @@ class ProfileController extends Controller
 
         // Update data user
         $user->update($validatedData);
+
+        session()->flash('status', 'Your profile has been updated successfully.');
 
         return redirect()->route('setting', $id)->with('success', 'Profile berhasil diperbarui.');
     }
