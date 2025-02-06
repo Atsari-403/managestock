@@ -105,11 +105,11 @@
                         <input type="text" class="form-control" id="phoneNumber" placeholder="Masukkan nomor telepon" required>
                     </div>
                     <div class="mb-3">
-                        <label for="userPrice" class="form-label">Masukkan Nominal Pulsa</label>
-                        <input type="number" class="form-control" id="userPrice" placeholder="Masukkan harga" required>
+                        <label for="userPrice" class="form-label">Nominal Pulsa</label>
+                        <input type="number" class="form-control" id="userPrice" placeholder="Masukkan nominal pulsa" required>
                     </div>
                     <div class="mb-3">
-                        <p id="totalPrice" class="fw-bold">Total Harga: Rp 0</p>
+                        <p id="totalPrice" class="fw-bold">Total Bayar: Rp 0</p>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="submit" class="btn btn-primary">Konfirmasi Pembelian</button>
@@ -120,24 +120,7 @@
         </div>
     </div>
 </div>
-
-
-</div>
-
 @section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const userPriceInput = document.getElementById('userPrice');
-        const totalPriceElement = document.getElementById('totalPrice');
-
-        userPriceInput.addEventListener('input', function () {
-            const userInput = this.value.replace(/[^\d.,]/g, ''); // Remove any non-numeric characters except for . and ,
-            const userPrice = parseInt(userInput.replace(/[.,]/g, ''), 10) || 0; // Get the user input or default to 0, remove . and , and convert to number
-            const totalPrice = userPrice + 2000; // Add 2000 to the user input
-            totalPriceElement.textContent = 'Total Harga: Rp ' + totalPrice.toLocaleString(); // Update the total price display
-        });
-    });
-</script>
+<script src="{{ asset('js/pulsa.js') }}"></script>
 @endsection
-
 @endsection

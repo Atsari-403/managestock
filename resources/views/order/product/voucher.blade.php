@@ -22,7 +22,7 @@
 
     <!-- Tampilkan provider saja -->
     <div class="row mb-4">
-        @foreach(['Telkomsel', 'Indosat', 'XL', 'Axis', 'Smartfren', 'Tri'] as $brand)
+        @foreach(['Telkomsel', 'Indosat', 'XL', 'Axis', 'Smartfreen', 'Three', 'Simpati'] as $brand)
             <div class="col-md-4 col-sm-6 mb-4">
                 <div class="card shadow-sm border-0">
                     <div class="card-body text-center">
@@ -42,15 +42,12 @@
     <div class="modal-dialog modal-dialog-centered"> 
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="purchaseModalLabel">Input Pembelian Voucher</h5>
+                <h5 class="modal-title" id="purchaseModalLabel">Input Jenis dan Harga Voucher</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="" method="POST">
                     @csrf
-                    <!-- Menyimpan data provider yang dipilih -->
-                    <input type="hidden" name="brand" id="selectedBrand">
-                    
                     <div class="mb-3">
                         <label for="type" class="form-label">Jenis Voucher</label>
                         <input type="text" class="form-control" id="type" name="type" required>

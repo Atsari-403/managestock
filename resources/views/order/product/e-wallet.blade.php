@@ -78,6 +78,23 @@
             </div>
         </div>
 
+        <!-- Sakuku -->
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3">
+                            <i class="bi bi-wallet fs-2 text-info"></i>
+                        </div>
+                        <h5 class="card-title mb-0">Sakuku</h5>
+                    </div>
+                    <a href="#" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#formTopupModal">
+                        Top Up Sakuku
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- GoPay Driver -->
         <div class="col-md-4 col-sm-6 mb-4">
             <div class="card shadow-sm border-0">
@@ -212,22 +229,8 @@
         </div>
     </div>
 </div>
-@endsection
-
 @section('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const amountInput = document.getElementById('amount');
-    const totalAmountElement = document.getElementById('totalAmount');
-
-    amountInput.addEventListener('input', function () {
-        // Mengambil nilai nominal top up atau default ke 0 jika tidak valid
-        const userInput = this.value.replace(/[^\d.,]/g, ''); // Remove any non-numeric characters except for . and ,
-        const amount = parseInt(userInput.replace(/[.,]/g, ''), 10) || 0;
-        const fee = 2000; // Fee tambahan
-        const total = amount + fee;
-        totalAmountElement.textContent = 'Total Top Up: Rp ' + total.toLocaleString();
-    });
-});
-</script>
+<script src="{{ asset('js/e-wallet.js') }}"></script>
 @endsection
+@endsection
+

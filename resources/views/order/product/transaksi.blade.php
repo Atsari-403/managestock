@@ -71,9 +71,9 @@
                             <label for="amountTarik" class="form-label">Jumlah Tarik Uang</label>
                             <input type="number" class="form-control" id="amountTarik" placeholder="Masukkan jumlah" required>
                         </div>
-                        <!-- Elemen untuk menampilkan total (jumlah + fee 5000) -->
+
                         <div class="mb-3">
-                            <p id="totalTarik" class="fw-bold">Total Harga: Rp 0</p>
+                            <p id="totalTarik" class="fw-bold">Total Bayar: Rp 0</p>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <button type="submit" class="btn btn-primary">Konfirmasi Tarik Uang</button>
@@ -109,25 +109,12 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="transferRange" class="form-label">Pilih Rentang Transfer</label>
-                            <select class="form-select" id="transferRange" required>
-                                <option value="" disabled selected>Pilih Rentang Transfer</option>
-                                <option value="500000">> Rp 500.000</option>
-                                <option value="1999000">Rp 500.000 - Rp 1.999.000</option>
-                                <option value="2999000">Rp 2.000.000 - Rp 2.999.000</option>
-                                <option value="3999000">Rp 3.000.000 - Rp 3.999.000</option>
-                                <option value="4999000">Rp 4.000.000 - Rp 4.999.000</option>
-                                <option value="5000000">> Rp 5.000.000</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
                             <label for="transferAmount" class="form-label">Jumlah Transfer</label>
                             <input type="number" class="form-control" id="transferAmount" placeholder="Masukkan jumlah" required>
                         </div>
-                        <!-- Elemen untuk menampilkan total transfer (jumlah + fee 5000) -->
+
                         <div class="mb-3">
-                            <p id="totalTransfer" class="fw-bold">Total Harga: Rp 0</p>
+                            <p id="totalTransfer" class="fw-bold">Total Bayar: Rp 0</p>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -144,33 +131,6 @@
 @endsection
 
 @section('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const fee = 5000; // Fee tetap Rp 5.000
-
-    // Tarik Uang
-    const amountTarikInput = document.getElementById('amountTarik');
-    const totalTarikElement = document.getElementById('totalTarik');
-
-    if (amountTarikInput) {
-        amountTarikInput.addEventListener('input', function () {
-            const amountTarik = parseInt(this.value.replace(/[^\d.,]/g, '').replace(/[.,]/g, ''), 10) || 0;
-            const totalTarik = amountTarik + fee;
-            totalTarikElement.textContent = 'Total Tarik: Rp ' + totalTarik.toLocaleString();
-        });
-    }
-
-    // Transfer Bank
-    const transferAmountInput = document.getElementById('transferAmount');
-    const totalTransferElement = document.getElementById('totalTransfer');
-
-    if (transferAmountInput) {
-        transferAmountInput.addEventListener('input', function () {
-            const transferAmount = parseInt(this.value.replace(/[^\d.,]/g, '').replace(/[.,]/g, ''), 10) || 0;
-            const totalTransfer = transferAmount + fee;
-            totalTransferElement.textContent = 'Total Transfer: Rp ' + totalTransfer.toLocaleString();
-        });
-    }
-});
-</script>
+<script src="{{ asset('js/transaksi.js') }}"></script>
 @endsection
+
