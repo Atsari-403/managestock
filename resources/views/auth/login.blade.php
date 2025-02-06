@@ -59,7 +59,7 @@
 
                     @if (Route::has('password.request'))
                         <div class="text-center mt-3">
-                            <a class="auth-link" href="{{ route('password.request') }}">
+                            <a class="auth-link" href="#">
                                 Forgot Your Password?
                             </a>
                         </div>

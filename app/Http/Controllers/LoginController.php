@@ -20,39 +20,39 @@ class LoginController extends Controller
         return view('auth.login');
     }
     public function authenticate(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ]);
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-    $remember = $request->has('remember');
-    $key = 'login_attempts:'.Str::lower($request->email).'|'.$request->ip(); // Kunci unik berdasarkan email + IP
+        $remember = $request->has('remember');
+        $key = 'login_attempts:' . Str::lower($request->email) . '|' . $request->ip(); // Kunci unik berdasarkan email + IP
 
-    // Rate Limiting: Cegah brute force (max 5 percobaan dalam 1 menit)
-    if (RateLimiter::tooManyAttempts($key, 5)) {
+        // Rate Limiting: Cegah brute force (max 5 percobaan dalam 1 menit)
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            throw ValidationException::withMessages([
+                'email' => 'Too many login attempts. Please try again later.',
+            ]);
+        }
+
+        if (Auth::attempt($credentials, $remember)) {
+            RateLimiter::clear($key); // Reset percobaan jika berhasil login
+            $request->session()->regenerate(); // Regenerasi session untuk keamanan
+            return redirect()->intended('/');
+        }
+
+        // Log aktivitas login gagal
+        Log::warning('Failed login attempt', [
+            'email' => $request->email,
+            'ip' => $request->ip(),
+            'time' => now(),
+        ]);
+
+        RateLimiter::hit($key, 60); // Tambah hitungan login gagal (berlaku selama 1 menit)
+
         throw ValidationException::withMessages([
-            'email' => 'Too many login attempts. Please try again later.',
+            'email' => 'Invalid login credentials.',
         ]);
     }
-
-    if (Auth::attempt($credentials, $remember)) {
-        RateLimiter::clear($key); // Reset percobaan jika berhasil login
-        $request->session()->regenerate(); // Regenerasi session untuk keamanan
-        return redirect()->intended('/');
-    }
-
-    // Log aktivitas login gagal
-    Log::warning('Failed login attempt', [
-        'email' => $request->email,
-        'ip' => $request->ip(),
-        'time' => now(),
-    ]);
-
-    RateLimiter::hit($key, 60); // Tambah hitungan login gagal (berlaku selama 1 menit)
-
-    throw ValidationException::withMessages([
-        'email' => 'Invalid login credentials.',
-    ]);
-}
 }

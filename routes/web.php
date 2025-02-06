@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('login', [LoginController::class, 'loginform'])->name('login')->middleware('guest');
 Route::post('login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest', 'throttle:5,1');
-
+Route::post('logout', LogOutController::class)->name('logout')->middleware('auth');
 Route::middleware('auth')->group(function(){
     Route::get('users/setting/{id}', [ProfileController::class, 'edit'])->name('setting');
     Route::match(['post', 'put'], 'users/setting/{id}', [ProfileController::class, 'update'])->name('setting.update');
-    Route::post('logout', LogOutController::class)->name('logout');
+    
 });
 Route::middleware(['isAdmin', 'auth'])->group(function(){
     Route::get('users', [UserController::class, 'index'])->name('indexuser');
