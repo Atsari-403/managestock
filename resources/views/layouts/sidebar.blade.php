@@ -60,10 +60,10 @@
         </a>
         <div class="collapse" id="productMenu">
             <div class="dropdown-menu-items">
-                <a class="nav-link" href="#"><i class="bi bi-plus-square"></i><span>Add Product</span></a>
-                <a class="nav-link" href="#"><i class="bi bi-boxes"></i><span>Products</span></a>
-                <a class="nav-link" href="#"><i class="bi bi-plus-circle"></i><span>Add Product Type</span></a>
+                <a class="nav-link" href="{{route('indexproduct')}}"><i class="bi bi-boxes"></i><span>Products</span></a>
+                <a class="nav-link" href="{{route('createproduct')}}"><i class="bi bi-plus-square"></i><span>Add Product</span></a>
                 <a class="nav-link" href="#"><i class="bi bi-tag"></i><span>Product Types</span></a>
+                <a class="nav-link" href="#"><i class="bi bi-plus-circle"></i><span>Add Product Type</span></a>
             </div>
         </div>
         @endif

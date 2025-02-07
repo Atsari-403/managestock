@@ -10,18 +10,18 @@
     <div class="row">
         <!-- Add User Form Section -->
         <div class="col-xl-8 col-lg-7">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3">
+            <div class="card border-0 shadow-lg rounded-3">
+                <div class="card-header bg-primary text-white py-3 rounded-3">
                     <h5 class="card-title mb-0">User Details</h5>
                 </div>
-                <div class="card-body">
-                    <form method="POST" action="#">
+                <div class="card-body p-4">
+                    <form method="POST" action="{{route('createuser')}}">
                         @csrf
                         <div class="row">
                             <!-- Name -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="name" class="form-label">Name</label>
-                                <div class="input-group">
+                                <div class="input-group shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Full Name" required>
                                 </div>
@@ -31,9 +31,9 @@
                             </div>
                             
                             <!-- Email -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="email" class="form-label">Email</label>
-                                <div class="input-group">
+                                <div class="input-group shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="email@example.com" required>
                                 </div>
@@ -43,9 +43,9 @@
                             </div>
                             
                             <!-- Password -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="password" class="form-label">Password</label>
-                                <div class="input-group">
+                                <div class="input-group shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
                                 </div>
@@ -55,9 +55,9 @@
                             </div>
                             
                             <!-- Role -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="role" class="form-label">Role</label>
-                                <div class="input-group">
+                                <div class="input-group shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                                     <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
                                         <option value="0" {{ old('role') == 0 ? 'selected' : '' }}>User</option>
@@ -70,14 +70,42 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end gap-2">
-                            <a href="{{ route('indexuser') }}" class="btn btn-light">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Add User</button>
+                        <div class="d-flex justify-content-end gap-3">
+                            <a href="{{ route('indexuser') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times-circle me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fas fa-user-plus me-2"></i>Add User
+                            </button>                            
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <!-- Registered Emails Section (Initially Hidden on Mobile) -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card border-0 shadow-lg rounded-3" id="email-section">
+                <div class="card-header bg-primary text-white py-3 rounded-3">
+                    <h5 class="card-title mb-0">Registered Emails</h5>
+                </div>
+                <div class="card-body p-4" style="max-height: 300px; overflow-y: auto;">
+                    <ul class="list-group list-group-flush">
+                        @foreach ($registeredEmails as $email)
+                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                <span class="text-muted">{{ $email->email }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- Button to Toggle Visibility of Registered Emails Section -->
+            <button class="btn btn-outline-primary d-block d-md-none mt-3" id="toggleEmailsBtn">
+                <i class="fas fa-eye me-2"></i>View Registered Emails
+            </button>
+        </div>
+        
     </div>
 </div>
 @endsection
@@ -85,20 +113,69 @@
 @section('styles')
 <style>
     .card {
-        transition: transform 0.2s;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     }
 
     .card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     .input-group-text {
-        background-color: #f8f9fa;
+        background-color: #f1f3f5;
+        border-color: #ced4da;
     }
 
     .form-control:focus {
         box-shadow: none;
         border-color: #0d6efd;
     }
+
+    .btn-outline-secondary, .btn-outline-primary {
+        border-radius: 25px;
+        font-weight: 600;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #e7f1ff;
+    }
+
+    /* Styling the scrollable email section */
+    .card-body {
+        max-height: 300px; /* You can adjust this height based on your needs */
+        overflow-y: auto;
+    }
+
+    /* Hide email section on mobile */
+    #email-section {
+        display: block;
+    }
+
+    @media (max-width: 767px) {
+        #email-section {
+            display: none;
+        }
+    }
 </style>
+@endsection
+
+@section('scripts')
+<script>
+    document.getElementById('toggleEmailsBtn').addEventListener('click', function () {
+        var emailSection = document.getElementById('email-section');
+        if (emailSection.style.display === "none" || emailSection.style.display === "") {
+            emailSection.style.display = "block";
+            emailSection.classList.add('mt-3');
+            this.textContent = "Hide Registered Emails";
+        } else {
+            emailSection.style.display = "none";
+            emailSection.classList.remove('mt-3');  
+            this.textContent = "View Registered Emails";
+        }
+    });
+</script>
 @endsection

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,13 @@ Route::middleware('auth')->group(function(){
 });
 Route::middleware(['isAdmin', 'auth'])->group(function(){
     Route::get('users', [UserController::class, 'index'])->name('indexuser');
-    Route::get('users/create', [UserController::class, 'create'])->name('createuser');
+    Route::get('user/create', [UserController::class, 'create'])->name('createuser');
+    Route::get('user/create', [UserController::class, 'email'])->name('createuser');
+    Route::post('user/create', [UserController::class, 'store'])->name('createuser');
+    Route::get('user/show/{id}', [UserController::class, 'show'])->name('showuser');
+    Route::get('users/edit',[UserController::class,'edit'])->name('useredit');
+    Route::get('product/index',[ProductController::class, 'index'])->name('indexproduct');
+    Route::get('product/create',[ProductController::class, 'create'])->name('createproduct');
     
 });
 Route::get('/register', function () {
