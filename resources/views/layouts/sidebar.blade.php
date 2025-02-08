@@ -49,29 +49,16 @@
         </div>
 
          <!-- Product CRUD Section -->
-         <a class="nav-link dropdown-toggle" href="#productMenu" data-bs-toggle="collapse" role="button">
-            <div class="d-flex align-items-center justify-content-between w-100">
-                <div>
-                    <i class="bi bi-box"></i>
-                    <span>Product</span>
-                </div>
-                <i class="bi bi-chevron-down dropdown-icon"></i>
-            </div>
+        <a class="nav-link {{ Request::routeIs('categoryproductindex') ? 'active' : '' }}" href="{{ route('categoryproductindex') }}">
+            <i class="bi bi-bag-plus"></i>
+            <span>Create Product</span>
         </a>
-        <div class="collapse" id="productMenu">
-            <div class="dropdown-menu-items">
-                <a class="nav-link" href="{{route('indexproduct')}}"><i class="bi bi-boxes"></i><span>Products</span></a>
-                <a class="nav-link" href="{{route('createproduct')}}"><i class="bi bi-plus-square"></i><span>Add Product</span></a>
-                <a class="nav-link" href="#"><i class="bi bi-tag"></i><span>Product Types</span></a>
-                <a class="nav-link" href="#"><i class="bi bi-plus-circle"></i><span>Add Product Type</span></a>
-            </div>
-        </div>
         @endif
       
         
       
         <!-- Orders CRUD Section -->
-        <a class="nav-link {{ Request::routeIs('order.order') ? 'active' : '' }}" href="{{ route('order.order') }}">
+        <a class="nav-link {{ Request::routeIs('indexorder') ? 'active' : '' }}" href="{{ route('indexorder') }}">
                 <i class="bi bi-boxes"></i>
                 <span>Orders</span>
         </a>

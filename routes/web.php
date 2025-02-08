@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\ProductController;
@@ -13,7 +14,7 @@ Route::post('logout', LogOutController::class)->name('logout')->middleware('auth
 Route::middleware('auth')->group(function(){
     Route::get('users/setting/{id}', [ProfileController::class, 'edit'])->name('setting');
     Route::match(['post', 'put'], 'users/setting/{id}', [ProfileController::class, 'update'])->name('setting.update');
-    
+    Route::get('order/index',[ProductController::class, 'index'])->name('indexorder');
 });
 Route::middleware(['isAdmin', 'auth'])->group(function(){
     Route::get('users', [UserController::class, 'index'])->name('indexuser');
@@ -22,9 +23,10 @@ Route::middleware(['isAdmin', 'auth'])->group(function(){
     Route::post('user/create', [UserController::class, 'store'])->name('createuser');
     Route::get('user/show/{id}', [UserController::class, 'show'])->name('showuser');
     Route::get('users/edit',[UserController::class,'edit'])->name('useredit');
-    Route::get('product/index',[ProductController::class, 'index'])->name('indexproduct');
     Route::get('product/create',[ProductController::class, 'create'])->name('createproduct');
-    
+    Route::get('product/category',[CategoryProductController::class,'index'])->name('categoryproductindex');
+    Route::get('product/category/create/{id}',[CategoryProductController::class,'create'])->name('categoryproductcreate');
+
 });
 Route::get('/register', function () {
     return view('auth.register');
@@ -44,35 +46,32 @@ Route::get('/absensi', function () {
     return view('absenteeism.absenteeism');
 })->name('absenteeism.absenteeism')->middleware('auth');
 
-Route::get('/order', function () {
-    return view('order.order');
-})->name('order.order')->middleware('auth');
 
 
 Route::get('/pulsa', function () {
     return view('order.product.pulsa');
-})->name('order.product.pulsa')->middleware('auth');
+})->name('Pulsa')->middleware('auth');
 
 Route::get('/e-wallet', function () {
     return view('order.product.e-wallet');
-})->name('order.product.e-wallet')->middleware('auth');
+})->name('E-Wallet')->middleware('auth');
 
 Route::get('/topupgame', function () {
     return view('order.product.topupgame');
-})->name('order.product.topupgame')->middleware('auth');
+})->name('Top Up Game')->middleware('auth');
 
 Route::get('/voucher', function () {
     return view('order.product.voucher');
-})->name('order.product.voucher')->middleware('auth');
+})->name('Voucher')->middleware('auth');
 
 Route::get('/accessories', function () {
     return view('order.product.accessories');
-})->name('order.product.accessories')->middleware('auth');
+})->name('Aksesoris')->middleware('auth');
 
 Route::get('/transaksi', function () {
     return view('order.product.transaksi');
-})->name('order.product.transaksi')->middleware('auth');
+})->name('Transaksi')->middleware('auth');
 
 Route::get('/ppb', function () {
     return view('order.product.ppb');
-})->name('order.product.ppb')->middleware('auth');
+})->name('Pembayaran Pascabayar')->middleware('auth');

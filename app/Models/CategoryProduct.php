@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Product extends Model
+class CategoryProduct extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $table = 'product';
+    protected $table = 'category_product';
 
     protected $primaryKey = 'id';
 
@@ -20,11 +20,13 @@ class Product extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'id',
+        'product_id',
         'name',
     ];
 
-    public function categories(): HasMany 
+    public function product(): BelongsTo
     {
-        return $this->hasMany(CategoryProduct::class,'product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }
