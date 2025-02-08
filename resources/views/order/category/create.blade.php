@@ -2,48 +2,58 @@
 
 @section('title', 'Tambah Kategori')
 
+@section('styles')
+<link href="{{ asset('css/tambahKategori.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
-<div class="container mt-4">
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Tambah Kategori</h5>
+            <div class="card form-card">
+                <div class="card-header">
+                    <h5 class="mb-0 d-flex align-items-center">
+                        <i class="bi bi-folder-plus me-2"></i>
+                        Tambah Kategori
+                    </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
+                        <div class="alert custom-alert">
+                            <i class="bi bi-check-circle me-2"></i>
+                            {{ session('success') }}
+                        </div>
                     @endif
 
                     <form action="#" method="POST">
                         @csrf
                         
-                        {{-- <!-- Pilih Produk -->
-                        <div class="mb-3">
-                            <label for="product_id" class="form-label">Pilih Produk</label>
-                            <select name="product_id" id="product_id" class="form-control @error('product_id') is-invalid @enderror" required>
-                                <option value="" selected disabled>Pilih Produk</option>
-                                @foreach($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('product_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div> --}}
-
                         <!-- Nama Kategori -->
-                        <div class="mb-3">
+                        <div class="form-group mb-4">
                             <label for="name" class="form-label">Nama Kategori</label>
-                            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" required>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-tag"></i>
+                                </span>
+                                <input type="text" 
+                                       name="name" 
+                                       id="name" 
+                                       class="form-control @error('name') is-invalid @enderror" 
+                                       placeholder="Masukkan nama kategori"
+                                       required>
+                            </div>
                             @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback d-block mt-1">
+                                    <i class="bi bi-exclamation-circle me-1"></i>
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 
                         <!-- Tombol Submit -->
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="bi bi-plus-lg text-white"></i> Tambah Kategori
+                        <button type="submit" class="btn btn-submit w-100">
+                            <i class="bi bi-plus-lg me-2"></i>
+                            Tambah Kategori
                         </button>
                     </form>
                 </div>
@@ -51,4 +61,5 @@
         </div>
     </div>
 </div>
+
 @endsection
