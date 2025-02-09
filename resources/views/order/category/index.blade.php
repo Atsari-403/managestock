@@ -10,6 +10,7 @@
 <div class="container-fluid mt-4">
     <!-- Header -->
     <x-dashboard-header title="{{ $product->name }}"></x-dashboard-header>
+
     @if(session()->has('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -21,9 +22,12 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endif
+
     <!-- Product Providers -->
+    @if ($categoryProducts->isEmpty())
+        <div class="alert alert-warning text-center">Tidak ada Kategori dalam Product ini.</div>
+    @else
     <div class="row g-4">
         @foreach ($categoryProducts as $categoryProduct)
         <div class="col-md-3 col-sm-6">
@@ -55,6 +59,7 @@
         </div>
         @endforeach
     </div> <!-- Tutup div row g-4 -->
+    @endif
 
     <!-- Modal Form Tambah Paket -->
     <div class="modal fade" id="form" tabindex="-1" aria-labelledby="modalPulsaLabel" aria-hidden="true">
@@ -100,11 +105,12 @@
     </div>
 
 </div> <!-- Tutup div container-fluid -->
+@endsection
 
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const addPackageButtons = document.querySelectorAll('.add-category-btn');
     const modalCategoryInput = document.getElementById('modalCategoryProductId');
 
@@ -112,12 +118,8 @@
         button.addEventListener('click', function () {
             const categoryId = this.getAttribute('data-category-id');
             modalCategoryInput.value = categoryId; 
-           
         });
     });
 });
-
 </script>
-@endsection
-
 @endsection
