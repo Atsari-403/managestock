@@ -9,7 +9,8 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Pulsa"></x-dashboard-header>
+    <x-dashboard-header title="{{$product->name}}"></x-dashboard-header>
+
 
     <!-- Product Providers -->
     <div class="row mb-4">
@@ -17,10 +18,27 @@
         @foreach ($categoryProducts as $categoryProduct)
         <div class="col-md-4 col-sm-6 mb-4">
             <div class="card shadow-sm border-0">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">{{$categoryProduct->name}}</h5>
+                    <div>
+                        <!-- Tombol Edit -->
+                        <a href="#" class="btn btn-warning btn-sm me-2">
+                            <i class="bi bi-pencil-square"></i> <!-- Ikon Edit -->
+                        </a>
+        
+                        <!-- Tombol Hapus -->
+                        <form action="#" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">
+                                <i class="bi bi-trash"></i> <!-- Ikon Hapus -->
+                            </button>
+                        </form>
+                    </div>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{$categoryProduct->name}}</h5>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPulsa" data-provider="Telkomsel">
-                        Beli Pulsa
+                        Add Nominal
                     </button>
                 </div>
             </div>

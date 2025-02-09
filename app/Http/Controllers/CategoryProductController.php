@@ -14,7 +14,8 @@ class CategoryProductController extends Controller
     public function index($idProduct)
     {
         $categoryProducts = CategoryProduct::where('product_id',$idProduct)->get(); // Menampilkan 6 produk per halaman
-        return view('order.category.index', compact('categoryProducts'));
+        $product = Product::where('id', $idProduct)->first();
+        return view('order.category.index', compact('categoryProducts','product'));
     }
 
     /**
@@ -37,7 +38,13 @@ class CategoryProductController extends Controller
         CategoryProduct::create($validatedData);
 
         $categoryProducts = CategoryProduct::where('product_id',$idProduct)->get();
-        return view('order.category.index', compact('categoryProducts'));
+        $product = Product::where('id', $idProduct)->first();
+        
+        return redirect()->route('indexcategoryproduct',['idProduct'=>$idProduct])->with([
+            'categoryProducts' => $categoryProducts,
+            'product' => $product,
+            'success' => 'Kategori berhasil ditambahkan!'
+        ]);
     }
 
     /**
