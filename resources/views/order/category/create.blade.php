@@ -7,7 +7,9 @@
 @endsection
 
 @section('content')
-<div class="container py-5">
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <x-dashboard-header title="Create Product"></x-dashboard-header>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card form-card">
@@ -25,9 +27,8 @@
                         </div>
                     @endif
 
-                    <form action="#" method="POST">
+                    <form action="{{route('categoryproductstore',$idProduct)}}" method="POST">
                         @csrf
-                        
                         <!-- Nama Kategori -->
                         <div class="form-group mb-4">
                             <label for="name" class="form-label">Nama Kategori</label>

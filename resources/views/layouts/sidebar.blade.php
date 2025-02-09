@@ -23,13 +23,10 @@
         <h3 class="text-white mb-0">Alpin Cell</h3>
     </div>
     <nav class="nav flex-column">
-        <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="{{route('dashboard')}}">
-            <div class="d-flex align-items-center">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </div>
+        <a class="nav-link {{ Request::routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
         </a>
-
         @if (auth()->check()&&auth()->user()->role == 1)
           <!-- User CRUD Section -->
         <a class="nav-link dropdown-toggle" href="#userMenu" data-bs-toggle="collapse" role="button">
@@ -49,7 +46,7 @@
         </div>
 
          <!-- Product CRUD Section -->
-        <a class="nav-link {{ Request::routeIs('categoryproductindex') ? 'active' : '' }}" href="{{ route('categoryproductindex') }}">
+        <a class="nav-link {{ Request::routeIs('productindex') ? 'active' : '' }}" href="{{ route('productindex') }}">
             <i class="bi bi-bag-plus"></i>
             <span>Create Product</span>
         </a>

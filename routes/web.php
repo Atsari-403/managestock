@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -14,7 +15,7 @@ Route::post('logout', LogOutController::class)->name('logout')->middleware('auth
 Route::middleware('auth')->group(function(){
     Route::get('users/setting/{id}', [ProfileController::class, 'edit'])->name('setting');
     Route::match(['post', 'put'], 'users/setting/{id}', [ProfileController::class, 'update'])->name('setting.update');
-    Route::get('order/index',[ProductController::class, 'index'])->name('indexorder');
+    Route::get('order/index',[OrderController::class, 'index'])->name('indexorder');
 });
 Route::middleware(['isAdmin', 'auth'])->group(function(){
     Route::get('users', [UserController::class, 'index'])->name('indexuser');
@@ -23,9 +24,14 @@ Route::middleware(['isAdmin', 'auth'])->group(function(){
     Route::post('user/create', [UserController::class, 'store'])->name('createuser');
     Route::get('user/show/{id}', [UserController::class, 'show'])->name('showuser');
     Route::get('users/edit',[UserController::class,'edit'])->name('useredit');
+
+
     Route::get('product/create',[ProductController::class, 'create'])->name('createproduct');
-    Route::get('product/category',[CategoryProductController::class,'index'])->name('categoryproductindex');
-    Route::get('product/category/create/{id}',[CategoryProductController::class,'create'])->name('categoryproductcreate');
+    Route::get('product',[ProductController::class,'index'])->name('productindex');
+    route::get('product/category/index/{idProduct}',[CategoryProductController::class,'index'])->name('indexcategoryproduct');
+    Route::get('product/category/create/{idProduct}',[CategoryProductController::class,'create'])->name('categoryproductcreate');
+    Route::post('product/category/create/{idProduct}',[CategoryProductController::class,'store'])->name('categoryproductstore');
+
 
 });
 Route::get('/register', function () {
