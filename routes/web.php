@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PacketCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -31,6 +32,9 @@ Route::middleware(['isAdmin', 'auth'])->group(function(){
     route::get('product/category/index/{idProduct}',[CategoryProductController::class,'index'])->name('indexcategoryproduct');
     Route::get('product/category/create/{idProduct}',[CategoryProductController::class,'create'])->name('categoryproductcreate');
     Route::post('product/category/create/{idProduct}',[CategoryProductController::class,'store'])->name('categoryproductstore');
+
+    Route::get('product/category/paket/index/{category_product_id}',[PacketCategoryController::class,'index'])->name('indexpaket');
+    Route::post('product/category/paket/store',[PacketCategoryController::class,'store'])->name('storepaket');
 
 
 });

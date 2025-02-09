@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CategoryProduct extends Model
 {
@@ -28,5 +29,9 @@ class CategoryProduct extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function packets(): HasMany 
+    {
+        return $this->hasMany(PacketCategory::class,'category_product_id');
     }
 }
