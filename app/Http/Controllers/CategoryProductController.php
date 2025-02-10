@@ -76,6 +76,7 @@ class CategoryProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        CategoryProduct::destroy($id);
+        return redirect()->back()->with(['success' => 'Ketgory berhasil dihapus!']);
     }
 }

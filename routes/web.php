@@ -32,9 +32,11 @@ Route::middleware(['isAdmin', 'auth'])->group(function(){
     route::get('product/category/index/{idProduct}',[CategoryProductController::class,'index'])->name('indexcategoryproduct');
     Route::get('product/category/create/{idProduct}',[CategoryProductController::class,'create'])->name('categoryproductcreate');
     Route::post('product/category/create/{idProduct}',[CategoryProductController::class,'store'])->name('categoryproductstore');
-
+    Route::delete('product/category/destroy/{category_product_id}',[CategoryProductController::class,'destroy'])->name('categoryproductdestroy');
+    
     Route::get('product/category/paket/index/{category_product_id}',[PacketCategoryController::class,'index'])->name('indexpaket');
     Route::post('product/category/paket/store',[PacketCategoryController::class,'store'])->name('storepaket');
+    Route::delete('product/category/paket/destroy/{id}',[PacketCategoryController::class,'destroy'])->name('destroypaket');
 
 
 });

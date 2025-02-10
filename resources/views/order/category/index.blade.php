@@ -37,9 +37,13 @@
                     <a href="#" class="text-warning me-2">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a href="#" class="text-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
-                        <i class="bi bi-trash"></i>
-                    </a>
+                    <form action="{{ route('categoryproductdestroy', ['category_product_id' => $categoryProduct->id]) }}" method="post" onsubmit="return confirm('Hapus kategori ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm border-0 p-0" style="background: none;">
+                            <i class="bi bi-trash-fill text-danger"></i>
+                        </button>
+                    </form>                    
                 </div>
 
                 <a href="{{ route('indexpaket', ['category_product_id' => $categoryProduct->id]) }}" class="text-decoration-none">

@@ -45,6 +45,8 @@
                                 <i class="bi bi-ticket-perforated"></i>
                             @elseif ($product->name == 'Aksesoris')
                                 <i class="bi bi-box"></i>
+                            @elseif ($product->name == 'Kartu')
+                                <i class="bi bi-sim"></i>
                             @endif
                         </div>
                         <h5 class="product-title">{{$product->name}}</h5>

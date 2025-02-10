@@ -43,7 +43,7 @@ class PacketCategoryController extends Controller
 
         try {
             PacketCategory::create($validatedData);
-            return redirect()->route('indexpaket',$request->category_product_id)->with(['success' => 'Paket berhasil ditambahkan!']);
+            return redirect()->route('indexpaket', $request->category_product_id)->with(['success' => 'Paket berhasil ditambahkan!']);
         } catch (\Exception $e) {
             // Jika terjadi kesalahan, tampilkan pesan error
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -79,6 +79,8 @@ class PacketCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $paket = PacketCategory::FindOrFail($id);
+        $paket->delete();
+        return redirect()->back()->with(['success' => 'Paket berhasil dihapus!']);
     }
 }
