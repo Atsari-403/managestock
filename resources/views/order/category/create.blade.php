@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid mt-4">
     <!-- Header -->
     <x-dashboard-header title="Create Product"></x-dashboard-header>
     <div class="row justify-content-center">
@@ -15,6 +15,7 @@
             <div class="card form-card">
                 <div class="card-header">
                     <h5 class="mb-0 d-flex align-items-center">
+                        {{-- update <i class="bi bi-folder-symlink me-2"></i> --}}
                         <i class="bi bi-folder-plus me-2"></i>
                         Tambah Kategori
                     </h5>

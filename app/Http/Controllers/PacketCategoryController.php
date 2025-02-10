@@ -61,17 +61,23 @@ class PacketCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'stock' => 'nullable|integer|min:0',
+            'price' => 'required|integer|min:0',
+            'profit_margin' => 'required|integer|min:0',
+        ]);
+
+        $paket = PacketCategory::FindOrFail($id);
+        $paket->update($validatedData);
+        return redirect()->back()->with(['success' => 'Paket berhasil Update!']);
     }
 
     /**

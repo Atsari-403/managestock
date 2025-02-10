@@ -16,7 +16,7 @@
         @foreach ($products as $product)      
         <div class="col-md-3 col-sm-6">
             <div class="feature-card">
-                <a href="{{route($product->name)}}" class="text-decoration-none">
+                <a href="{{route('categoryorder',['idProduct'=>$product->id])}}" class="text-decoration-none">
                     <div class="card-content">
                         <div class="icon-container">
                             @if ($product->name == 'Pulsa')
@@ -33,6 +33,8 @@
                                 <i class="bi bi-ticket-perforated"></i>
                             @elseif ($product->name == 'Aksesoris')
                                 <i class="bi bi-box"></i>
+                            @elseif ($product->name == 'Kartu')
+                                <i class="bi bi-sim"></i>
                             @endif
                         </div>
                         <h5 class="feature-title">{{$product->name}}</h5>

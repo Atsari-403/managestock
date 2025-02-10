@@ -85,11 +85,13 @@
         </form> 
         <div class="border-top pt-3 mt-4">
             <div class="d-flex align-items-center">
+                <a href="{{ route('showuser', Auth::user()->id) }}">
                 <img src="{{ Auth::user()->picture ? Auth::user()->picture : asset('image/avatar.png') }}" 
-                     alt="User Picture" class="rounded-circle" width="40" height="40">
+                     alt="User Picture" class="rounded-circle" width="40" height="40"></a>
                 <div class="ms-2">
                     <p class="mb-0">{{ Auth::user()->name }}</p>
                 </div>
+                
             </div>
         </div>               
     </nav>

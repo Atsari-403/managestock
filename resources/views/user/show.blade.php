@@ -56,10 +56,10 @@
 
                     <!-- Back Button -->
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('indexuser') }}" class="btn btn-outline-primary btn-sm">
-                            <i class="fas fa-users me-2"></i>Users List
-                        </a>
-                    </div>
+                        <button onclick="window.history.back();" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-arrow-left me-2"></i> Back
+                        </button>
+                    </div>                    
                 </div>
             </div>
         </div>

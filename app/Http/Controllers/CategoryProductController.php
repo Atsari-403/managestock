@@ -68,7 +68,13 @@ class CategoryProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $paket = CategoryProduct::FindOrFail($id);
+        $paket->update($validatedData);
+        return redirect()->back()->with(['success' => 'Categori berhasil Update!']);
     }
 
     /**

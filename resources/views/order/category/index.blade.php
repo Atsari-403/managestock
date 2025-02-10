@@ -34,7 +34,11 @@
             <div class="product-card position-relative">
                 <!-- Ikon Edit & Delete di sudut kanan atas -->
                 <div class="position-absolute top-0 end-0 m-2">
-                    <a href="#" class="text-warning me-2">
+                    <a href="#" class="text-warning me-2 edit-category-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editCategoryModal"
+                        data-id="{{ $categoryProduct->id }}"
+                        data-name="{{ $categoryProduct->name }}">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                     <form action="{{ route('categoryproductdestroy', ['category_product_id' => $categoryProduct->id]) }}" method="post" onsubmit="return confirm('Hapus kategori ini?')">
@@ -65,6 +69,7 @@
     </div> <!-- Tutup div row g-4 -->
     @endif
 
+    
     <!-- Modal Form Tambah Paket -->
     <div class="modal fade" id="form" tabindex="-1" aria-labelledby="modalPulsaLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -107,6 +112,37 @@
             </div>
         </div>
     </div>
+    <!-- Modal Edit Kategori -->
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCategoryLabel">Edit Kategori</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCategoryForm" method="POST">
+                        @csrf
+                        @method('POST') <!-- Method untuk update -->
+                        
+                        <input type="hidden" name="id" id="editCategoryId">
+                        
+                        <!-- Nama Kategori -->
+                        <div class="mb-3">
+                            <label for="editCategoryName" class="form-label">Nama Kategori</label>
+                            <input type="text" class="form-control" id="editCategoryName" name="name" required>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div> <!-- Tutup div container-fluid -->
 @endsection
@@ -126,4 +162,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.edit-category-btn');
+        const modalForm = document.getElementById('editCategoryForm');
+    
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                // Ambil data dari tombol yang diklik
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+    
+                // Isi modal dengan data kategori yang dipilih
+                document.getElementById('editCategoryId').value = id;
+                document.getElementById('editCategoryName').value = name;
+    
+                // Ubah action form sesuai dengan ID kategori
+                modalForm.setAttribute('action', `/product/category/update/${id}`);
+            });
+        });
+    });
+</script>    
 @endsection

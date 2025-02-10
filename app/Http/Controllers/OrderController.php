@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryProduct;
+use App\Models\PacketCategory;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,6 +16,18 @@ class OrderController extends Controller
     {
         $products = Product::all(); // Menampilkan 6 produk per halaman
         return view('order.index', compact('products'));
+    }
+
+    public function indexCategory($idProduct){
+        $categoryProducts = CategoryProduct::where('product_id',$idProduct)->get(); // Menampilkan 6 produk per halaman
+        $product = Product::where('id', $idProduct)->first();
+        return view('order.category', compact('categoryProducts','product'));
+    }
+
+    public function indexPacket($idCategory){
+        $pakets = PacketCategory::where('category_product_id', $idCategory)->get();
+        $category = CategoryProduct::where('id', $idCategory)->first();
+        return view('order.packet', compact('pakets', 'category'));
     }
 
     /**
