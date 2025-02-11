@@ -88,10 +88,12 @@
                             <input type="text" class="form-control" id="paketName" name="name" required>
                         </div>
                     
+                        @if (in_array($product->name, ['Voucher', 'Aksesoris', 'Kartu']))
                         <div class="mb-3">
                             <label for="paketStock" class="form-label">Stok</label>
                             <input type="number" class="form-control" id="paketStock" name="stock" required>
                         </div>
+                        @endif
                     
                         <div class="mb-3">
                             <label for="paketPrice" class="form-label">Harga</label>

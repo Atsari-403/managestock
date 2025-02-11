@@ -38,7 +38,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -76,10 +77,12 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->route('users.index')->with('error', 'User not found.');
+            return abort(404, '|User Tidak Ditemukan');
         }
 
-        return view('users.edit', compact('user'));
+        $registeredEmails = User::all();
+
+        return view('user.edit', compact('user','registeredEmails'));
     }
 
     /**
@@ -87,14 +90,27 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'role' => 'required|in:0,1',
+        ]);
+    
+        $user->update($validatedData);
+    
+        return redirect()->route('indexuser')->with('success', 'User berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
+        if ($id == $request->userId) {
+            return redirect()->back()->with(['error' => 'Anda tidak dapat menghapus akun Anda sendiri!']);
+        }
         $user = User::Find($id);
         $user->delete();
         return redirect()->back()->with(['success' => 'User berhasil dihapus!']);

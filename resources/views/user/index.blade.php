@@ -6,6 +6,18 @@
 <div class="container-fluid mt-4">
     <!-- Header -->
     <x-dashboard-header title="Users"></x-dashboard-header>
+    @if(session()->has('error'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        });
+    </script>
+    @endif
     @if(session()->has('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -17,8 +29,8 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endif
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- User Table -->
     <div class="row">
         <div class="col-12">
@@ -78,12 +90,13 @@
                                             <a href="{{ route('showuser', $user->id) }}" class="btn btn-sm btn-outline-primary rounded-3 p-2">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-outline-warning rounded-3 p-2">
+                                            <a href="{{route('useredit',$user->id)}}" class="btn btn-sm btn-outline-warning rounded-3 p-2">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <form action="{{ route('userdestroy', ['id' => $user->id]) }}" method="post" class="d-inline" onsubmit="return confirm('Hapus user ini?')">
                                                 @csrf
                                                 @method('DELETE')
+                                                <input type="hidden" name="userId" value="{{auth()->id()}}">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger rounded-3 p-2">
                                                     <i class="bi bi-trash"></i>
                                                 </button>

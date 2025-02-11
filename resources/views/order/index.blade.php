@@ -25,7 +25,7 @@
                                 <i class="bi bi-wallet2"></i>
                             @elseif ($product->name == 'Transaksi')
                                 <i class="bi bi-cart"></i>
-                            @elseif ($product->name == 'Pembayaran Pascabayar')
+                            @elseif ($product->name == 'Pembayaran')
                                 <i class="bi bi-credit-card"></i>
                             @elseif ($product->name == 'Top Up Game')
                                 <i class="bi bi-controller"></i>
@@ -35,6 +35,8 @@
                                 <i class="bi bi-box"></i>
                             @elseif ($product->name == 'Kartu')
                                 <i class="bi bi-sim"></i>
+                            @elseif ($product->name == 'Paket Data')
+                                <i class="bi bi-router"></i>
                             @endif
                         </div>
                         <h5 class="feature-title">{{$product->name}}</h5>

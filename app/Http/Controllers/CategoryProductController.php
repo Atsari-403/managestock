@@ -85,6 +85,6 @@ class CategoryProductController extends Controller
     {
         PacketCategory::where('category_product_id', $id)->delete();
         CategoryProduct::destroy($id);
-        return redirect()->back()->with(['success' => 'Ketgory berhasil dihapus!']);
+        return redirect()->back()->with(['success' => 'Kategory berhasil dihapus!']);
     }
 }
