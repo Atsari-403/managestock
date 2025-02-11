@@ -37,7 +37,7 @@
 
     <!-- Modal for Tarik Uang -->
     <div class="modal fade" id="modalTarikUang" tabindex="-1" aria-labelledby="modalTarikUangLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTarikUangLabel">Tarik Uang</h5>
@@ -73,7 +73,7 @@
 
     <!-- Modal for Transfer Bank -->
     <div class="modal fade" id="modalTransferBank" tabindex="-1" aria-labelledby="modalTransferBankLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTransferBankLabel">Transfer Antar Bank</h5>
