@@ -6,7 +6,19 @@
 <div class="container-fluid mt-4">
     <!-- Header -->
     <x-dashboard-header title="Users"></x-dashboard-header>
-
+    @if(session()->has('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @endif
     <!-- User Table -->
     <div class="row">
         <div class="col-12">
@@ -63,9 +75,19 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('showuser', $user->id) }}" class="btn btn-sm btn-outline-primary rounded-3 p-2"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="btn btn-sm btn-outline-warning rounded-3 p-2"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="btn btn-sm btn-outline-danger rounded-3 p-2"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ route('showuser', $user->id) }}" class="btn btn-sm btn-outline-primary rounded-3 p-2">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm btn-outline-warning rounded-3 p-2">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('userdestroy', ['id' => $user->id]) }}" method="post" class="d-inline" onsubmit="return confirm('Hapus user ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-3 p-2">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -87,66 +109,103 @@
 @section('styles')
 <style>
     .card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    }
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+}
 
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
 
-    .table thead {
-        background-color: #f8f9fa;
-    }
+.card-header {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+}
 
-    .table tbody tr:hover {
-        background-color: #f1f1f1;
-        cursor: pointer;
-    }
+.card-header h5 {
+    font-weight: bold;
+    font-size: 18px;
+}
 
-    .btn-outline-primary, .btn-outline-warning, .btn-outline-danger {
-        border-radius: 50%;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
 
-    .btn-outline-primary:hover {
-        background-color: #e7f1ff;
-    }
+.table thead {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
 
-    .btn-outline-warning:hover {
-        background-color: #fff3cd;
-    }
+.table tbody tr {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .btn-outline-danger:hover {
-        background-color: #f8d7da;
-    }
+.table tbody tr:hover {
+    background-color: #e9f5ff;
+    transform: scale(1.02);
+}
 
-    .form-control-sm, .btn-sm {
-        border-radius: 25px;
-    }
+.btn-outline-primary,
+.btn-outline-warning,
+.btn-outline-danger {
+    border-radius: 50%;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    padding: 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
 
-    .form-control-sm:focus, .btn-sm:focus {
-        box-shadow: none;
-    }
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
 
-    .dropdown-menu {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-    }
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: white;
+}
 
-    .dropdown-item {
-        color: #495057;
-    }
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
 
-    .dropdown-item:hover {
-        background-color: #f8f9fa;
-    }
+.form-control-sm,
+.btn-sm {
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+}
 
-    .dropdown-item.active {
-        background-color: #007bff;
-        color: white;
-    }
+.form-control-sm:focus,
+.btn-sm:focus {
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.3);
+}
+
+.dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-item.active {
+    background-color: #007bff;
+    color: white;
+}
+
 </style>
 @endsection

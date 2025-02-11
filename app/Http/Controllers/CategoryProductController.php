@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryProduct;
+use App\Models\PacketCategory;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,9 @@ class CategoryProductController extends Controller
      */
     public function index($idProduct)
     {
-        $categoryProducts = CategoryProduct::where('product_id',$idProduct)->get(); // Menampilkan 6 produk per halaman
+        $categoryProducts = CategoryProduct::where('product_id', $idProduct)->get(); // Menampilkan 6 produk per halaman
         $product = Product::where('id', $idProduct)->first();
-        return view('order.category.index', compact('categoryProducts','product'));
+        return view('order.category.index', compact('categoryProducts', 'product'));
     }
 
     /**
@@ -37,10 +38,10 @@ class CategoryProductController extends Controller
         $validatedData['product_id'] = $idProduct;
         CategoryProduct::create($validatedData);
 
-        $categoryProducts = CategoryProduct::where('product_id',$idProduct)->get();
+        $categoryProducts = CategoryProduct::where('product_id', $idProduct)->get();
         $product = Product::where('id', $idProduct)->first();
-        
-        return redirect()->route('indexcategoryproduct',['idProduct'=>$idProduct])->with([
+
+        return redirect()->route('indexcategoryproduct', ['idProduct' => $idProduct])->with([
             'categoryProducts' => $categoryProducts,
             'product' => $product,
             'success' => 'Kategori berhasil ditambahkan!'
@@ -82,6 +83,7 @@ class CategoryProductController extends Controller
      */
     public function destroy(string $id)
     {
+        PacketCategory::where('category_product_id', $id)->delete();
         CategoryProduct::destroy($id);
         return redirect()->back()->with(['success' => 'Ketgory berhasil dihapus!']);
     }

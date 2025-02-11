@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid mt-4">
     <!-- Header -->
     <x-dashboard-header title="Create Product"></x-dashboard-header>
     @if(session()->has('success'))

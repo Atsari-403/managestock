@@ -103,7 +103,11 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $paket->name }}</h5>
                         <p class="card-text">
-                            <span class="badge badge-stock">Stok: {{ $paket->stock ?? 'Tidak tersedia' }}</span>
+                            @if ($paket->stock < 1)
+                                <span class="badge badge-stock" style="background-color: red;">Stok: {{ $paket->stock ?? 'Tidak tersedia' }}</span>
+                             @else
+                                <span class="badge badge-stock">Stok: {{ $paket->stock ?? 'Tidak tersedia' }}</span>
+                             @endif
                         </p>
                         <p class="card-text">
                             <strong>Harga:</strong> Rp {{ number_format($paket->price + $paket->profit_margin, 0, ',', '.') }} <br>
