@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::get('order/index', [OrderController::class, 'index'])->name('indexorder');
     Route::get('order/category/{idProduct}', [OrderController::class, 'indexCategory'])->name('categoryorder');
-    Route::get('order/packet/{idCategory}', [OrderController::class, 'indexPacket'])->name('packetorder');
+    Route::get('order/packet/{idProduct}/{idCategory}', [OrderController::class, 'indexPacket'])->name('packetorder');
 
 });
 Route::middleware(['isAdmin', 'auth'])->group(function () {

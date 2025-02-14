@@ -96,31 +96,35 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endif
-
     @if ($pakets->isEmpty())
-    <div class="col-lg-4 col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">{{"Custome ". $category->name ?? 'Paket Custom' }}</h5>
-                <form action="#" method="post">
-                    @csrf
-                    <div class="mb-3">
-                        <span class="badge badge-stock">Alpin Cell</span>
-                    </div>
-                    <div class="mb-1">
-                        <input type="number" class="form-control w-60 custom-price-input" name="harga" id="harga" placeholder="harga" required>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mt-n2">
-                        <button class="btn btn-buy">
-                            <i class="bi bi-cart"></i> Beli
-                        </button>
-                    </div>
-                </form>
+        @if ($product && !in_array($product->name, ["Aksesoris", "Kartu", "Voucher"]))
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{"Custome ". $category->name ?? 'Paket Custom' }}</h5>
+                    <form action="#" method="post">
+                        @csrf
+                        <div class="mb-3">
+                            <span class="badge badge-stock">Alpin Cell</span>
+                        </div>
+                        <div class="mb-1">
+                            <input type="number" class="form-control w-60 custom-price-input" name="harga" id="harga" placeholder="harga" required>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-n2">
+                            <button class="btn btn-buy">
+                                <i class="bi bi-cart"></i> Beli
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+        @else
+            <div class="alert alert-warning text-center">Tidak ada Paket dalam Category ini.</div>
+        @endif
     @else
         <div class="row g-4">
+            @if ($product && !in_array($product->name, ["Aksesoris", "Kartu", "Voucher"]))
             <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -142,6 +146,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             @foreach ($pakets as $paket)
             <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm">

@@ -24,10 +24,11 @@ class OrderController extends Controller
         return view('order.category', compact('categoryProducts','product'));
     }
 
-    public function indexPacket($idCategory){
+    public function indexPacket($idProduct,$idCategory){
         $pakets = PacketCategory::where('category_product_id', $idCategory)->get();
         $category = CategoryProduct::where('id', $idCategory)->first();
-        return view('order.packet', compact('pakets', 'category'));
+        $product = product::where('id', $idProduct)->first();
+        return view('order.packet', compact('pakets', 'category','product'));
     }
 
     /**

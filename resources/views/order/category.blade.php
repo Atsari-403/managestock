@@ -62,7 +62,7 @@
         @foreach ($categoryProducts as $categoryProduct)
         <div class="col-md-3 col-sm-6">
             <div class="product-card position-relative shadow-sm border-0 rounded-lg overflow-hidden">
-                <a href="{{route('packetorder',['idCategory'=>$categoryProduct->id])}}" class="text-decoration-none d-block">
+                <a href="{{ route('packetorder', ['idProduct' => $product->id, 'idCategory' => $categoryProduct->id]) }}" class="text-decoration-none d-block">
                     <div class="card-content p-3 text-center bg-light rounded">
                         <h5 class="product-title fw-bold mb-0">{{ $categoryProduct->name }}</h5>
                     </div>
