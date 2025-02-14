@@ -119,15 +119,27 @@
                             <strong>Harga:</strong> Rp {{ number_format($paket->price, 0, ',', '.') }} <br>
                         </p>
                         <div class="d-flex justify-content-between mt-3">
-                            <a href="#" class="btn btn-warning btn-sm edit-paket"
-                                data-bs-toggle="modal"
-                                data-bs-target="#form"
-                                data-id="{{ $paket->id }}"
-                                data-name="{{ $paket->name }}"
-                                data-stock="{{ $paket->stock }}"
-                                data-price="{{ $paket->price }}">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
+                            <div class="d-flex justify-content-between">
+                                <!-- Tombol Edit -->
+                                <a href="#" class="btn btn-warning btn-sm edit-paket me-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#form"
+                                    data-id="{{ $paket->id }}"
+                                    data-name="{{ $paket->name }}"
+                                    data-stock="{{ $paket->stock }}"
+                                    data-price="{{ $paket->price }}">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                            
+                                <!-- Tombol Tambah Stok -->
+                                <button class="btn btn-success btn-sm add-stock"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#tambahStockModal"
+                                    data-id="{{ $paket->id }}"
+                                    data-name="{{ $paket->name }}">
+                                    <i class="bi bi-plus-circle"></i> Add Stok
+                                </button>
+                            </div>                            
 
                             <form action="{{route('destroypaket',['id'=>$paket->id])}}" method="post" onsubmit="return confirm('Hapus paket ini?')">
                                 @csrf
@@ -143,6 +155,39 @@
             @endforeach
         </div>
     @endif
+    <!-- Modal Tambah Stok -->
+    <div class="modal fade" id="tambahStockModal" tabindex="-1" aria-labelledby="tambahStockLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahStockLabel">Tambah Stok</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="tambahStockForm" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" id="paketId">
+
+                        <div class="mb-3">
+                            <label for="paketNameDisplay" class="form-label">Nama Paket</label>
+                            <input type="text" class="form-control" id="paketNameDisplay" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="paketStockNew" class="form-label">Tambahkan Stok</label>
+                            <input type="number" class="form-control" id="paketStockNew" name="new_stock" required>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">Tambah Stok</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Form Update Paket -->
     <div class="modal fade" id="form" tabindex="-1" aria-labelledby="modalPulsaLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -185,6 +230,25 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const addStockButtons = document.querySelectorAll('.add-stock');
+    const modalStockForm = document.getElementById('tambahStockForm');
+
+    addStockButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Ambil data dari tombol yang diklik
+            const id = this.getAttribute('data-id');
+            const name = this.getAttribute('data-name');
+
+            // Isi modal dengan data paket yang dipilih
+            document.getElementById('paketId').value = id;
+            document.getElementById('paketNameDisplay').value = name;
+
+            // Ubah action form sesuai dengan ID paket (sesuaikan route di backend)
+            modalStockForm.setAttribute('action', `/product/category/paket/add-stock/${id}`);
+        });
+    });
+});
 document.addEventListener('DOMContentLoaded', function () {
     const editButtons = document.querySelectorAll('.edit-paket');
     const modalForm = document.getElementById('paketForm');
