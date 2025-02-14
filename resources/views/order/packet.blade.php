@@ -75,6 +75,22 @@
         width: 60%;
     }
 
+     /* Custom Modal Style */
+    #purchaseModal .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #purchaseModal .modal-title {
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    #purchaseModal .form-select, 
+    #purchaseModal .form-control {
+        border-radius: 10px;
+    }
+
 </style>
 @endsection
 
@@ -111,7 +127,7 @@
                             <input type="number" class="form-control w-60 custom-price-input" name="harga" id="harga" placeholder="harga" required>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-n2">
-                            <button class="btn btn-buy">
+                            <button class="btn btn-buy" data-bs-toggle='modal' data-bs-target='#purchaseModal'>
                                 <i class="bi bi-cart"></i> Beli
                             </button>
                         </div>
@@ -138,7 +154,7 @@
                                 <input type="number" class="form-control w-60 custom-price-input" name="harga" id="harga" placeholder="harga" required>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-n2">
-                                <button class="btn btn-buy">
+                                <button class="btn btn-buy" data-bs-toggle='modal' data-bs-target='#purchaseModal'>
                                     <i class="bi bi-cart"></i> Beli
                                 </button>
                             </div>
@@ -169,16 +185,63 @@
                             <strong>Harga:</strong> Rp {{ number_format($paket->price , 0, ',', '.') }} <br>
                         </p>
                         <!-- Tombol Beli di sudut kanan bawah -->
-                        <button class="btn btn-buy">
+                        <button class="btn btn-buy" data-bs-toggle='modal' data-bs-target='#purchaseModal'">
                             <i class="bi bi-cart"></i> Beli
                         </button>
                     </div>
                 </div>
             </div>
-            @endforeach   
-        </div>
-    @endif
-</div>
+            @endforeach
+
+            <!-- Modal Form Pembayaran -->
+            <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-topped">
+                    <div class="modal-content">
+                        <!-- Header Modal -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="purchaseModalLabel">Form Pembelian</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <!-- Form Pembelian -->
+                        <div class="modal-body">
+                            <form action="" method="POST">
+                                @csrf
+                                <!-- Metode Pembayaran -->
+                                <div class="mb-3">
+                                    <label for="payment_method" class="form-label">Metode Pembayaran</label>
+                                    <select class="form-select" name="payment_method" id="payment_method" required>
+                                        <option value="" disabled selected>Pilih metode pembayaran</option>
+                                        <option value="1">Transfer</option>
+                                        <option value="0">Tunai</option>
+                                    </select>
+                                </div>
+
+                                <!-- Aksi -->
+                                <div class="mb-3">
+                                    <label for="action" class="form-label">Aksi</label>
+                                    <select class="form-select" name="action" id="action" required>
+                                        <option value="" disabled selected>Pilih aksi</option>
+                                        <option value="tarik_tunai">Tarik Tunai</option>
+                                        <option value="transfer">Transfer</option>
+                                    </select>
+                                </div>
+
+                                <!-- Tombol Submit -->
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle"></i> Submit Pembelian
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        @endif
+    </div>
 @endsection
 
 @section('scripts')
