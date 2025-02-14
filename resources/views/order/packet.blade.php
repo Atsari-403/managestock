@@ -113,9 +113,11 @@
                             <strong>Harga:</strong> Rp {{ number_format($paket->price + $paket->profit_margin, 0, ',', '.') }} <br>
                         </p>
                         <!-- Tombol Beli di sudut kanan bawah -->
-                        <button class="btn btn-buy">
-                            <i class="bi bi-cart"></i> Beli
-                        </button>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('packetorder', ['idCategory' => $category->id, 'idPaket' => $paket->id]) }}" class="btn btn-buy">
+                                <i class="bi bi-plus-circle-fill"></i> 1 <i class="bi bi-dash-circle-fill"></i> 
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
