@@ -4,12 +4,82 @@
 
 @section('styles')
 <link href="{{ asset('css/indexCategory.css') }}" rel="stylesheet">
+<style>
+    /* Styling untuk Card Paket */
+    .card {
+        transition: all 0.3s ease-in-out;
+        border-radius: 12px;
+        overflow: hidden;
+        border: none;
+        position: relative; /* Supaya tombol Beli bisa diposisikan di dalamnya */
+    }
+
+    /* Hover Efek */
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Judul Paket */
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        color: rgba(0, 123, 255, 0.85); /* Biru lebih soft */
+    }
+
+    /* Badge Stok */
+    .badge-stock {
+        background-color: #28a745;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    /* Harga */
+    .card-text strong {
+        color: rgba(33, 37, 41, 0.85);
+        font-weight: 600;
+    }
+
+    /* Tombol Beli */
+    .btn-buy {
+        background: linear-gradient(135deg, #007bff, #00d4ff);
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: bold;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .btn-buy:hover {
+        background: linear-gradient(135deg, #0056b3, #00a3cc);
+        color: white;
+    }
+
+    /* Ikon dalam tombol */
+    .btn-buy i {
+        font-size: 18px;
+    }
+    .w-60 {
+        width: 60%;
+    }
+
+</style>
 @endsection
 
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Paket - {{ $category->name }}"></x-dashboard-header>
+    <x-dashboard-header title="{{ $category->name }}"></x-dashboard-header>
     @if(session()->has('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -33,11 +103,20 @@
                     <div class="card-body">
                         <h5 class="card-title text-primary fw-bold">{{ $paket->name }}</h5>
                         <p class="card-text">
-                            <span class="badge bg-success">Stok: {{ $paket->stock ?? 'Tidak tersedia' }}</span>
+                            @php
+                                $stock = $paket->stock ?? null;
+                            @endphp
+
+                            @if (is_null($stock))
+                                <span class="badge badge-stock">Alpin Cell</span>
+                            @elseif ($stock === 0)
+                                <span class="badge badge-stock" style="background-color: red;">Stok: {{ $stock }}</span>
+                            @else
+                                <span class="badge badge-stock">Stok: {{ $stock }}</span>
+                            @endif
                         </p>
                         <p class="card-text">
                             <strong>Harga:</strong> Rp {{ number_format($paket->price, 0, ',', '.') }} <br>
-                            <strong>Keuntungan:</strong> Rp {{ number_format($paket->profit_margin, 0, ',', '.') }}
                         </p>
                         <div class="d-flex justify-content-between mt-3">
                             <a href="#" class="btn btn-warning btn-sm edit-paket"
@@ -46,8 +125,7 @@
                                 data-id="{{ $paket->id }}"
                                 data-name="{{ $paket->name }}"
                                 data-stock="{{ $paket->stock }}"
-                                data-price="{{ $paket->price }}"
-                                data-profit="{{ $paket->profit_margin }}">
+                                data-price="{{ $paket->price }}">
                                 <i class="bi bi-pencil-square"></i> Edit
                             </a>
 
@@ -93,11 +171,6 @@
                             <input type="number" class="form-control" id="paketPrice" name="price" required>
                         </div>
                     
-                        <div class="mb-3">
-                            <label for="paketProfit" class="form-label">Keuntungan</label>
-                            <input type="number" class="form-control" id="paketProfit" name="profit_margin" required>
-                        </div>
-                    
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Simpan Paket</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -130,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('paketName').value = name;
             document.getElementById('paketStock').value = stock;
             document.getElementById('paketPrice').value = price;
-            document.getElementById('paketProfit').value = profit;
 
             // Ubah action form sesuai dengan ID paket
             modalForm.setAttribute('action', `/product/category/paket/update/${id}`);

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paket_category', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('category_product_id');
-            $table->string('name');
-            $table->bigInteger('stock')->nullable();
-            $table->bigInteger('price')->default(0);
-            $table->boolean('static')->default(false);
+            $table->uuid('user_id');
+            $table->uuid('paket_id');
+            $table->integer('qty')->nullable();
+            $table->bigInteger('total_harga');
+            $table->boolean('payment_method');
+            $table->boolean('action')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paket_category');
+        Schema::dropIfExists('order');
     }
 };

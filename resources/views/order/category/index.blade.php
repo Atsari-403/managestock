@@ -100,11 +100,6 @@
                             <input type="number" class="form-control" id="paketPrice" name="price" required>
                         </div>
                     
-                        <div class="mb-3">
-                            <label for="paketProfit" class="form-label">Keuntungan</label>
-                            <input type="number" class="form-control" id="paketProfit" name="profit_margin" required>
-                        </div>
-                    
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Simpan Paket</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

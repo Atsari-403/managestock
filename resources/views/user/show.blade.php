@@ -3,7 +3,7 @@
 @section('title', 'User Profile')
 
 @section('content')
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <x-dashboard-header title="User Profile"></x-dashboard-header>
     <div class="row justify-content-center">
         <div class="col-md-8">

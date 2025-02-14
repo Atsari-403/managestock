@@ -38,7 +38,6 @@ class PacketCategoryController extends Controller
             'name' => 'required|string|max:255',
             'stock' => 'nullable|integer|min:0',
             'price' => 'required|integer|min:0',
-            'profit_margin' => 'required|integer|min:0',
         ]);
 
         try {
@@ -72,7 +71,6 @@ class PacketCategoryController extends Controller
             'name' => 'required|string|max:255',
             'stock' => 'nullable|integer|min:0',
             'price' => 'required|integer|min:0',
-            'profit_margin' => 'required|integer|min:0',
         ]);
 
         $paket = PacketCategory::FindOrFail($id);

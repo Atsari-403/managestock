@@ -3,7 +3,7 @@
 @section('title', 'Absensi - Alpin Cell')
 
 @section('content')
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <x-dashboard-header title="Attendance"></x-dashboard-header>
 
     <div class="row justify-content-center">

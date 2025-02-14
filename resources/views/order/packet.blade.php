@@ -71,13 +71,17 @@
     .btn-buy i {
         font-size: 18px;
     }
+    .w-60 {
+        width: 60%;
+    }
+
 </style>
 @endsection
 
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Paket - {{ $category->name }}"></x-dashboard-header>
+    <x-dashboard-header title="{{ $category->name }}"></x-dashboard-header>
 
     @if(session()->has('success'))
     <script>
@@ -94,23 +98,70 @@
     @endif
 
     @if ($pakets->isEmpty())
-        <div class="alert alert-warning text-center">Tidak ada paket dalam kategori ini.</div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{"Custome ". $category->name ?? 'Paket Custom' }}</h5>
+                <form action="#" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <span class="badge badge-stock">Alpin Cell</span>
+                    </div>
+                    <div class="mb-1">
+                        <input type="number" class="form-control w-60 custom-price-input" name="harga" id="harga" placeholder="harga" required>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-n2">
+                        <button class="btn btn-buy">
+                            <i class="bi bi-cart"></i> Beli
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     @else
         <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{"Custome ". $category->name ?? 'Paket Custom' }}</h5>
+                        <form action="#" method="post">
+                            @csrf
+                            <div class="mb-3">
+                                <span class="badge badge-stock">Alpin Cell</span>
+                            </div>
+                            <div class="mb-1">
+                                <input type="number" class="form-control w-60 custom-price-input" name="harga" id="harga" placeholder="harga" required>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-n2">
+                                <button class="btn btn-buy">
+                                    <i class="bi bi-cart"></i> Beli
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             @foreach ($pakets as $paket)
             <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">{{ $paket->name }}</h5>
                         <p class="card-text">
-                            @if ($paket->stock < 1)
-                                <span class="badge badge-stock" style="background-color: red;">Stok: {{ $paket->stock ?? 'Tidak tersedia' }}</span>
-                             @else
-                                <span class="badge badge-stock">Stok: {{ $paket->stock ?? 'Tidak tersedia' }}</span>
-                             @endif
+                            @php
+                                $stock = $paket->stock ?? null;
+                            @endphp
+
+                            @if (is_null($stock))
+                                <span class="badge badge-stock">Alpin Cell</span>
+                            @elseif ($stock === 0)
+                                <span class="badge badge-stock" style="background-color: red;">Stok: {{ $stock }}</span>
+                            @else
+                                <span class="badge badge-stock">Stok: {{ $stock }}</span>
+                            @endif
                         </p>
                         <p class="card-text">
-                            <strong>Harga:</strong> Rp {{ number_format($paket->price + $paket->profit_margin, 0, ',', '.') }} <br>
+                            <strong>Harga:</strong> Rp {{ number_format($paket->price , 0, ',', '.') }} <br>
                         </p>
                         <!-- Tombol Beli di sudut kanan bawah -->
                         <button class="btn btn-buy">
@@ -119,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            @endforeach
+            @endforeach   
         </div>
     @endif
 </div>

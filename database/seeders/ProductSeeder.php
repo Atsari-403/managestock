@@ -36,7 +36,13 @@ class ProductSeeder extends Seeder
             ],
             [
                 'id'=>Str::uuid(),
-                'name'=>'Pembayaran',
+                'name'=>'Prabayar',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'id'=>Str::uuid(),
+                'name'=>'Pascabayar',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

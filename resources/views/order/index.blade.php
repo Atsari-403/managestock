@@ -25,8 +25,10 @@
                                 <i class="bi bi-wallet2"></i>
                             @elseif ($product->name == 'Transaksi')
                                 <i class="bi bi-cart"></i>
-                            @elseif ($product->name == 'Pembayaran')
+                            @elseif ($product->name == 'Prabayar')
                                 <i class="bi bi-credit-card"></i>
+                            @elseif ($product->name == 'Pascabayar')
+                                <i class="bi bi-receipt"></i>
                             @elseif ($product->name == 'Top Up Game')
                                 <i class="bi bi-controller"></i>
                             @elseif ($product->name == 'Voucher')
