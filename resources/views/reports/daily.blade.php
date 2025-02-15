@@ -111,17 +111,17 @@
             <h5 class="card-title mb-0">Transaction Details</h5>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive-mobile">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Transaction ID</th>
-                            <th>Date & Time</th>
-                            <th>Customer</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th class="min-w-125">Transaction ID</th>
+                            <th class="min-w-100">Date & Time</th>
+                            <th class="min-w-100">Customer</th>
+                            <th class="min-w-100">Type</th>
+                            <th class="min-w-100">Amount</th>
+                            <th class="min-w-100">Status</th>
+                            <th class="min-w-100">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -162,7 +162,66 @@
             </nav>
         </div>
     </div>
+
+    <!-- Tabel Riwayat Stok -->
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-header bg-white py-3">
+        <h5 class="card-title mb-0">Riwayat Perubahan Stok</h5>
+    </div>
+    <div class="card-body">
+        <!-- Table wrapper scroll untuk mobile -->
+        <div class="table-responsive-mobile">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="min-w-125">Tanggal</th>
+                        <th class="min-w-100">Nama Paket</th>
+                        <th class="min-w-100">Stok lama</th>
+                        <th class="min-w-100">Stok baru</th>
+                        <th class="min-w-100">Perubahan</th>
+                <tbody>
+                    <tr>
+                        <td class="text-nowrap">15-02-2024</td>
+                        <td class="text-nowrap">Headset Samsung</td>
+                        <td>100</td>
+                        <td>80</td>
+                        <td><span class="badge bg-danger">-20</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">15-02-2024</td>
+                        <td class="text-nowrap">Voucher 20GB Telkomsel</td>
+                        <td>50</td>
+                        <td>150</td>
+                        <td><span class="badge bg-success">+100</span></td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">15-02-2024</td>
+                        <td class="text-nowrap">Voucher 10GB Telkomsel</td>
+                        <td>75</td>
+                        <td>65</td>
+                        <td><span class="badge bg-danger">-10</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination dengan penyesuaian mobile -->
+        <nav class="mt-4">
+            <ul class="pagination pagination-sm flex-wrap justify-content-center justify-content-md-end">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Sebelumnya</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Selanjutnya</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
+
 @endsection
 
 @section('styles')
@@ -191,6 +250,64 @@
 .table .btn-light:hover {
     background-color: #e9ecef;
     border-color: #e9ecef;
+}
+
+/* css untuk tabel riwayat /*
+
+/* Tambahan CSS untuk responsivitas mobile */
+.table-responsive-mobile {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Minimal width untuk kolom tabel */
+.min-w-80 {
+    min-width: 80px;
+}
+.min-w-100 {
+    min-width: 100px;
+}
+.min-w-125 {
+    min-width: 125px;
+}
+
+/* Penyesuaian untuk layar kecil */
+@media (max-width: 767.98px) {
+    .table {
+        font-size: 14px;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .badge {
+        font-size: 11px;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
+    }
+    
+    /* Memastikan konten tabel tidak wrap pada mobile */
+    .table td.text-nowrap,
+    .table th.text-nowrap {
+        white-space: nowrap;
+    }
+}
+
+/* Memperbaiki shadow horizontal scroll */
+.table-responsive-mobile::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-responsive-mobile::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.1);
+    border-radius: 3px;
+}
+
+.table-responsive-mobile::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,.05);
 }
 </style>
 @endsection
