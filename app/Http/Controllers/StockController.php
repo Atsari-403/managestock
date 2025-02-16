@@ -11,9 +11,16 @@ class StockController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $packets = PacketCategory::whereNotNull('stock')->get();
+
+        $query = StockHistories::with('packet');
+        if ($request->has('packet_id') && !empty($request->packet_id)) {
+            $query->where('packet_id', $request->packet_id);
+        }
+        $stockHistories = $query->orderBy('created_at', 'desc')->paginate(10);
+        return view('report.stock', compact('stockHistories', 'packets'));
     }
 
     /**

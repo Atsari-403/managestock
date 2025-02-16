@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('stock_histories', function (Blueprint $table) {
             $table->uuid('id');
             $table->uuid('packet_id');
-            $table->integer('previous_stock');
-            $table->integer('new_stock');
-            $table->integer('quantity_changed');
+            $table->integer('previous_stock')->nullable();
+            $table->integer('new_stock')->nullable();
+            $table->integer('quantity_changed')->nullable();
             $table->timestamps();
         });
     }

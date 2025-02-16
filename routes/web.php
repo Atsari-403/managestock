@@ -48,6 +48,11 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::post('product/category/paket/update/{id}', [PacketCategoryController::class, 'update'])->name('updatepaket');
 
     Route::post('/product/category/paket/add-stock/{id}', [StockController::class, 'addStock']);
+
+    // history
+    Route::get('/product/category/paket/history-stock', [StockController::class, 'index'])->name('historyStock');
+    Route::post('/product/category/paket/order', [OrderController::class, 'store'])->name('Order');
+    Route::get('/product/order-history', [OrderController::class, 'indexOrder'])->name('historyOrder');
 });
 Route::get('/register', function () {
     return view('auth.register');

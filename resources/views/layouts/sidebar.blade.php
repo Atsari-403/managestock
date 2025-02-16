@@ -50,6 +50,30 @@
             <i class="bi bi-bag-plus"></i>
             <span>Create Product</span>
         </a>
+
+        <!-- History Section (Dropdown) -->
+        <a class="nav-link dropdown-toggle" href="#historyMenu" data-bs-toggle="collapse" role="button">
+            <div class="d-flex align-items-center justify-content-between w-100">
+                <div>
+                    <i class="bi bi-clock-history"></i>
+                    <span>Riwayat</span>
+                </div>
+                <i class="bi bi-chevron-down dropdown-icon"></i>
+            </div>
+        </a>
+        <div class="collapse" id="historyMenu">
+            <div class="dropdown-menu-items">
+                <a class="nav-link {{ Request::routeIs('historyStock') ? 'active' : '' }}" href="{{ route('historyStock') }}">
+                    <i class="bi bi-box"></i>
+                    <span>Stok</span>
+                </a>
+                <a class="nav-link {{ Request::routeIs('historyOrder') ? 'active' : '' }}" href="{{route('historyOrder')}}">
+                    <i class="bi bi-cart"></i>
+                    <span>Order</span>
+                </a>
+                <!-- Tambahkan fitur tambahan di sini jika ada -->
+            </div>
+        </div>
         @endif
       
         

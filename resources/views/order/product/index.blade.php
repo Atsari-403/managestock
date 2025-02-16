@@ -9,7 +9,9 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Create Product"></x-dashboard-header>
+    <x-dashboard-header title="Create Product">
+        
+    </x-dashboard-header>
     @if(session()->has('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {

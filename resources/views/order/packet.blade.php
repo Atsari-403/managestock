@@ -102,14 +102,14 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title">{{ "Custom " . ($category->name ?? 'Paket Custom') }}</h5>
+                        <h5 class="card-title">{{ "Custome " . ($category->name ?? 'Paket Custom') }}</h5>
                         <div class="mb-3">
                             <span class="badge badge-stock">Alpin Cell</span>
                         </div>
                         <div class="mb-1">
                             <input type="number" class="form-control w-60 custom-price-input" name="harga" placeholder="Masukkan harga" required>
                         </div>
-                        <button class="btn btn-buy" data-bs-toggle="modal" data-productName="{{$product->name}}" data-bs-target="#purchaseModal" disabled>
+                        <button class="btn btn-buy" data-bs-toggle="modal" data-paketName="custome.{{$product->name}}" data-productName="{{$product->name}}" data-idCategory="{{$category->id}}" data-bs-target="#purchaseModal" disabled>
                             <i class="bi bi-cart"></i> Beli
                         </button>
                     </div>
@@ -130,7 +130,7 @@
                         <p class="card-text">
                             <strong>Harga:</strong> Rp {{ number_format($paket->price, 0, ',', '.') }}
                         </p>
-                        <button class="btn btn-buy" data-bs-toggle="modal" data-productName="{{$product->name}}" data-bs-target="#purchaseModal" data-harga="{{ $paket->price }}">
+                        <button class="btn btn-buy" data-bs-toggle="modal" data-idPacket="{{$paket->id}}" data-productName="{{$product->name}}" data-idCategory="{{$category->id}}" data-bs-target="#purchaseModal" data-harga="{{ $paket->price }}">
                             <i class="bi bi-cart"></i> Beli
                         </button>
                     </div>
@@ -150,18 +150,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST">
+                <form action="{{route('Order')}}" method="POST">
                     @csrf
+                    <input type="hidden" id="paket_id" name="paket_id">
+                    <input type="hidden" id="qty" name="qty">
+                    <input type="hidden" id="paket_name" name="paket_name">
+                    <input type="hidden" id="category_product_id" name="category_product_id">
                     <div class="mb-3">
-                        <label for="modalPrice" class="form-label">Harga</label>
-                        <input type="text" class="form-control" id="modalPrice" name="modalPrice" readonly>
+                        <label for="price" class="form-label">Harga</label>
+                        <input type="text" class="form-control" id="price" name="price" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="payment_method" class="form-label">Metode Pembayaran</label>
                         <select class="form-select" name="payment_method" id="payment_method" required>
                             <option value="" disabled selected>Pilih metode pembayaran</option>
-                            <option value="transfer">Transfer</option>
-                            <option value="tunai">Tunai</option>
+                            <option value=0>Transfer</option>
+                            <option value=1>Tunai</option>
                         </select>
                     </div>
 
@@ -170,8 +174,8 @@
                         <label for="action" class="form-label">Aksi</label>
                         <select class="form-select" name="action" id="action" required>
                             <option value="" disabled selected>Pilih aksi</option>
-                            <option value="tarik_tunai">Tarik Tunai</option>
-                            <option value="transfer">Transfer</option>
+                            <option value=1>Tarik Tunai</option>
+                            <option value=0>Transfer</option>
                         </select>
                     </div>
                     <div class="d-grid gap-2">
@@ -192,6 +196,7 @@
 <script>
    document.addEventListener("DOMContentLoaded", function () {
     const bank = ["E-Wallet", "Transaksi"];
+    const qty = ["Aksesoris","Voucher","Kartu"];
     
     // Event listener untuk setiap tombol "Beli"
     document.querySelectorAll(".btn-buy").forEach(button => {
@@ -199,6 +204,9 @@
             let productName = button.getAttribute("data-productName");
             let money = document.getElementById("money");
             let action = document.getElementById("action");
+            let paketId = button.getAttribute("data-idPacket");
+            let categoryId = button.getAttribute("data-idCategory");
+            let namaPaket = button.getAttribute("data-paketName");
 
             // Cek apakah productName termasuk dalam daftar bank
             if (!bank.includes(productName)) {
@@ -209,9 +217,18 @@
                 action.setAttribute("required", "required"); // Tambahkan kembali required
             }
 
+            if(qty.includes(productName)){
+                quantity = 1;
+            }else{
+                quantity = null;
+            }
+
             // Set harga di modal
-            document.getElementById("modalPrice").value = "Rp " + 
-                new Intl.NumberFormat("id-ID").format(button.dataset.harga);
+            document.getElementById("qty").value = quantity;
+            document.getElementById("paket_name").value = namaPaket;
+            document.getElementById("paket_id").value = paketId;
+            document.getElementById("category_product_id").value = categoryId;
+            document.getElementById("price").value = button.dataset.harga;
         });
     });
 

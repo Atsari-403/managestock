@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategoryProduct;
 use App\Models\PacketCategory;
 use App\Models\Product;
+use App\Models\StockHistories;
 use Illuminate\Http\Request;
 
 class PacketCategoryController extends Controller
@@ -86,6 +87,8 @@ class PacketCategoryController extends Controller
     public function destroy(string $id)
     {
         $paket = PacketCategory::FindOrFail($id);
+        StockHistories::where('packet_id', $id)->delete();
+
         $paket->delete();
         return redirect()->back()->with(['success' => 'Paket berhasil dihapus!']);
     }

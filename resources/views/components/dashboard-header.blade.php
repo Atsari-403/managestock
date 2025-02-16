@@ -1,7 +1,7 @@
 <div class="row mb-4 mt-4">
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
-            <div>
+            <div class="d-none d-md-block">
                 <h3 class="mb-0">{{$title}}</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -10,7 +10,10 @@
                     </ol>
                 </nav>
             </div>
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center ms-auto">
+                @if(isset($slot) && trim($slot) !== '')  
+                {{ $slot }}
+                @endif
                 <div class="dropdown me-3">
                     <button class="btn btn-light position-relative" type="button" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -24,6 +27,7 @@
                         <li><a class="dropdown-item" href="#">Update Sistem</a></li>
                     </ul>
                 </div>
+               
             </div>
         </div>
     </div>
