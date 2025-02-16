@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryProduct;
 use App\Models\PacketCategory;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PacketCategoryController extends Controller
@@ -11,13 +12,14 @@ class PacketCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($idCategory)
+    public function index($idProduct, $idCategory)
     {
         // dd(session()->all()); // Debugging untuk melihat isi session
 
         $pakets = PacketCategory::where('category_product_id', $idCategory)->get();
         $category = CategoryProduct::where('id', $idCategory)->first();
-        return view('order.packet.index', compact('pakets', 'category'));
+        $product = Product::where('id', $idProduct)->first();
+        return view('order.packet.index', compact('pakets', 'category', 'product'));
     }
 
     /**
@@ -36,7 +38,7 @@ class PacketCategoryController extends Controller
         $validatedData = $request->validate([
             'category_product_id' => 'required|exists:category_product,id',
             'name' => 'required|string|max:255',
-            'stock' => 'nullable|integer|min:0',
+            'stock' => 'nullable|integer',
             'price' => 'required|integer|min:0',
         ]);
 

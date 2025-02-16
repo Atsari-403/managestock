@@ -127,18 +127,21 @@
                                     data-id="{{ $paket->id }}"
                                     data-name="{{ $paket->name }}"
                                     data-stock="{{ $paket->stock }}"
-                                    data-price="{{ $paket->price }}">
+                                    data-price="{{ $paket->price }}"
+                                    data-nameProduct="{{$product->name}}">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
                             
                                 <!-- Tombol Tambah Stok -->
-                                <button class="btn btn-success btn-sm add-stock"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#tambahStockModal"
-                                    data-id="{{ $paket->id }}"
-                                    data-name="{{ $paket->name }}">
-                                    <i class="bi bi-plus-circle"></i> Add Stok
-                                </button>
+                                @if (in_array($product->name, ['Aksesoris', 'Kartu', 'Voucher']))
+                                    <button class="btn btn-success btn-sm add-stock"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#tambahStockModal"
+                                        data-id="{{ $paket->id }}"
+                                        data-name="{{ $paket->name }}">
+                                        <i class="bi bi-plus-circle"></i> Add Stok
+                                    </button>
+                                @endif
                             </div>                            
 
                             <form action="{{route('destroypaket',['id'=>$paket->id])}}" method="post" onsubmit="return confirm('Hapus paket ini?')">
@@ -166,7 +169,7 @@
                 <div class="modal-body">
                     <form id="tambahStockForm" method="POST">
                         @csrf
-                        <input type="hidden" name="id" id="paketId">
+                        <input type="hidden" name="packet_id" id="packet_id">
 
                         <div class="mb-3">
                             <label for="paketNameDisplay" class="form-label">Nama Paket</label>
@@ -174,8 +177,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="paketStockNew" class="form-label">Tambahkan Stok</label>
-                            <input type="number" class="form-control" id="paketStockNew" name="new_stock" required>
+                            <label for="quantity_changed" class="form-label">Tambahkan Stok</label>
+                            <input type="number" class="form-control" id="quantity_changed" name="quantity_changed" required min="1">
                         </div>
 
                         <div class="d-flex justify-content-between">
@@ -206,7 +209,7 @@
                             <input type="text" class="form-control" id="paketName" name="name" required>
                         </div>
                     
-                        <div class="mb-3">
+                        <div class="mb-3" id="StockInput">
                             <label for="paketStock" class="form-label">Stok</label>
                             <input type="number" class="form-control" id="paketStock" name="stock" required>
                         </div>
@@ -241,7 +244,7 @@
             const name = this.getAttribute('data-name');
 
             // Isi modal dengan data paket yang dipilih
-            document.getElementById('paketId').value = id;
+            document.getElementById('packet_id').value = id;
             document.getElementById('paketNameDisplay').value = name;
 
             // Ubah action form sesuai dengan ID paket (sesuaikan route di backend)
@@ -249,25 +252,35 @@
         });
     });
 });
+// update
 document.addEventListener('DOMContentLoaded', function () {
     const editButtons = document.querySelectorAll('.edit-paket');
     const modalForm = document.getElementById('paketForm');
+    const kategoriPakaiStok = ["Aksesoris", "Kartu", "Voucher"];
 
     editButtons.forEach(button => {
         button.addEventListener('click', function () {
+            // console.log("Tombol Edit diklik!");
             // Ambil data dari tombol yang diklik
             const id = this.getAttribute('data-id');
             const name = this.getAttribute('data-name');
             const stock = this.getAttribute('data-stock');
             const price = this.getAttribute('data-price');
-            const profit = this.getAttribute('data-profit');
+            const productName = this.getAttribute('data-nameProduct');
+            console.log(productName);
+            if(!kategoriPakaiStok.includes(productName)){
+                StockInput.style.display = "none";
+                paketStock.removeAttribute("required");
+            }
 
             // Isi modal dengan data paket yang dipilih
             document.getElementById('id').value = id;
             document.getElementById('paketName').value = name;
             document.getElementById('paketStock').value = stock;
             document.getElementById('paketPrice').value = price;
-
+            // document.getElementById('productName').value = productName;
+            
+            
             // Ubah action form sesuai dengan ID paket
             modalForm.setAttribute('action', `/product/category/paket/update/${id}`);
         });

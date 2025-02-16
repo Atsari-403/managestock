@@ -34,8 +34,12 @@ class PacketCategory extends Model
         return $this->belongsTo(CategoryProduct::class, 'category_product_id');
     }
 
-    public function order():HasMany
+    public function order(): HasMany
     {
-        return $this->hasMany(Order::class,'paket_id','id');
+        return $this->hasMany(Order::class, 'paket_id', 'id');
+    }
+    public function stockHistories(): HasMany
+    {
+        return $this->hasMany(StockHistories::class, 'paket_id');
     }
 }

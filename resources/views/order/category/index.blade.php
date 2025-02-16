@@ -50,7 +50,7 @@
                     </form>                    
                 </div>
 
-                <a href="{{ route('indexpaket', ['category_product_id' => $categoryProduct->id]) }}" class="text-decoration-none">
+                <a href="{{ route('indexpaket', ['idProduct'=>$product->id,'category_product_id' => $categoryProduct->id]) }}" class="text-decoration-none">
                     <div class="card-content">
                         <h5 class="product-title">{{ $categoryProduct->name }}</h5>
                         <div class="button-container">

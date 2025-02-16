@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PacketCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,6 @@ Route::middleware('auth')->group(function () {
     Route::get('order/index', [OrderController::class, 'index'])->name('indexorder');
     Route::get('order/category/{idProduct}', [OrderController::class, 'indexCategory'])->name('categoryorder');
     Route::get('order/packet/{idProduct}/{idCategory}', [OrderController::class, 'indexPacket'])->name('packetorder');
-
 });
 Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('indexuser');
@@ -42,10 +42,12 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::delete('product/category/destroy/{category_product_id}', [CategoryProductController::class, 'destroy'])->name('categoryproductdestroy');
     Route::post('product/category/update/{idProduct}', [CategoryProductController::class, 'update'])->name('categoryproductupdate');
 
-    Route::get('product/category/paket/index/{category_product_id}', [PacketCategoryController::class, 'index'])->name('indexpaket');
+    Route::get('product/category/paket/index/{idProduct}/{category_product_id}', [PacketCategoryController::class, 'index'])->name('indexpaket');
     Route::post('product/category/paket/store', [PacketCategoryController::class, 'store'])->name('storepaket');
     Route::delete('product/category/paket/destroy/{id}', [PacketCategoryController::class, 'destroy'])->name('destroypaket');
     Route::post('product/category/paket/update/{id}', [PacketCategoryController::class, 'update'])->name('updatepaket');
+
+    Route::post('/product/category/paket/add-stock/{id}', [StockController::class, 'addStock']);
 });
 Route::get('/register', function () {
     return view('auth.register');
@@ -59,6 +61,3 @@ Route::get('/reports/daily', function () {
 Route::get('/absensi', function () {
     return view('absenteeism.absenteeism');
 })->name('absenteeism.absenteeism')->middleware('auth');
-
-
-
