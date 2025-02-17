@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('qty')->nullable();
             $table->bigInteger('total_harga');
             $table->boolean('payment_method');
-            $table->boolean('action')->nullable();
+            $table->boolean('action')->nullable()->default(null);
             $table->timestamps();
         });
     }

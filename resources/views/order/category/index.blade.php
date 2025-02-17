@@ -23,6 +23,18 @@
         });
     </script>
     @endif
+    @if(session()->has('error'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: "Gagal!",
+                    text: "{{ session('error') }}",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            });
+        </script>
+    @endif
 
     <!-- Product Providers -->
     @if ($categoryProducts->isEmpty())
@@ -56,7 +68,8 @@
                         <div class="button-container">
                             <a href="#" class="add-category-btn" data-bs-toggle="modal" 
                             data-bs-target="#form"
-                            data-category-id="{{ $categoryProduct->id }}">
+                            data-category-id="{{ $categoryProduct->id }}"
+                            data-productId="{{$product->id}}">
                                 <i class="bi bi-plus-lg me-1"></i>
                                 Tambah Paket
                             </a>                            
@@ -82,6 +95,7 @@
                     <form id="paketForm" action="{{ route('storepaket') }}" method="POST">
                         @csrf
                         <input type="hidden" name="category_product_id" id="modalCategoryProductId">
+                        <input type="hidden" name="product_id" id="modalProductId">
                     
                         <div class="mb-3">
                             <label for="paketName" class="form-label">Nama Paket</label>
@@ -150,11 +164,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     const addPackageButtons = document.querySelectorAll('.add-category-btn');
     const modalCategoryInput = document.getElementById('modalCategoryProductId');
+    const modalProductInput = document.getElementById('modalProductId');
 
     addPackageButtons.forEach(button => {
         button.addEventListener('click', function () {
             const categoryId = this.getAttribute('data-category-id');
+            const productId = this.getAttribute('data-productId');
             modalCategoryInput.value = categoryId; 
+            modalProductInput.value = productId; 
         });
     });
 });

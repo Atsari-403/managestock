@@ -37,6 +37,7 @@ class PacketCategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'product_id' => 'required|exists:product,id',
             'category_product_id' => 'required|exists:category_product,id',
             'name' => 'required|string|max:255',
             'stock' => 'nullable|integer',
@@ -45,7 +46,10 @@ class PacketCategoryController extends Controller
 
         try {
             PacketCategory::create($validatedData);
-            return redirect()->route('indexpaket', $request->category_product_id)->with(['success' => 'Paket berhasil ditambahkan!']);
+            return redirect()->route('indexpaket', [
+                'idProduct' => $request->product_id, // Pastikan ada dalam request
+                'category_product_id' => $request->category_product_id
+            ])->with(['success' => 'Paket berhasil ditambahkan!']);
         } catch (\Exception $e) {
             // Jika terjadi kesalahan, tampilkan pesan error
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

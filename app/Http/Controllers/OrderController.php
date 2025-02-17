@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\PacketCategory;
 use App\Models\Product;
 use App\Models\StockHistories;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,10 +37,33 @@ class OrderController extends Controller
         return view('order.packet', compact('pakets', 'category', 'product'));
     }
 
-    public function indexOrder()
+    public function indexOrder(Request $request)
     {
-        return view('report.order');
+        $userId = $request->input('user_id');
+        $paketId = $request->input('paket_id');
+        $date = $request->input('date');
+
+        // Query untuk mendapatkan data order dengan filter
+        $orders = Order::with(['user', 'paket'])
+            ->when($userId, function ($query, $userId) {
+                return $query->where('user_id', $userId);
+            })
+            ->when($paketId, function ($query, $paketId) {
+                return $query->where('paket_id', $paketId);
+            })
+            ->when($date, function ($query, $date) {
+                return $query->whereDate('created_at', $date);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5); // Batasi 10 order per halaman
+
+        // Ambil data user & paket untuk dropdown filter
+        $users = User::all();
+        $pakets = PacketCategory::all();
+
+        return view('report.order', compact('orders', 'users', 'pakets'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -76,7 +100,7 @@ class OrderController extends Controller
                 'price' => $request->price,
                 'static' => true,
             ]);
-            
+
 
             $price = $request->price;
         } else {
@@ -90,12 +114,12 @@ class OrderController extends Controller
             }
 
 
-            if($paket->stock != null){
+            if ($paket->stock != null) {
 
                 $previousStock = $paket->stock;
                 $paket->stock -= $request->qty;
                 $paket->save();
-    
+
                 // Catat riwayat perubahan stok
                 StockHistories::create([
                     'packet_id' => $paket->id,
@@ -105,17 +129,22 @@ class OrderController extends Controller
                 ]);
             }
             // Simpan perubahan stok
-            
+
         }
 
+        if ($request->qty != null) {
+            $total_harga = $request->qty * $price;
+        } else {
+            $total_harga = $price;
+        }
         // Simpan order
         Order::create([
             'user_id' => Auth::id(),
             'paket_id' => $paket->id,
             'qty' => $request->qty,
-            'total_harga' => $request->qty * $price,
+            'total_harga' => $total_harga,
             'payment_method' => $request->payment_method,
-            'action' => $request->action ?? 0, // Default "Menunggu" jika null
+            'action' => $request->action, // Default "Menunggu" jika null
         ]);
 
         return redirect()->back()->with('success', 'Order berhasil dibuat!');

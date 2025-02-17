@@ -123,9 +123,17 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $paket->name }}</h5>
                         <p class="card-text">
-                            <span class="badge badge-stock {{ $paket->stock === 0 ? 'bg-danger' : '' }}">
-                                {{ $paket->stock === 0 ? 'Stok: 0' : 'Stok: ' . $paket->stock }}
-                            </span>
+                            @php
+                                $stock = $paket->stock ?? null;
+                            @endphp
+
+                            @if (is_null($stock))
+                                <span class="badge badge-stock">Alpin Cell</span>
+                            @elseif ($stock === 0)
+                                <span class="badge badge-stock" style="background-color: red;">Stok: {{ $stock }}</span>
+                            @else
+                                <span class="badge badge-stock">Stok: {{ $stock }}</span>
+                            @endif
                         </p>
                         <p class="card-text">
                             <strong>Harga:</strong> Rp {{ number_format($paket->price, 0, ',', '.') }}
@@ -211,7 +219,8 @@
             // Cek apakah productName termasuk dalam daftar bank
             if (!bank.includes(productName)) {
                 money.style.display = "none";  // Sembunyikan form pembayaran
-                action.removeAttribute("required"); // Hapus required
+                action.removeAttribute("required");
+                
             } else {
                 money.style.display = "block"; // Tampilkan kembali jika sesuai
                 action.setAttribute("required", "required"); // Tambahkan kembali required

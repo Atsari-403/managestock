@@ -13,40 +13,43 @@
             <div class="card-counter bg-primary">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h3 class="mb-0">145</h3>
-                        <p class="text-white-50 mb-0">Total Pelanggan</p>
+                        <h3 class="mb-0">RP {{$netDigital}}</h3>
+                        <p class="text-white-50 mb-0">Transaksi QRIS Hari Ini</p>
                     </div>
-                    <i class="bi bi-people"></i>
+                    <i class="bi bi-phone"></i>
                 </div>
             </div>
         </div>
+        
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card-counter bg-success">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h3 class="mb-0">Rp 5.2M</h3>
-                        <p class="text-white-50 mb-0">Total Pendapatan</p>
+                        <h3 class="mb-0">RP {{$netCash}}</h3>
+                        <p class="text-white-50 mb-0">Transaksi Cash Hari Ini</p>
                     </div>
-                    <i class="bi bi-wallet2"></i>
+                    <i class="bi bi-cash"></i>
                 </div>
             </div>
         </div>
+        
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card-counter bg-info">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h3 class="mb-0">234</h3>
-                        <p class="text-white-50 mb-0">Transaksi Hari Ini</p>
+                        <h3 class="mb-0">Rp {{$totalPendapatanBersih}}</h3>
+                        <p class="text-white-50 mb-0">Pendapatan Hari Ini</p>
                     </div>
-                    <i class="bi bi-cart"></i>
+                    <i class="bi bi-currency-dollar"></i>
                 </div>
             </div>
         </div>
+        
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card-counter bg-warning">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h3 class="mb-0">15</h3>
+                        <h3 class="mb-0">{{$productTerjual}}</h3>
                         <p class="text-white-50 mb-0">Produk Terjual</p>
                     </div>
                     <i class="bi bi-box"></i>

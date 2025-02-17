@@ -21,10 +21,12 @@
                         <label for="user_id" class="form-label">Filter berdasarkan User</label>
                         <select name="user_id" id="user_id" class="form-select">
                             <option value="">Semua User</option>
-                            <option value="1">User 1</option>
-                            <option value="2">User 2</option>
-                            <option value="3">User 3</option>
-                        </select>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>                        
                     </div>
 
                     <!-- Filter Berdasarkan Paket -->
@@ -32,9 +34,11 @@
                         <label for="paket_id" class="form-label">Filter berdasarkan Paket</label>
                         <select name="paket_id" id="paket_id" class="form-select">
                             <option value="">Semua Paket</option>
-                            <option value="1">Paket Silver</option>
-                            <option value="2">Paket Gold</option>
-                            <option value="3">Paket Platinum</option>
+                            @foreach ($pakets as $paket)
+                                <option value="{{ $paket->id }}" {{ request('paket_id') == $paket->id ? 'selected' : '' }}>
+                                    {{ $paket->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -67,57 +71,38 @@
                             <th>Qty</th>
                             <th>Total Harga</th>
                             <th>Metode Pembayaran</th>
-                            <th>Status</th>
+                            <th>Action</th>
                             <th>Tanggal</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>User 1</td>
-                            <td>Paket Silver</td>
-                            <td>2</td>
-                            <td>Rp 50.000</td>
-                            <td>Transfer</td>
-                            <td><span class="badge bg-success">Selesai</span></td>
-                            <td>15 Feb 2025 10:30</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>User 2</td>
-                            <td>Paket Gold</td>
-                            <td>1</td>
-                            <td>Rp 75.000</td>
-                            <td>Cash</td>
-                            <td><span class="badge bg-warning">Menunggu</span></td>
-                            <td>14 Feb 2025 15:45</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>User 3</td>
-                            <td>Paket Platinum</td>
-                            <td>3</td>
-                            <td>Rp 120.000</td>
-                            <td>Transfer</td>
-                            <td><span class="badge bg-success">Selesai</span></td>
-                            <td>13 Feb 2025 08:15</td>
-                        </tr>
+                        @forelse ($orders as $order)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $order->user->name }}</td>
+                                <td>{{ $order->paket->name }}</td>
+                                <td>{{ $order->qty }}</td>
+                                <td>Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
+                                <td>{{ $order->payment_method ? 'Tunai' : 'Transfer' }}</td>
+                                <td>
+                                    {{ $order->action === null ? 'Bukan Transaksi' : ($order->action ? 'Tarik Tunai' : 'Transfer') }}
+                                </td>                                
+                                <td>{{ $order->created_at->format('d M Y H:i') }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center">Tidak ada riwayat order ditemukan</td>
+                            </tr>
+                        @endforelse
                     </tbody>
+                    
                 </table>
             </div>
 
             <!-- Pagination Dummy -->
             <div class="d-flex justify-content-center mt-3">
-                <nav>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
-            </div>
+                {{ $orders->appends(request()->input())->links('pagination::bootstrap-4') }}
+            </div>           
         </div>
     </div>
 </div>

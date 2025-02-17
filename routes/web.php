@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::get('order/index', [OrderController::class, 'index'])->name('indexorder');
     Route::get('order/category/{idProduct}', [OrderController::class, 'indexCategory'])->name('categoryorder');
     Route::get('order/packet/{idProduct}/{idCategory}', [OrderController::class, 'indexPacket'])->name('packetorder');
+    Route::post('/product/category/paket/order', [OrderController::class, 'store'])->name('Order');
+    
+
 });
 Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('indexuser');
@@ -51,7 +54,6 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
 
     // history
     Route::get('/product/category/paket/history-stock', [StockController::class, 'index'])->name('historyStock');
-    Route::post('/product/category/paket/order', [OrderController::class, 'store'])->name('Order');
     Route::get('/product/order-history', [OrderController::class, 'indexOrder'])->name('historyOrder');
 });
 Route::get('/register', function () {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategoryProduct;
 use App\Models\PacketCategory;
 use App\Models\Product;
+use App\Models\StockHistories;
 use Illuminate\Http\Request;
 
 class CategoryProductController extends Controller
@@ -83,8 +84,13 @@ class CategoryProductController extends Controller
      */
     public function destroy(string $id)
     {
+        $pakets = PacketCategory::where('category_product_id', $id)->get();
+        foreach ($pakets as $paket) {
+            StockHistories::where('paket_id', $paket->id)->delete();
+        }
         PacketCategory::where('category_product_id', $id)->delete();
         CategoryProduct::destroy($id);
+
         return redirect()->back()->with(['success' => 'Kategory berhasil dihapus!']);
     }
 }
