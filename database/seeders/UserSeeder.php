@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('staffstaff'), // Hash password dengan Bcrypt
                 'remember_token' => Str::random(10),
-                'role'=> 1,
+                'role'=> 0,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

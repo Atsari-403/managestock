@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -12,23 +13,32 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        // **Transaksi Biasa (Tanpa Tarik Tunai / Top-up)**
-        $totalCashIn = Order::where('payment_method', 1)
+        $totalCashIn = Order::where('payment_method', 1)->where('user_id',Auth::id())
+            ->where(function ($query) {
+                $query->whereNull('action')
+                    ->orWhere('action', 0);
+            })
             ->sum('total_harga');
 
-        $totalDigitalIn = Order::where('payment_method', 0)
+        $totalDigitalIn = Order::where('payment_method', 0)->where('user_id',Auth::id())
+            ->where(function ($query) {
+                $query->whereNull('action')
+                    ->orWhere('action', 1);
+            })
             ->sum('total_harga');
 
 
-      
+        $totalCashOut = Order::where('payment_method', 0)->where('user_id',Auth::id())
+            ->where('action', 1)
+            ->sum('total_harga');
 
-        // **Hitung Saldo Akhir**
-        $netCash = $totalCashIn ;
-        $netDigital = $totalDigitalIn;
+
+        $netCash = $totalCashIn - $totalCashOut;
+        $netDigital = $totalDigitalIn ;
         $totalPendapatanBersih = $netCash + $netDigital;
 
 
-        $productTerjual = Order::count();
+        $productTerjual = Order::where('user_id',Auth::id())->count();
 
         return view('dashboard.index', compact('productTerjual', 'netCash', 'netDigital', 'totalPendapatanBersih'));
     }
