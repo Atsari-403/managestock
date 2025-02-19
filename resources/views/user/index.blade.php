@@ -2,10 +2,16 @@
 
 @section('title', 'User List - Alpin Cell')
 
+@section('styles')
+<link href="{{ asset('css/user/index.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
     <x-dashboard-header title="Users"></x-dashboard-header>
+    
+    <!-- Alert Scripts -->
     @if(session()->has('error'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -13,11 +19,17 @@
                 title: "Gagal!",
                 text: "{{ session('error') }}",
                 icon: "error",
-                confirmButtonText: "OK"
+                confirmButtonText: "OK",
+                customClass: {
+                    confirmButton: 'btn btn-danger px-4',
+                    popup: 'animated fadeInDown faster rounded-lg'
+                },
+                buttonsStyling: false
             });
         });
     </script>
     @endif
+    
     @if(session()->has('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -25,82 +37,97 @@
                 title: "Berhasil!",
                 text: "{{ session('success') }}",
                 icon: "success",
-                confirmButtonText: "OK"
+                confirmButtonText: "OK",
+                customClass: {
+                    confirmButton: 'btn btn-success px-4',
+                    popup: 'animated fadeInDown faster rounded-lg'
+                },
+                buttonsStyling: false
             });
         });
     </script>
     @endif
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <!-- User Table -->
     <div class="row">
         <div class="col-12">
-            <div class="card border-0 shadow-lg rounded-3">
-                <div class="card-header bg-primary text-white py-3 rounded-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <form class="d-flex" method="GET" action="{{ route('indexuser') }}">
-                                <input type="text" name="search" class="form-control form-control-sm shadow-sm" placeholder="Search by name or email" value="{{ request()->get('search') }}" autofocus>
-                                <button type="submit" class="btn btn-light btn-sm ms-2 shadow-sm">
-                                    <i class="fas fa-search"></i>
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-gradient-primary text-white py-2 rounded-top-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="d-flex mb-2 mt-2">
+                            <form class="d-flex position-relative" method="GET" action="{{ route('indexuser') }}">
+                                <input type="text" name="search" class="form-control form-control-sm bg-light border-0 shadow-sm ps-3 pe-3 " 
+                                    placeholder="Search by name or email..." value="{{ request()->get('search') }}" autofocus>
+                                <button type="submit" class="btn shadow-sm position-absolute end-0 top-0 h-100 px-3 text-primary bg-transparent">
+                                    <i class="fas fa-search fa-lg"></i>
                                 </button>                                                               
                             </form>
                         </div>
 
-                        <!-- Per Page Dropdown -->
-                        <form method="GET" action="{{ route('indexuser') }}" class="ms-auto d-flex align-items-center">
-                            <div class="dropdown">
-                                <button class="btn btn-light btn-sm ms-2 shadow-sm dropdown-toggle" type="button" id="perPageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-file-alt"></i>
-                                </button>
-                                
-                                <ul class="dropdown-menu" aria-labelledby="perPageDropdown">
-                                    <li><button type="submit" name="perPage" value="5" class="dropdown-item {{ request()->get('perPage') == '5' ? 'active' : '' }}">5</button></li>
-                                    <li><button type="submit" name="perPage" value="10" class="dropdown-item {{ request()->get('perPage') == '10' ? 'active' : '' }}">10</button></li>
-                                    <li><button type="submit" name="perPage" value="15" class="dropdown-item {{ request()->get('perPage') == '15' ? 'active' : '' }}">15</button></li>
-                                    <li><button type="submit" name="perPage" value="20" class="dropdown-item {{ request()->get('perPage') == '20' ? 'active' : '' }}">20</button></li>
-                                </ul>
-                            </div>
-                        </form>
+                        <div class="d-flex align-items-center">
+                            <form method="GET" action="{{ route('indexuser') }}" class="ms-auto d-flex align-items-center">
+                                <div class="dropdown">
+                                    <button class="btn btn-light btn-sm shadow-sm dropdown-toggle d-flex align-items-center" 
+                                        type="button" id="perPageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-file-alt me-2"></i>
+                                        <span>{{ request()->get('perPage', 10) }} items</span>
+                                    </button>
+                                    
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-lg animated fadeInUp faster" aria-labelledby="perPageDropdown">
+                                        <li><h6 class="dropdown-header">Show entries</h6></li>
+                                        <li><button type="submit" name="perPage" value="5" class="dropdown-item {{ request()->get('perPage') == '5' ? 'active' : '' }}">5 items</button></li>
+                                        <li><button type="submit" name="perPage" value="10" class="dropdown-item {{ request()->get('perPage') == '10' || !request()->has('perPage') ? 'active' : '' }}">10 items</button></li>
+                                        <li><button type="submit" name="perPage" value="15" class="dropdown-item {{ request()->get('perPage') == '15' ? 'active' : '' }}">15 items</button></li>
+                                        <li><button type="submit" name="perPage" value="20" class="dropdown-item {{ request()->get('perPage') == '20' ? 'active' : '' }}">20 items</button></li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body p-4">
+                
+                <div class="card-body p-2">
                     <div class="table-responsive">
-                        <table class="table table-hover table-striped">
+                        <table class="table table-hover table-striped align-middle">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
+                                    <th class="py-2">Name</th>
+                                    <th class="py-2">Email</th>
+                                    <th class="py-2">Role</th>
+                                    <th class="text-center py-2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                    <tr class="shadow-sm rounded-3">
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>
+                                    <tr class="row-hover-effect">
+                                        <td class="py-2 fw-medium">{{ $user->name }}</td>
+                                        <td class="py-2 text-muted">{{ $user->email }}</td>
+                                        <td class="py-2">
                                             @if ($user->role == 1)
-                                                <span class="badge bg-success">Admin</span>
+                                                <span class="badge bg-gradient-success px-3 py-2 rounded-pill">Admin</span>
                                             @else
-                                                <span class="badge bg-secondary">User</span>
+                                                <span class="badge bg-gradient-secondary px-3 py-2 rounded-pill">User</span>
                                             @endif
                                         </td>
-                                        <td>
-                                            <a href="{{ route('showuser', $user->id) }}" class="btn btn-sm btn-outline-primary rounded-3 p-2">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="{{route('useredit',$user->id)}}" class="btn btn-sm btn-outline-warning rounded-3 p-2">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <form action="{{ route('userdestroy', ['id' => $user->id]) }}" method="post" class="d-inline" onsubmit="return confirm('Hapus user ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="userId" value="{{auth()->id()}}">
-                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-3 p-2">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
+                                        <td class="text-center py-2">
+                                            <div class="action-buttons d-inline-flex gap-2">
+                                                <a href="{{ route('showuser', $user->id) }}" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" title="View User">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="{{route('useredit',$user->id)}}" class="btn btn-outline-warning btn-sm" data-bs-toggle="tooltip" title="Edit User">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <form action="{{ route('userdestroy', ['id' => $user->id]) }}" method="post" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="userId" value="{{auth()->id()}}">
+                                                    <button type="button" class="btn btn-outline-danger btn-sm delete-confirm" data-bs-toggle="tooltip" title="Delete User">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -108,7 +135,7 @@
                         </table>
 
                         <!-- Pagination Links -->
-                        <div class="d-flex justify-content-center mt-3">
+                        <div class="d-flex justify-content-center mt-4">
                             {{ $users->appends(request()->input())->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
@@ -117,108 +144,42 @@
         </div>
     </div>
 </div>
-@endsection
 
-@section('styles')
-<style>
-    .card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-}
-
-.card-header h5 {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.table {
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.table thead {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-.table tbody tr {
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.table tbody tr:hover {
-    background-color: #e9f5ff;
-    transform: scale(1.02);
-}
-
-.btn-outline-primary,
-.btn-outline-warning,
-.btn-outline-danger {
-    border-radius: 50%;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    padding: 6px 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-}
-
-.btn-outline-primary:hover {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn-outline-warning:hover {
-    background-color: #ffc107;
-    color: white;
-}
-
-.btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: white;
-}
-
-.form-control-sm,
-.btn-sm {
-    border-radius: 25px;
-    transition: all 0.3s ease-in-out;
-}
-
-.form-control-sm:focus,
-.btn-sm:focus {
-    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.3);
-}
-
-.dropdown-menu {
-    border-radius: 8px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown-item {
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-item:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown-item.active {
-    background-color: #007bff;
-    color: white;
-}
-
-</style>
+<script>
+    // Initialize tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        
+        // Delete confirmation with SweetAlert2
+        const deleteButtons = document.querySelectorAll('.delete-confirm');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const form = this.closest('form');
+                Swal.fire({
+                    title: 'Hapus user ini?',
+                    text: "Tindakan ini tidak dapat dibatalkan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                        confirmButton: 'btn btn-danger me-2',
+                        cancelButton: 'btn btn-secondary',
+                        popup: 'animated fadeInDown faster rounded-lg'
+                    },
+                    buttonsStyling: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
 @endsection

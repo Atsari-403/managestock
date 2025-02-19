@@ -2,6 +2,10 @@
 
 @section('title', 'Add User - Alpin Cell')
 
+@section('styles')
+<link href="{{ asset('css/user/create.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
@@ -10,72 +14,82 @@
     <div class="row">
         <!-- Add User Form Section -->
         <div class="col-xl-8 col-lg-7">
-            <div class="card border-0 shadow-lg rounded-3">
-                <div class="card-header bg-primary text-white py-3 rounded-3">
-                    <h5 class="card-title mb-0">User Details</h5>
+            <div class="card border-0 shadow-sm rounded-4 animate-card">
+                <div class="card-header bg-gradient-primary text-white py-3 px-4">
+                    <h5 class="card-title mb-0 fw-bold"><i class="bi bi-person-plus me-2"></i>User Details</h5>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-3">
                     <form method="POST" action="{{route('createuser')}}">
                         @csrf
                         <div class="row">
                             <!-- Name -->
-                            <div class="col-md-6 mb-4">
-                                <label for="name" class="form-label">Name</label>
-                                <div class="input-group shadow-sm">
-                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Full Name" required>
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label fw-medium text-dark mb-2">Full Name</label>
+                                <div class="input-group input-group-sm input-rounded shadow-sm ">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-person-fill"></i></span>
+                                    <input type="text" class="form-control form-control-sm border-0 @error('name') is-invalid @enderror" 
+                                           id="name" name="name" value="{{ old('name') }}" placeholder="Enter full name" required>
                                 </div>
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger small mt-2"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
                                 @enderror
                             </div>
                             
                             <!-- Email -->
-                            <div class="col-md-6 mb-4">
-                                <label for="email" class="form-label">Email</label>
-                                <div class="input-group shadow-sm">
-                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="email@example.com" required>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label fw-medium text-dark mb-2">Email Address</label>
+                                <div class="input-group input-group-sm input-rounded shadow-sm">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-envelope-fill"></i></span>
+                                    <input type="email" class="form-control form-control-sm border-0 @error('email') is-invalid @enderror" 
+                                           id="email" name="email" value="{{ old('email') }}" placeholder="Enter email address" required>
                                 </div>
                                 @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger small mt-2"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
                                 @enderror
                             </div>
                             
                             <!-- Password -->
-                            <div class="col-md-6 mb-4">
-                                <label for="password" class="form-label">Password</label>
-                                <div class="input-group shadow-sm">
-                                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label fw-medium text-dark mb-2">Password</label>
+                                <div class="input-group input-group-sm input-rounded shadow-sm">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-lock-fill"></i></span>
+                                    <input type="password" class="form-control form-control-sm border-0 @error('password') is-invalid @enderror" 
+                                           id="password" name="password" placeholder="Create a password" required>
+                                    <button class="btn bg-light border-0" type="button" id="togglePassword">
+                                        <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                                    </button>
                                 </div>
                                 @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger small mt-2"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
                                 @enderror
+                                <div class="form-text mt-3" id="passwordHelp">
+                                    <i class="bi bi-info-circle me-1"></i> Password should be at least 8 characters long
+                                </div>
                             </div>
                             
                             <!-- Role -->
-                            <div class="col-md-6 mb-4">
-                                <label for="role" class="form-label">Role</label>
-                                <div class="input-group shadow-sm">
-                                    <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                                    <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
-                                        <option value="0" {{ old('role') == 0 ? 'selected' : '' }}>User</option>
-                                        <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>Admin</option>
+                            <div class="col-md-6 mb-3">
+                                <label for="role" class="form-label fw-medium text-dark mb-2">User Role</label>
+                                <div class="input-group input-group-sm input-rounded shadow-sm">
+                                    <span class="input-group-text bg-light border-0"><i class="bi bi-shield-lock-fill"></i></span>
+                                    <select class="form-select form-control-sm border-0 @error('role') is-invalid @enderror" id="role" name="role" required>
+                                        <option value="" disabled selected>Select user role</option>
+                                        <option value="0" {{ old('role') == 0 ? 'selected' : '' }}>Standard User</option>
+                                        <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>Administrator</option>
                                     </select>
                                 </div>
                                 @error('role')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger small mt-2"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end gap-3">
-                            <a href="{{ route('indexuser') }}" class="btn btn-outline-secondary">
-                                <i class="fas fa-times-circle me-2"></i>Cancel
+                        <div class="d-flex justify-content-end gap-3 mt-2">
+                            <a href="{{ route('indexuser') }}" class="btn btn-outline-secondary btn-sm btn-hover">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
                             </a>
-                            <button type="submit" class="btn btn-primary px-4">
-                                <i class="fas fa-user-plus me-2"></i>Add User
+                            <button type="submit" class="btn btn-primary btn-sm px-4 btn-hover">
+                                <i class="bi bi-person-plus-fill me-2"></i>Create User
                             </button>                            
                         </div>
                     </form>
@@ -83,98 +97,110 @@
             </div>
         </div>
 
-        <!-- Registered Emails Section (Initially Hidden on Mobile) -->
-        <div class="col-xl-4 col-lg-5">
-            <div class="card border-0 shadow-lg rounded-3" id="email-section">
-                <div class="card-header bg-primary text-white py-3 rounded-3">
-                    <h5 class="card-title mb-0">Registered Emails</h5>
+        <!-- Registered Emails Section -->
+        <div class="col-xl-4 col-lg-5 mt-4 mt-lg-0">
+            <div class="card border-0 shadow-xl rounded-4 overflow-hidden animate-card" id="email-section">
+                <div class="card-header bg-gradient-info text-white py-4 px-4">
+                    <h5 class="card-title mb-0 fw-bold"><i class="bi bi-envelope-paper me-2"></i>Registered Emails</h5>
                 </div>
-                <div class="card-body p-4" style="max-height: 300px; overflow-y: auto;">
-                    <ul class="list-group list-group-flush">
-                        @foreach ($registeredEmails as $email)
-                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                                <span class="text-muted">{{ $email->email }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
+                <div class="card-body p-0">
+                    <div class="email-list" style="max-height: 350px; overflow-y: auto;">
+                        <ul class="list-group list-group-flush">
+                            @foreach ($registeredEmails as $email)
+                                <li class="list-group-item border-0 py-3 px-4 list-hover">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-circle bg-light me-3">
+                                            <i class="bi bi-person text-primary"></i>
+                                        </div>
+                                        <span class="email-text">{{ $email->email }}</span>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="p-3 bg-light border-top">
+                        <span class="text-muted small">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Showing {{ count($registeredEmails) }} registered email{{ count($registeredEmails) != 1 ? 's' : '' }}
+                        </span>
+                    </div>
                 </div>
             </div>
         
-            <!-- Button to Toggle Visibility of Registered Emails Section -->
-            <button class="btn btn-outline-primary d-block d-md-none mt-3" id="toggleEmailsBtn">
-                <i class="fas fa-eye me-2"></i>View Registered Emails
+            <!-- Button to Toggle Visibility of Registered Emails Section on Mobile -->
+            <button class="btn btn-info text-white w-100 mt-3 d-block d-lg-none rounded-pill shadow-sm" id="toggleEmailsBtn">
+                <i class="bi bi-eye me-2"></i>View Registered Emails
             </button>
         </div>
-        
+    </div>
+</div>
+
+<!-- Toast Notification for Successful Form Submission -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="successToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <i class="bi bi-check-circle me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            User has been successfully created!
+        </div>
     </div>
 </div>
 @endsection
 
-@section('styles')
-<style>
-    .card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .input-group-text {
-        background-color: #f1f3f5;
-        border-color: #ced4da;
-    }
-
-    .form-control:focus {
-        box-shadow: none;
-        border-color: #0d6efd;
-    }
-
-    .btn-outline-secondary, .btn-outline-primary {
-        border-radius: 25px;
-        font-weight: 600;
-    }
-
-    .btn-outline-secondary:hover {
-        background-color: #f8f9fa;
-    }
-
-    .btn-outline-primary:hover {
-        background-color: #e7f1ff;
-    }
-
-    /* Styling the scrollable email section */
-    .card-body {
-        max-height: 300px; /* You can adjust this height based on your needs */
-        overflow-y: auto;
-    }
-
-    /* Hide email section on mobile */
-    #email-section {
-        display: block;
-    }
-
-    @media (max-width: 767px) {
-        #email-section {
-            display: none;
-        }
-    }
-</style>
-@endsection
-
 @section('scripts')
 <script>
-    document.getElementById('toggleEmailsBtn').addEventListener('click', function () {
-        var emailSection = document.getElementById('email-section');
-        if (emailSection.style.display === "none" || emailSection.style.display === "") {
-            emailSection.style.display = "block";
-            emailSection.classList.add('mt-3');
-            this.textContent = "Hide Registered Emails";
-        } else {
-            emailSection.style.display = "none";
-            emailSection.classList.remove('mt-3');  
-            this.textContent = "View Registered Emails";
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+        
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                toggleIcon.classList.toggle('bi-eye');
+                toggleIcon.classList.toggle('bi-eye-slash');
+            });
+        }
+        
+        // Toggle email section visibility on mobile
+        const toggleEmailsBtn = document.getElementById('toggleEmailsBtn');
+        const emailSection = document.getElementById('email-section');
+        
+        if (toggleEmailsBtn) {
+            toggleEmailsBtn.addEventListener('click', function() {
+                if (emailSection.style.display === 'none' || emailSection.style.display === '') {
+                    emailSection.style.display = 'block';
+                    emailSection.classList.add('fade-in');
+                    toggleEmailsBtn.innerHTML = '<i class="bi bi-eye-slash me-2"></i>Hide Registered Emails';
+                } else {
+                    emailSection.style.display = 'none';
+                    toggleEmailsBtn.innerHTML = '<i class="bi bi-eye me-2"></i>View Registered Emails';
+                }
+            });
+        }
+        
+        // Form validation and toast notification
+        const form = document.querySelector('form');
+        
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                // Form validation code would go here if needed
+                
+                // For demonstration, we'll show a toast on form submission in a real app
+                // You might want to trigger this only after successful submission
+                /*
+                const successToast = document.getElementById('successToast');
+                if (successToast) {
+                    const toast = new bootstrap.Toast(successToast);
+                    toast.show();
+                }
+                */
+            });
         }
     });
 </script>

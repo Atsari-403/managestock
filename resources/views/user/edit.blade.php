@@ -2,6 +2,10 @@
 
 @section('title', 'Edit User - Alpin Cell')
 
+@section('styles')
+<link href="{{ asset('css/user/edit.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
@@ -10,8 +14,8 @@
     <div class="row">
         <!-- Edit User Form Section -->
         <div class="col-xl-8 col-lg-7">
-            <div class="card border-0 shadow-lg rounded-3">
-                <div class="card-header bg-primary text-white py-3 rounded-3">
+            <div class="card border-0 shadow-lg rounded-3 animate-card">
+                <div class="card-header bg-gradient-primary text-white py-2 rounded-3">
                     <h5 class="card-title mb-0">Edit User</h5>
                 </div>
                 <div class="card-body p-4">
@@ -23,7 +27,7 @@
                             <!-- Name -->
                             <div class="col-md-6 mb-4">
                                 <label for="name" class="form-label">Name</label>
-                                <div class="input-group shadow-sm">
+                                <div class="input-group input-rounded shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}" placeholder="Full Name" required>
                                 </div>
@@ -35,7 +39,7 @@
                             <!-- Email -->
                             <div class="col-md-6 mb-4">
                                 <label for="email" class="form-label">Email</label>
-                                <div class="input-group shadow-sm">
+                                <div class="input-group input-rounded shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}" placeholder="email@example.com" required>
                                 </div>
@@ -47,7 +51,7 @@
                             <!-- Role -->
                             <div class="col-md-6 mb-4">
                                 <label for="role" class="form-label">Role</label>
-                                <div class="input-group shadow-sm">
+                                <div class="input-group input-rounded shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                                     <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
                                         <option value="0" {{ old('role', $user->role) == 0 ? 'selected' : '' }}>User</option>
@@ -61,10 +65,10 @@
                         </div>
 
                         <div class="d-flex justify-content-end gap-3">
-                            <a href="{{ route('indexuser') }}" class="btn btn-outline-secondary">
+                            <a href="{{ route('indexuser') }}" class="btn btn-outline-secondary btn-hover">
                                 <i class="fas fa-times-circle me-2"></i>Cancel
                             </a>
-                            <button type="submit" class="btn btn-primary px-4">
+                            <button type="submit" class="btn btn-primary px-4 btn-hover">
                                 <i class="fas fa-save me-2"></i>Update User
                             </button>                            
                         </div>
@@ -75,14 +79,14 @@
 
         <!-- Registered Emails Section -->
         <div class="col-xl-4 col-lg-5">
-            <div class="card border-0 shadow-lg rounded-3" id="email-section">
-                <div class="card-header bg-primary text-white py-3 rounded-3">
+            <div class="card border-0 shadow-lg rounded-3 animate-card" id="email-section">
+                <div class="card-header bg-gradient-info text-white py-2 rounded-3">
                     <h5 class="card-title mb-0">Registered Emails</h5>
                 </div>
-                <div class="card-body p-4" style="max-height: 300px; overflow-y: auto;">
+                <div class="card-body p-4 email-list" style="max-height: 300px; overflow-y: auto;">
                     <ul class="list-group list-group-flush">
                         @foreach ($registeredEmails as $email)
-                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center py-3 list-hover">
                                 <span class="text-muted">{{ $email->email }}</span>
                             </li>
                         @endforeach
@@ -90,59 +94,12 @@
                 </div>
             </div>
 
-            <button class="btn btn-outline-primary d-block d-md-none mt-3" id="toggleEmailsBtn">
+            <button class="btn btn-outline-primary d-block d-md-none mt-3 btn-hover" id="toggleEmailsBtn">
                 <i class="fas fa-eye me-2"></i>View Registered Emails
             </button>
         </div>
     </div>
 </div>
-@endsection
-
-@section('styles')
-<style>
-    .card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .input-group-text {
-        background-color: #f1f3f5;
-        border-color: #ced4da;
-    }
-
-    .form-control:focus {
-        box-shadow: none;
-        border-color: #0d6efd;
-    }
-
-    .btn-outline-secondary, .btn-outline-primary {
-        border-radius: 25px;
-        font-weight: 600;
-    }
-
-    .btn-outline-secondary:hover {
-        background-color: #f8f9fa;
-    }
-
-    .btn-outline-primary:hover {
-        background-color: #e7f1ff;
-    }
-
-    /* Hide email section on mobile */
-    #email-section {
-        display: block;
-    }
-
-    @media (max-width: 767px) {
-        #email-section {
-            display: none;
-        }
-    }
-</style>
 @endsection
 
 @section('scripts')
@@ -161,3 +118,4 @@
     });
 </script>
 @endsection
+

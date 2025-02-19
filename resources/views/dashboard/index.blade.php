@@ -2,57 +2,92 @@
 
 @section('title', 'Dashboard - Alpin Cell')
 
-@section('content')
-<div class="container-fluid">
-    <!-- Header -->
-    <x-dashboard-header title="Dashboard"></x-dashboard-header>
+@section('styles')
+<link href="{{ asset('css/dashboard/index.css') }}" rel="stylesheet">
+@endsection
 
-    <!-- Statistics Cards -->
+@section('content')
+<div class="container-fluid mt-3">
+    <!-- Header with animated border -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-light border-0 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-0 d-flex align-items-center">
+                        <i class="bi bi-graph-up me-2 text-primary"></i>
+                        Dashboard
+                    </h3>
+                    <p class="text-muted mt-2 mb-0">aktivitas dan transaksi terkini</p>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards with equal height -->
     <div class="row mb-4">
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card-counter bg-primary">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="mb-0">RP {{$netDigital}}</h3>
-                        <p class="text-white-50 mb-0">Transaksi QRIS Hari Ini</p>
+            <div class="stats-card bg-primary text-white">
+                <div class="stats-card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0 fw-bold">RP {{$netDigital}}</h3>
+                            <p class="text-white-70 mb-0">Transaksi QRIS Hari Ini</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-phone"></i>
+                        </div>
                     </div>
-                    <i class="bi bi-phone"></i>
                 </div>
             </div>
         </div>
         
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card-counter bg-success">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="mb-0">RP {{$netCash}}</h3>
-                        <p class="text-white-50 mb-0">Transaksi Cash Hari Ini</p>
+            <div class="stats-card bg-success text-white">
+                <div class="stats-card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0 fw-bold">RP {{$netCash}}</h3>
+                            <p class="text-white-70 mb-0">Transaksi Cash Hari Ini</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-cash"></i>
+                        </div>
                     </div>
-                    <i class="bi bi-cash"></i>
                 </div>
             </div>
         </div>
         
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card-counter bg-info">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="mb-0">Rp {{$totalPendapatanBersih}}</h3>
-                        <p class="text-white-50 mb-0">Pendapatan Hari Ini</p>
+            <div class="stats-card bg-info text-white">
+                <div class="stats-card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0 fw-bold">Rp {{$totalPendapatanBersih}}</h3>
+                            <p class="text-white-70 mb-0">Pendapatan Hari Ini</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
                     </div>
-                    <i class="bi bi-currency-dollar"></i>
                 </div>
             </div>
         </div>
         
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card-counter bg-warning">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="mb-0">{{$productTerjual}}</h3>
-                        <p class="text-white-50 mb-0">Produk Terjual</p>
+            <div class="stats-card bg-warning text-white">
+                <div class="stats-card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0 fw-bold">{{$productTerjual}}</h3>
+                            <p class="text-white-70 mb-0">Produk Terjual</p>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-box"></i>
+                        </div>
                     </div>
-                    <i class="bi bi-box"></i>
                 </div>
             </div>
         </div>
@@ -60,106 +95,123 @@
 
     <!-- Main Content -->
     <div class="row">
-        <!-- Recent Transactions -->
-        <div class="card border-0 shadow-sm">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">Transaksi Terbaru</h5>
-                        <button class="btn btn-primary btn-sm">Lihat Semua</button>
-                    </div>
+        <div class="col-12">
+            <!-- Recent Transactions -->
+            <div class="card data-card mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0 d-flex align-items-center">
+                        <i class="bi bi-receipt text-primary me-2"></i>
+                        Transaksi Terbaru
+                    </h5>
+                    <a href="#" class="btn btn-primary btn-sm">
+                        <i class="bi bi-eye me-1"></i> Lihat Semua
+                    </a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-borderless table-hover custom-table align-middle">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Pelanggan</th>
-                                    <th>Produk</th>
-                                    <th>Tanggal</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th scope="col">Produk</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>#1234</td>
-                                    <td>John Doe</td>
-                                    <td>Pulsa 50k</td>
-                                    <td>2024-02-02</td>
-                                    <td>Rp 52.000</td>
-                                    <td><span class="badge bg-success">Success</span></td>
                                     <td>
-                                        <button class="btn btn-sm btn-light"><i class="bi bi-eye"></i></button>
-                                        <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
+                                        <div class="d-flex align-items-center">
+                                            <span>Pulsa 50k</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-calendar-check me-2 text-muted"></i>
+                                            2024-02-02
+                                        </div>
+                                    </td>
+                                    <td><strong>Rp 52.000</strong></td>
+                                    <td>
+                                        <span class="badge bg-success badge-status">
+                                            <i class="bi bi-check-circle me-1"></i> Success
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm action-btn">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm action-btn">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>#1235</td>
-                                    <td>Jane Smith</td>
-                                    <td>Top Up PUBG</td>
-                                    <td>2024-02-02</td>
-                                    <td>Rp 100.000</td>
-                                    <td><span class="badge bg-warning">Pending</span></td>
                                     <td>
-                                        <button class="btn btn-sm btn-light"><i class="bi bi-eye"></i></button>
-                                        <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
+                                        <div class="d-flex align-items-center">
+                                            <span>Top Up PUBG</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-calendar-check me-2 text-muted"></i>
+                                            2024-02-02
+                                        </div>
+                                    </td>
+                                    <td><strong>Rp 100.000</strong></td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark badge-status">
+                                            <i class="bi bi-hourglass-split me-1"></i> Pending
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm action-btn">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm action-btn">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>#1236</td>
-                                    <td>Bob Johnson</td>
-                                    <td>Aksesoris HP</td>
-                                    <td>2024-02-02</td>
-                                    <td>Rp 75.000</td>
-                                    <td><span class="badge bg-success">Success</span></td>
                                     <td>
-                                        <button class="btn btn-sm btn-light"><i class="bi bi-eye"></i></button>
-                                        <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
+                                        <div class="d-flex align-items-center">
+                                            <span>Aksesoris HP</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-calendar-check me-2 text-muted"></i>
+                                            2024-02-02
+                                        </div>
+                                    </td>
+                                    <td><strong>Rp 75.000</strong></td>
+                                    <td>
+                                        <span class="badge bg-success badge-status">
+                                            <i class="bi bi-check-circle me-1"></i> Success
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm action-btn">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm action-btn">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-
-            <!-- Recent Activities -->
-            <div class="card border-0 shadow-sm mt-3">
-                <div class="card-header bg-white py-3">
-                    <h5 class="card-title mb-0">Aktivitas Terbaru</h5>
-                </div>
-                <div class="card-body">
-                    <div class="activity-list">
-                        <div class="activity-item d-flex align-items-start mb-3">
-                            <div class="activity-icon bg-primary text-white rounded-circle p-2 me-3">
-                                <i class="bi bi-person"></i>
-                            </div>
-                            <div>
-                                <p class="mb-0 fw-medium">John Doe menambahkan transaksi baru</p>
-                                <small class="text-muted">2 menit yang lalu</small>
-                            </div>
+                <div class="card-footer bg-white text-muted small py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-info-circle me-1"></i> Menampilkan 3 transaksi terbaru
                         </div>
-                        <div class="activity-item d-flex align-items-start mb-3">
-                            <div class="activity-icon bg-success text-white rounded-circle p-2 me-3">
-                                <i class="bi bi-check"></i>
-                            </div>
-                            <div>
-                                <p class="mb-0 fw-medium">Pembayaran berhasil dikonfirmasi</p>
-                                <small class="text-muted">5 menit yang lalu</small>
-                            </div>
-                        </div>
-                        <div class="activity-item d-flex align-items-start">
-                            <div class="activity-icon bg-warning text-white rounded-circle p-2 me-3">
-                                <i class="bi bi-box"></i>
-                            </div>
-                            <div>
-                                <p class="mb-0 fw-medium">Stok produk telah diperbarui</p>
-                                <small class="text-muted">10 menit yang lalu</small>
-                            </div>
+                        <div>
+                            Last updated: {{ now()->format('d M Y H:i') }}
                         </div>
                     </div>
                 </div>
@@ -167,34 +219,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('styles')
-<style>
-    .activity-icon {
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .card {
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .btn-light {
-        background-color: #f8f9fa;
-        border-color: #f8f9fa;
-    }
-
-    .btn-light:hover {
-        background-color: #e9ecef;
-        border-color: #e9ecef;
-    }
-</style>
 @endsection

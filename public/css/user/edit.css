@@ -1,0 +1,161 @@
+/* Card animations and styling */
+    .animate-card {
+        transition: transform 0.4s ease-in-out, box-shadow 0.3s ease;
+        will-change: transform;
+    }
+
+    .animate-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Background gradients */
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #4e73df, #224abe);
+    }
+    
+    .bg-gradient-info {
+        background: linear-gradient(135deg, #36b9cc, #258391);
+    }
+
+    /* Input styling */
+    .input-rounded .form-control,
+    .input-rounded .input-group-text,
+    .input-rounded .form-select,
+    .input-rounded button {
+        border-radius: 0;
+    }
+    
+    .input-rounded {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .form-control:focus,
+    .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+        border-color: #4e73df !important;
+    }
+    
+    .input-group-text {
+        color: #6e707e;
+    }
+
+    /* Button styling */
+    .btn-hover {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .btn-hover:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+    }
+    
+    .btn-hover:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        z-index: -1;
+    }
+    
+    .btn-hover:hover {
+        transform: translateY(-3px);
+    }
+    
+    .btn-hover:hover:before {
+        width: 100%;
+    }
+    
+    .btn-primary {
+        background-color: #4e73df;
+        border-color: #4e73df;
+    }
+    
+    .btn-outline-secondary {
+        color: #6e707e;
+        border-color: #d1d3e2;
+    }
+    
+    .btn-outline-secondary:hover {
+        color: #5a5c69;
+        background-color: #f8f9fc;
+        border-color: #d1d3e2;
+    }
+    
+    .btn-info {
+        background-color: #36b9cc;
+        border-color: #36b9cc;
+    }
+
+    /* Email list styling */
+    .email-list {
+        scrollbar-width: thin;
+        scrollbar-color: #e9ecef transparent;
+    }
+    
+    .email-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .email-list::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .email-list::-webkit-scrollbar-thumb {
+        background-color: #e9ecef;
+        border-radius: 10px;
+    }
+    
+    .list-hover {
+        transition: all 0.2s ease;
+    }
+    
+    .list-hover:hover {
+        background-color: #f8f9fc;
+        transform: translateX(5px);
+    }
+    
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fc;
+    }
+    
+    .email-text {
+        color: #5a5c69;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 220px;
+    }
+
+    /* Responsive hiding of email section */
+    @media (max-width: 991px) {
+        #email-section {
+            display: none;
+        }
+    }
+    
+    /* Toast notification */
+    .toast {
+        border-radius: 12px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
