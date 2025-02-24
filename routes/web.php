@@ -9,6 +9,7 @@ use App\Http\Controllers\PacketCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,8 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
 
 
     Route::get('product/create', [ProductController::class, 'create'])->name('createproduct');
-    Route::get('product', [ProductController::class, 'index'])->name('productindex');
+    Route::get('product/{store_id}', [ProductController::class, 'index'])->name('productindex');
+    
     route::get('product/category/index/{idProduct}', [CategoryProductController::class, 'index'])->name('indexcategoryproduct');
     Route::get('product/category/create/{idProduct}', [CategoryProductController::class, 'create'])->name('categoryproductcreate');
     Route::post('product/category/create/{idProduct}', [CategoryProductController::class, 'store'])->name('categoryproductstore');
@@ -55,6 +57,12 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
     // history
     Route::get('/product/category/paket/history-stock', [StockController::class, 'index'])->name('historyStock');
     Route::get('/product/order-history', [OrderController::class, 'indexOrder'])->name('historyOrder');
+
+
+    //store route
+    Route::get('/store/create',[StoreController::class,'create'])->name('storeCreate');
+    Route::post('/store/create',[StoreController::class,'store'])->name('storeStore');
+    Route::delete('/store/destroy/{id}',[StoreController::class,'destroy'])->name('storeDestroy');
 });
 Route::get('/register', function () {
     return view('auth.register');

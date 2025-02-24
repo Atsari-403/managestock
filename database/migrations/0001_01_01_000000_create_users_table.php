@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('stores', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('name');
+            $table->string('address');
+            $table->timestamps();
+        });
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('store_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -22,6 +29,7 @@ return new class extends Migration
             $table->string('picture')->nullable()->default('https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1738810304~exp=1738813904~hmac=36ba34024a046ef13e67ad809abfc3e6db1db8b10b018403ecafd9dee223b6f1&w=740');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

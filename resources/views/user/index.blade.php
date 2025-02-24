@@ -59,7 +59,7 @@
                         <div class="d-flex mb-2 mt-2">
                             <form class="d-flex position-relative" method="GET" action="{{ route('indexuser') }}">
                                 <input type="text" name="search" class="form-control form-control-sm bg-light border-0 shadow-sm ps-3 pe-3 " 
-                                    placeholder="Search by name or email..." value="{{ request()->get('search') }}" autofocus>
+                                    placeholder="Search..." value="{{ request()->get('search') }}" autofocus>
                                 <button type="submit" class="btn shadow-sm position-absolute end-0 top-0 h-100 px-3 text-primary bg-transparent">
                                     <i class="fas fa-search fa-lg"></i>
                                 </button>                                                               

@@ -62,6 +62,24 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <!-- Store Selection -->
+                            <div class="col-md-6 mb-4">
+                                <label for="store_id" class="form-label fw-medium text-dark mb-2">Select Store</label>
+                                <div class="input-group input-rounded shadow-sm">
+                                    <span class="input-group-text"><i class="bi bi-shop"></i></span>
+                                    <select class="form-select form-control-sm border-0 @error('store_id') is-invalid @enderror" id="store_id" name="store_id" required>
+                                        <option value="" disabled selected>Select a store</option>
+                                        @foreach ($stores as $store)
+                                            <option value="{{ $store->id }}" {{ old('store_id') == $store->id ? 'selected' : '' }}>
+                                                {{ $store->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('store_id')
+                                    <div class="text-danger small mt-2"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-end gap-3">

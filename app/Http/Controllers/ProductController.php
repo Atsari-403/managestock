@@ -10,9 +10,11 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($store_id)
+
     {
-        $products = Product::all(); // Menampilkan 6 produk per halaman
+        // dd($store_id);
+        $products = Product::where('store_id',$store_id)->get();
         return view('order.product.index', compact('products'));
     }
 
@@ -21,7 +23,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        
+        return view('product.create', compact('products'));
     }
 
     /**

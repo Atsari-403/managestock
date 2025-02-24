@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,6 +14,7 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
+        
         $totalCashIn = Order::where('payment_method', 1)->where('user_id',Auth::id())
             ->where(function ($query) {
                 $query->whereNull('action')

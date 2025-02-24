@@ -46,9 +46,9 @@
         </div>
 
          <!-- Product CRUD Section -->
-        <a class="nav-link {{ Request::routeIs('productindex') ? 'active' : '' }}" href="{{ route('productindex') }}">
-            <i class="bi bi-bag-plus"></i>
-            <span>Create Product</span>
+        <a class="nav-link {{ Request::routeIs('storeCreate') ? 'active' : '' }}" href="{{ route('storeCreate') }}">
+            <i class="bi bi-shop"></i>
+            <span>Manage Store</span>
         </a>
 
         <!-- History Section (Dropdown) -->

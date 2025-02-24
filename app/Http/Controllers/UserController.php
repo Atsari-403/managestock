@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $stores = Store::all();
+        dd($stores);
         return view('user.create');
     }
 
@@ -41,6 +44,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'store_id' => 'required|exists:stores,id',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
@@ -81,8 +85,9 @@ class UserController extends Controller
         }
 
         $registeredEmails = User::all();
+        $stores = Store::all();
 
-        return view('user.edit', compact('user','registeredEmails'));
+        return view('user.edit', compact('user', 'registeredEmails','stores'));
     }
 
     /**
@@ -93,13 +98,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $validatedData = $request->validate([
+            'store_id'=>'required|exists:stores,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'role' => 'required|in:0,1',
         ]);
-    
+
         $user->update($validatedData);
-    
+
         return redirect()->route('indexuser')->with('success', 'User berhasil diperbarui.');
     }
 
@@ -118,7 +124,8 @@ class UserController extends Controller
 
     public function email()
     {
+        $stores = Store::all();
         $registeredEmails = User::all(); // Ambil semua email pengguna
-        return view('user.create', compact('registeredEmails'));
+        return view('user.create', compact('registeredEmails','stores'));
     }
 }
