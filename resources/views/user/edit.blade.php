@@ -4,6 +4,24 @@
 
 @section('styles')
 <link href="{{ asset('css/user/edit.css') }}" rel="stylesheet">
+<style>
+    #store_id {
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+#store_id:focus {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+</style>
 @endsection
 
 @section('content')

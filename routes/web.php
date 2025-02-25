@@ -37,9 +37,6 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::post('users/edit/{id}', [UserController::class, 'update'])->name('userupdate');
     Route::delete('users/delete/{id}', [UserController::class, 'destroy'])->name('userdestroy');
 
-
-    Route::get('product/create', [ProductController::class, 'create'])->name('createproduct');
-    Route::get('product/{store_id}', [ProductController::class, 'index'])->name('productindex');
     
     route::get('product/category/index/{idProduct}', [CategoryProductController::class, 'index'])->name('indexcategoryproduct');
     Route::get('product/category/create/{idProduct}', [CategoryProductController::class, 'create'])->name('categoryproductcreate');
@@ -56,7 +53,11 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
 
     // history
     Route::get('/product/category/paket/history-stock', [StockController::class, 'index'])->name('historyStock');
-    Route::get('/product/order-history', [OrderController::class, 'indexOrder'])->name('historyOrder');
+    Route::get('product/order-history', [OrderController::class, 'indexOrder'])->name('historyOrder');
+    // Route::get('matahari/test',[OrderController::class,'indexOrder'])->name('test');
+    
+        Route::get('product/create', [ProductController::class, 'create'])->name('createproduct');
+        Route::get('product/{store_id}', [ProductController::class, 'index'])->name('productindex');
 
 
     //store route
