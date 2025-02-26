@@ -76,13 +76,19 @@
         </div>
         @endif
       
-        
+        @if (auth()->check()&&auth()->user()->role == 1)    
+                <a class="nav-link {{ Request::routeIs('indexStore') ? 'active' : '' }}" href="{{ route('indexStore') }}">
+                        <i class="bi bi-boxes"></i>
+                        <span>Orders</span>
+                </a>
+        @else    
+                <!-- Orders CRUD Section -->
+                <a class="nav-link {{ Request::routeIs('indexorder') ? 'active' : '' }}" href="{{ route('indexorder') }}">
+                        <i class="bi bi-boxes"></i>
+                        <span>Orders</span>
+                </a>
+        @endif
       
-        <!-- Orders CRUD Section -->
-        <a class="nav-link {{ Request::routeIs('indexorder') ? 'active' : '' }}" href="{{ route('indexorder') }}">
-                <i class="bi bi-boxes"></i>
-                <span>Orders</span>
-        </a>
 
         <a class="nav-link {{ Request::routeIs('absenteeism.absenteeism') ? 'active' : '' }}" href="{{ route('absenteeism.absenteeism') }}">
             <i class="bi bi-clock"></i><span>Absensi</span>

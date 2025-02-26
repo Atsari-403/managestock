@@ -9,7 +9,7 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Create Product">
+    <x-dashboard-header title="Konter {{$store->name}}">
         
     </x-dashboard-header>
     @if(session()->has('success'))

@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\PacketCategory;
 use App\Models\Product;
 use App\Models\StockHistories;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,9 +17,20 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function indexStore()
     {
-        $products = Product::all(); // Menampilkan 6 produk per halaman
+        $stores = Store::all();
+        return view('order.store', compact('stores'));
+    }
+    public function indexProduct()
+    {
+        $store_id = Auth::user()->store_id;
+        $products = Product::where('store_id', $store_id)->get(); // Menampilkan 6 produk per halaman
+        return view('order.index', compact('products'));
+    }
+    public function indexProductAdmin($store_id){
+        $products = Product::where('store_id', $store_id)->get();
         return view('order.index', compact('products'));
     }
 

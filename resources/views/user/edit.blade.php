@@ -86,7 +86,7 @@
                                 <div class="input-group input-rounded shadow-sm">
                                     <span class="input-group-text"><i class="bi bi-shop"></i></span>
                                     <select class="form-select form-control-sm border-0 @error('store_id') is-invalid @enderror" id="store_id" name="store_id" required>
-                                        <option value="" disabled selected>Select a store</option>
+                                        <option value="" disabled>Select a store</option>
                                         @foreach ($stores as $store)
                                             <option value="{{ $store->id }}" {{ old('store_id') == $store->id ? 'selected' : '' }}>
                                                 {{ $store->name }}

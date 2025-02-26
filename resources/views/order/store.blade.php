@@ -154,9 +154,6 @@
                         </h3>
                         <p class="text-muted mt-2 mb-0">Kelola toko Anda dengan mudah</p>
                     </div>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStoreModal">
-                        <i class="bi bi-plus-lg me-2"></i> Tambah Store
-                    </button>
                 </div>
                 <div class="progress">
                     <div class="progress-bar bg-primary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -184,18 +181,8 @@
             {{-- {{ dd(route('productindex', ['store_id' => $store->id])) }} --}}
 
         
-                <div class="store-card position-relative" onclick="window.location.href='{{ route('productindex', ['store_id' => $store->id]) }}';" 
+                <div class="store-card position-relative" onclick="window.location.href='{{ route('indexorderAdmin', ['store_id' => $store->id]) }}';" 
                     style="cursor: pointer;">
-                    <!-- Tombol Edit & Delete -->
-                    <div class="position-absolute top-0 end-0 p-2">
-                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <button type="button" class="btn btn-outline-danger btn-sm" 
-                            onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ $store->id }}">
-                            <i class="bi bi-trash"></i>
-                        </button>                         
-                    </div>
     
                     <!-- Ikon Toko -->
                     <div class="icon-container">
@@ -205,29 +192,6 @@
                     <!-- Nama Toko -->
                     <h5 class="store-title fw-bold">{{ $store->name }}</h5>
                 </div>
-                {{-- destroy --}}
-                <div class="modal fade" id="confirmDeleteModal{{ $store->id }}" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus Store</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Apakah Anda yakin ingin menghapus store <strong>{{ $store->name }}</strong>?  
-                                Tindakan ini tidak bisa dibatalkan.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <form action="{{ route('storeDestroy', ['id' => $store->id]) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         @empty
         <div class="col-12 text-center">
@@ -235,38 +199,9 @@
                 <i class="bi bi-shop text-primary" style="font-size: 4rem;"></i>
                 <h4 class="text-muted mt-3">Belum ada store yang tersedia</h4>
                 <p class="text-muted">Tambahkan store pertama Anda untuk mulai mengelola produk.</p>
-                <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addStoreModal">
-                    <i class="bi bi-plus-lg me-2"></i> Tambah Store
-                </button>
             </div>
         </div>
         @endforelse
-    </div>
-    
-    <!-- Modal Tambah Store -->
-    <div class="modal fade" id="addStoreModal" tabindex="-1" aria-labelledby="addStoreModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addStoreModalLabel">Tambah Store</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('storeStore')}}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Store</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection

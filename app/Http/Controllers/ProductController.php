@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,8 +15,9 @@ class ProductController extends Controller
 
     {
         // dd($store_id);
-        $products = Product::where('store_id',$store_id)->get();
-        return view('order.product.index', compact('products'));
+        $store = Store::where('id', $store_id)->first();
+        $products = Product::where('store_id', $store_id)->get();
+        return view('order.product.index', compact('products', 'store'));
     }
 
     /**
@@ -23,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        
+
         return view('product.create', compact('products'));
     }
 

@@ -65,7 +65,7 @@ class StoreController extends Controller
         }
 
         // return redirect()->back()->with(['success' => 'Stock berhasil Ditambah!']);
-        return response()->json(['message' => 'Store dan produk berhasil dibuat!']);
+        return redirect()->back()->with('success', 'Store berhasil dibuat!');
     }
 
     /**
@@ -100,8 +100,6 @@ class StoreController extends Controller
         $store = Store::findOrFail($id);
         $store->delete();
 
-        return response()->json([
-            "message" => "success deleted store"
-        ], 200);
+        return redirect()->back()->with('success', 'Store berhasil dihapus!');
     }
 }
