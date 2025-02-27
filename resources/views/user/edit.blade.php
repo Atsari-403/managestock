@@ -27,7 +27,11 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Edit User"></x-dashboard-header>
+    <x-dashboard-header
+       title="Edit User"
+       description="Ubah informasi pengguna"
+       icon="bi bi-person-circle">
+    </x-dashboard-header>
 
     <div class="row">
         <!-- Edit User Form Section -->

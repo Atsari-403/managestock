@@ -9,7 +9,11 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Orders"></x-dashboard-header>
+    <x-dashboard-header
+        title="Orders"
+        description="produk pelanggan "
+        icon="cart">
+    </x-dashboard-header>
 
     <!-- Product Types Menu -->
     <div class="row g-4">

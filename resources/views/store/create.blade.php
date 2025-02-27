@@ -141,8 +141,8 @@
 @endsection
 
 @section('content')
+<!-- header -->
 <div class="container-fluid mt-3">
-    <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card bg-light border-0 shadow-sm">
@@ -154,7 +154,7 @@
                         </h3>
                         <p class="text-muted mt-2 mb-0">Kelola toko Anda dengan mudah</p>
                     </div>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStoreModal">
+                    <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#addStoreModal">
                         <i class="bi bi-plus-lg me-2"></i> Tambah Store
                     </button>
                 </div>
@@ -207,7 +207,7 @@
                 </div>
                 {{-- destroy --}}
                 <div class="modal fade" id="confirmDeleteModal{{ $store->id }}" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog-centered modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus Store</h5>
@@ -245,7 +245,7 @@
     
     <!-- Modal Tambah Store -->
     <div class="modal fade" id="addStoreModal" tabindex="-1" aria-labelledby="addStoreModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addStoreModalLabel">Tambah Store</h5>

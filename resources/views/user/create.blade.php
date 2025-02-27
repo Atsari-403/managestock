@@ -9,7 +9,12 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Add User"></x-dashboard-header>
+    <x-dashboard-header
+        title="Add user"
+        subtitle="Create a new user"
+        description="Isi form di bawah ini untuk membuat pengguna baru."
+        icon="person-plus">
+    </x-dashboard-header>
 
     <div class="row">
         <!-- Add User Form Section -->

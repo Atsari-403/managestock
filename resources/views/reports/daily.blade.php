@@ -5,7 +5,11 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header  title="Report"></x-dashboard-header>
+    <x-dashboard-header
+       title="Daily Report"
+       description="laporan transaksi harian"
+       icon="bi bi-graph-up">
+    </x-dashboard-header>
 
     <!-- Filter Section -->
     <div class="row mb-4">

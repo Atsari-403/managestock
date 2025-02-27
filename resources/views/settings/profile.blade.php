@@ -17,7 +17,11 @@
         </div>
     </div>
 @endif
-    <x-dashboard-header title="Setting Profile"></x-dashboard-header>
+    <x-dashboard-header
+       title="User Profile"
+       description="Ubah password dan informasi profil"
+       icon="bi bi-person-circle">
+    </x-dashboard-header>
 
     <div class="row justify-content-center">
         <div class="col-lg-8">

@@ -9,7 +9,10 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Create Product"></x-dashboard-header>
+    <x-dashboard-header
+       title="Create product"
+       icon="bi bi-box">
+    </x-dashboard-header>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card form-card">

@@ -5,7 +5,12 @@
 
 @section('content')
 <div class="container-fluid mt-4">
-    <x-dashboard-header title="Attendance"></x-dashboard-header>
+    <!-- Header -->
+    <x-dashboard-header
+       title="Attendance"
+       description="Absensi kehadiran karyawan"
+       icon="bi bi-person-workspace">
+    </x-dashboard-header>
 
     <div class="row justify-content-center">
         <div class="col-12">

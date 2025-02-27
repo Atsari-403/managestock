@@ -9,7 +9,11 @@
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
-    <x-dashboard-header title="Users"></x-dashboard-header>
+     <x-dashboard-header 
+        title="User Management"
+        description="kelola user yang terdaftar di sistem"  
+        icon="people">
+    </x-dashboard-header>
     
     <!-- Alert Scripts -->
     @if(session()->has('error'))

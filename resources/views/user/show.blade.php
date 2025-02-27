@@ -4,7 +4,12 @@
 
 @section('content')
 <div class="container-fluid mt-4">
-    <x-dashboard-header title="User Profile"></x-dashboard-header>
+   <!-- header -->
+   <x-dashboard-header
+      title="User Profile"
+      description="informasi profil pengguna"
+      icon="bi bi-person-circle">
+   </x-dashboard-header>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg border-light">

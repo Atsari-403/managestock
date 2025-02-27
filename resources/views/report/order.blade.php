@@ -112,7 +112,7 @@
                             <th scope="col">Total Harga</th>
                             <th scope="col">Metode Pembayaran</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Tanggal</th>
+                            <th scope="col">Tanggal dan Waktu</th>
                         </tr>
                     </thead>
                     <tbody>

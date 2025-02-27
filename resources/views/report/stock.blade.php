@@ -83,7 +83,7 @@
                             <th scope="col" class="text-center">Stok Sebelumnya</th>
                             <th scope="col" class="text-center">Stok Baru</th>
                             <th scope="col" class="text-center">Perubahan</th>
-                            <th scope="col">Tanggal</th>
+                            <th scope="col">Tanggal dan Waktu</th>
                         </tr>
                     </thead>
                     <tbody>
