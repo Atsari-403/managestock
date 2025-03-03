@@ -17,6 +17,7 @@ class AttendanceController extends Controller
     {
         $today = Carbon::today();
         $attendance = Attendance::where('user_id', Auth::id())
+            ->whereDate('created_at', today())
             ->latest()
             ->first();
         return view('absenteeism.absenteeism', compact('attendance'));
@@ -30,11 +31,53 @@ class AttendanceController extends Controller
         //
     }
 
+    private function haversineDistance($lat1, $lng1, $lat2, $lng2)
+    {
+        $earthRadius = 6371000; // Radius bumi dalam meter
+
+        $lat1 = deg2rad($lat1);
+        $lng1 = deg2rad($lng1);
+        $lat2 = deg2rad($lat2);
+        $lng2 = deg2rad($lng2);
+
+        $dlat = $lat2 - $lat1;
+        $dlng = $lng2 - $lng1;
+
+        $a = sin($dlat / 2) * sin($dlat / 2) +
+            cos($lat1) * cos($lat2) *
+            sin($dlng / 2) * sin($dlng / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        return $earthRadius * $c; // Jarak dalam meter
+    }
+
+    private function isWithinOfficeArea($userLat, $userLng)
+    {
+        $offices = [
+            ['lat' => env('OFFICE_LAT'), 'lng' => env('OFFICE_LNG')],
+        ];
+        $radius = env('OFFICE_RADIUS');
+
+        foreach ($offices as $office) {
+            if ($this->haversineDistance($userLat, $userLng, $office['lat'], $office['lng']) <= $radius) {
+                return true; // Berada di dalam area salah satu cabang
+            }
+        }
+
+        return false; // Berada di luar area semua cabang
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, $action)
     {
+        $userLat = $request->lat;
+        $userLng = $request->lng;
+        if (!$this->isWithinOfficeArea($userLat, $userLng)) {
+            return back()->with('error', 'Anda di luar area absensi!');
+        }
         // Pastikan user terautentikasi
         $user = Auth::user();
         if (!$user) {
