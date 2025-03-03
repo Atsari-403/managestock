@@ -90,7 +90,7 @@
         @endif
       
 
-        <a class="nav-link {{ Request::routeIs('absenteeism.absenteeism') ? 'active' : '' }}" href="{{ route('absenteeism.absenteeism') }}">
+        <a class="nav-link {{ Request::routeIs('attendance') ? 'active' : '' }}" href="{{ route('attendance') }}">
             <i class="bi bi-clock"></i><span>Absensi</span>
         </a>
         

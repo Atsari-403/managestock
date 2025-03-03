@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('price')->default(0);
             $table->boolean('static')->default(false);
             $table->timestamps();
+            $table->foreign('category_product_id')->references('id')->on('category_product')->onDelete('cascade');
         });
     }
 

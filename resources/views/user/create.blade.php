@@ -177,6 +177,30 @@
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.getElementById('role');
+        const storeField = document.getElementById('store_id');
+        const storeContainer = storeField.closest('.col-md-6'); // Mengambil div parent untuk menyembunyikan seluruh field
+
+        function toggleStoreField() {
+            if (roleSelect.value === '1') { 
+                storeField.removeAttribute('required');
+                storeContainer.style.display = 'none'; // Sembunyikan field store
+            } else {
+                storeField.setAttribute('required', 'required');
+                storeContainer.style.display = 'block'; // Tampilkan field store
+            }
+        }
+
+        // Jalankan saat halaman dimuat (untuk mengakomodasi old() jika terjadi validasi gagal)
+        toggleStoreField();
+
+        // Jalankan setiap kali user mengganti role
+        roleSelect.addEventListener('change', toggleStoreField);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         // Toggle password visibility
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');

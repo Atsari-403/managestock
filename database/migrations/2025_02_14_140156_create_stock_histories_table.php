@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('new_stock')->nullable();
             $table->integer('quantity_changed')->nullable();
             $table->timestamps();
+            $table->foreign('packet_id')->references('id')->on('paket_category')->onDelete('cascade');
         });
     }
 

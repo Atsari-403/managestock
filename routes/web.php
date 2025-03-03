@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -24,6 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::get('order/category/{idProduct}', [OrderController::class, 'indexCategory'])->name('categoryorder');
     Route::get('order/packet/{idProduct}/{idCategory}', [OrderController::class, 'indexPacket'])->name('packetorder');
     Route::post('/product/category/paket/order', [OrderController::class, 'store'])->name('Order');
+    Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance');
+    Route::post('/attendance/{action}', [AttendanceController::class, 'store'])->name('attendance.store');
+    Route::post('/attendance/izin', [AttendanceController::class, 'izin'])->name('attendance.izin');
 });
 Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('indexuser');
@@ -34,9 +38,9 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('useredit');
     Route::post('users/edit/{id}', [UserController::class, 'update'])->name('userupdate');
     Route::delete('users/delete/{id}', [UserController::class, 'destroy'])->name('userdestroy');
-    
+
     Route::get('order/index/{store_id}', [OrderController::class, 'indexProductAdmin'])->name('indexorderAdmin');
-    
+
     route::get('product/category/index/{idProduct}', [CategoryProductController::class, 'index'])->name('indexcategoryproduct');
     Route::get('product/category/create/{idProduct}', [CategoryProductController::class, 'create'])->name('categoryproductcreate');
     Route::post('product/category/create/{idProduct}', [CategoryProductController::class, 'store'])->name('categoryproductstore');
