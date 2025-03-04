@@ -23,6 +23,7 @@ class Attendance extends Model
         'latitude',
         'longitude',
         'status',
+        'reason',
     ];
 
     /**

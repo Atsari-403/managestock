@@ -31,7 +31,7 @@
                     <p class="text-muted">Klik tombol di bawah untuk mencatat kepulangan.</p>
                     <button class="btn btn-danger w-100 fw-bold btn-hover-danger" 
                         onclick="getLocationAndSubmit('checkout')" 
-                        @if(!$attendance || $attendance->check_out) disabled @endif>
+                        @if(!$attendance || $attendance->check_out||$attendance->reason) disabled @endif>
                         Absen Pulang
                     </button>
                 </div>
@@ -56,9 +56,19 @@
             <div class="card shadow-lg border-0 rounded-4 p-4">
                 <h5 class="fw-bold">Ringkasan Absensi Hari Ini</h5>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Status: <span class="fw-bold text-primary">{{ $attendance ? $attendance->status : 'Belum Absen' }}</span></li>
-                    <li class="list-group-item">Jam Masuk: <span class="fw-bold">{{ $attendance && $attendance->check_in ? $attendance->check_in : '-' }}</span></li>
-                    <li class="list-group-item">Jam Pulang: <span class="fw-bold">{{ $attendance && $attendance->check_out ? $attendance->check_out : '-' }}</span></li>
+                    @if (!$attendance)
+                    <li class="list-group-item">Status: <span class="fw-bold text-primary">Belum Absen</span></li>
+                    <li class="list-group-item">Jam Masuk: <span class="fw-bold">-</span></li>
+                    <li class="list-group-item">Jam Pulang: <span class="fw-bold">-</span></li>
+                @elseif ($attendance->status === "Hadir")
+                    <li class="list-group-item">Status: <span class="fw-bold text-primary">{{ $attendance->status }}</span></li>
+                    <li class="list-group-item">Jam Masuk: <span class="fw-bold">{{ $attendance->check_in ?? '-' }}</span></li>
+                    <li class="list-group-item">Jam Pulang: <span class="fw-bold">{{ $attendance->check_out ?? '-' }}</span></li>
+                @else
+                    <li class="list-group-item">Status: <span class="fw-bold text-danger">{{ $attendance->status }}</span></li>
+                    <li class="list-group-item">Absen: <span class="fw-bold">{{ $attendance->check_in ?? '-' }}</span></li>
+                    <li class="list-group-item">Keterangan: <span class="fw-bold">{{ $attendance->reason ?? '-' }}</span></li>
+                @endif                
                 </ul>
             </div>
         </div>
@@ -81,7 +91,7 @@
                     confirmButtonText: "Lanjutkan",
                     cancelButtonText: "Batal"
                 }).then((result) => {
-                    if (result.isConfirmed) {
+                    if (result.isConfirmed) {                        
                         fetch(`{{ url('/attendance/') }}/${action}`, {
                             method: "POST",
                             headers: {
@@ -126,7 +136,8 @@ function izinAbsen() {
         cancelButtonText: 'Batal',
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch("/attendance/izin", {  
+            console.log("mengirim data keterangan:",{reason: result.value});
+            fetch("/izin", {  
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

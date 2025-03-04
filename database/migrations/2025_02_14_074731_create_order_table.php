@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('payment_method');
             $table->boolean('action')->nullable()->default(null);
             $table->timestamps();
-            $table->foreign('user_id')->references('users')->on('id')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

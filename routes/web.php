@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/product/category/paket/order', [OrderController::class, 'store'])->name('Order');
     Route::get('attendance', [AttendanceController::class, 'index'])->name('attendance');
     Route::post('/attendance/{action}', [AttendanceController::class, 'store'])->name('attendance.store');
-    Route::post('/attendance/izin', [AttendanceController::class, 'izin'])->name('attendance.izin');
+    Route::post('/izin', [AttendanceController::class, 'izin'])->name('attendance.izin');
 });
 Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('indexuser');

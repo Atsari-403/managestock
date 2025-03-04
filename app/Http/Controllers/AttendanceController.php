@@ -73,11 +73,12 @@ class AttendanceController extends Controller
      */
     public function store(Request $request, $action)
     {
-        $userLat = $request->lat;
-        $userLng = $request->lng;
-        if (!$this->isWithinOfficeArea($userLat, $userLng)) {
-            return back()->with('error', 'Anda di luar area absensi!');
-        }
+        // $userLat = $request->lat;
+        // $userLng = $request->lng;
+        // // echo($userLat);
+        // if (!$this->isWithinOfficeArea($userLat, $userLng)) {
+        //     return back()->with('error', 'Anda di luar area absensi!');
+        // }
         // Pastikan user terautentikasi
         $user = Auth::user();
         if (!$user) {
@@ -111,6 +112,7 @@ class AttendanceController extends Controller
                 'latitude'  => $data['lat'],
                 'longitude' => $data['long'],
                 'status'    => 'Hadir',
+                'reason'    => 'Hadir',
             ]);
 
             return response()->json(['success' => 'Check-in berhasil dicatat.'], 200);
@@ -138,7 +140,6 @@ class AttendanceController extends Controller
 
     public function izin(Request $request)
     {
-        dd($request);
         $user = Auth::id(); // Ambil langsung ID user
         $attendance = Attendance::where('user_id', $user)->whereDate('check_in', now()->toDateString())->first();
 
@@ -150,7 +151,7 @@ class AttendanceController extends Controller
                 'check_in' => now(),
                 'latitude' => null,
                 'longitude' => null,
-                // 'reason' => $request->input('reason'), // Ambil alasan dari request
+                'reason' => $request->input('reason'), // Ambil alasan dari request
             ]);
 
             return response()->json(['success' => true, 'message' => 'Izin berhasil diajukan.']);
