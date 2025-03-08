@@ -31,7 +31,7 @@
                     <p class="text-muted">Klik tombol di bawah untuk mencatat kepulangan.</p>
                     <button class="btn btn-danger w-100 fw-bold btn-hover-danger" 
                         onclick="getLocationAndSubmit('checkout')" 
-                        @if(!$attendance || $attendance->check_out||$attendance->reason) disabled @endif>
+                        @if(!$attendance || $attendance->check_out) disabled @endif>
                         Absen Pulang
                     </button>
                 </div>
