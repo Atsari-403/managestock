@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -81,3 +82,13 @@ Route::get('/reports/daily', function () {
 Route::get('/absensi', function () {
     return view('absenteeism.absenteeism');
 })->name('absenteeism.absenteeism')->middleware('auth');
+
+Route::get('/reports/attendance', [ReportController::class, 'attendance'])->name('reports.attendance');
+Route::get('/reports/attendance/export', [ReportController::class, 'exportAttendance'])->name('reports.attendance.export');
+
+// Routes untuk Laporan Pendapatan
+Route::get('/reports/attendance', [ReportController::class, 'attendance'])->name('reports.attendance');
+Route::get('/reports/income', [ReportController::class, 'income'])->name('reports.income');
+
+
+

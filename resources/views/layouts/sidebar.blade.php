@@ -89,15 +89,32 @@
                 </a>
         @endif
       
-
         <a class="nav-link {{ Request::routeIs('attendance') ? 'active' : '' }}" href="{{ route('attendance') }}">
             <i class="bi bi-clock"></i><span>Absensi</span>
         </a>
         
-        <a class="nav-link {{ Request::routeIs('reports.daily') ? 'active' : '' }}" href="{{ route('reports.daily') }}">
-            <i class="bi bi-file-text"></i>
-            <span>Report</span>
+        <!-- Dropdown Menu Report (updated) -->
+        <a class="nav-link dropdown-toggle" href="#reportMenu" data-bs-toggle="collapse" role="button">
+            <div class="d-flex align-items-center justify-content-between w-100">
+                <div>
+                    <i class="bi bi-file-text"></i>
+                    <span>Report</span>
+                </div>
+                <i class="bi bi-chevron-down dropdown-icon"></i>
+            </div>
         </a>
+        <div class="collapse" id="reportMenu">
+            <div class="dropdown-menu-items">
+                <a class="nav-link {{ Request::routeIs('reports.attendance') ? 'active' : '' }}" href="{{ route('reports.attendance') }}">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Laporan Absensi</span>
+                </a>
+                <a class="nav-link {{ Request::routeIs('reports.income') ? 'active' : '' }}" href="{{ route('reports.income') }}">
+                    <i class="bi bi-cash-coin"></i>
+                    <span>Laporan Pendapatan</span>
+                </a>
+            </div>
+        </div>
         
         <a class="nav-link {{ Request::routeIs('setting') ? 'active' : '' }}" href="{{ route('setting', ['id' => Auth::user()->id]) }}">
             <i class="bi bi-gear"></i>
