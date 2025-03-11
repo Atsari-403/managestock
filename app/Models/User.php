@@ -80,4 +80,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attendance::class, 'user_id', 'id');
     }
+    public function hasAttendedToday(): bool
+    {
+        return $this->attendance()
+            ->whereDate('check_in', now()->toDateString())
+            ->exists();
+    }
+    public function status():bool
+    {
+        return $this->attendance()
+        ->where('status','Hadir')
+        ->exists();
+    }
 }

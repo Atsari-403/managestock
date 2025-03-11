@@ -1,6 +1,6 @@
 <!-- Overlay untuk mobile -->
 <div class="sidebar-overlay"></div>
-
+{{-- @dd($hasAttendance) --}}
 <!-- Mobile Nav -->
 <nav class="mobile-nav d-md-none">
     <div class="d-flex justify-content-between align-items-center">
@@ -74,25 +74,6 @@
                 <!-- Tambahkan fitur tambahan di sini jika ada -->
             </div>
         </div>
-        @endif
-      
-        @if (auth()->check()&&auth()->user()->role == 1)    
-                <a class="nav-link {{ Request::routeIs('indexStore') ? 'active' : '' }}" href="{{ route('indexStore') }}">
-                        <i class="bi bi-boxes"></i>
-                        <span>Orders</span>
-                </a>
-        @else    
-                <!-- Orders CRUD Section -->
-                <a class="nav-link {{ Request::routeIs('indexorder') ? 'active' : '' }}" href="{{ route('indexorder') }}">
-                        <i class="bi bi-boxes"></i>
-                        <span>Orders</span>
-                </a>
-        @endif
-      
-        <a class="nav-link {{ Request::routeIs('attendance') ? 'active' : '' }}" href="{{ route('attendance') }}">
-            <i class="bi bi-clock"></i><span>Absensi</span>
-        </a>
-        
         <!-- Dropdown Menu Report (updated) -->
         <a class="nav-link dropdown-toggle" href="#reportMenu" data-bs-toggle="collapse" role="button">
             <div class="d-flex align-items-center justify-content-between w-100">
@@ -107,14 +88,35 @@
             <div class="dropdown-menu-items">
                 <a class="nav-link {{ Request::routeIs('reports.attendance') ? 'active' : '' }}" href="{{ route('reports.attendance') }}">
                     <i class="bi bi-calendar-check"></i>
-                    <span>Laporan Absensi</span>
+                    <span>Absensi</span>
                 </a>
                 <a class="nav-link {{ Request::routeIs('reports.income') ? 'active' : '' }}" href="{{ route('reports.income') }}">
                     <i class="bi bi-cash-coin"></i>
-                    <span>Laporan Pendapatan</span>
+                    <span>Pendapatan</span>
                 </a>
             </div>
         </div>
+        @endif
+      
+        @if (auth()->check()&&auth()->user()->role == 1)    
+                <a class="nav-link {{ Request::routeIs('indexStore') ? 'active' : '' }}" href="{{ route('indexStore') }}">
+                        <i class="bi bi-boxes"></i>
+                        <span>Orders</span>
+                </a>
+        @else    
+                <!-- Orders CRUD Section -->
+                <a class="nav-link {{ Request::routeIs('indexorder') ? 'active' : '' }}" 
+                    href="{{ auth()->user()->hasAttendedToday() ? route('indexorder') : 'javascript:void(0)' }}" 
+                    onclick="{{ !auth()->user()->hasAttendedToday() ? 'showAttendanceWarning()' : '' }}">
+                        <i class="bi bi-boxes"></i>
+                        <span>Orders</span>
+                </a>
+        @endif
+      
+        <a class="nav-link {{ Request::routeIs('attendance') ? 'active' : '' }}" href="{{ route('attendance') }}">
+            <i class="bi bi-clock"></i><span>Absensi</span>
+        </a>
+        
         
         <a class="nav-link {{ Request::routeIs('setting') ? 'active' : '' }}" href="{{ route('setting', ['id' => Auth::user()->id]) }}">
             <i class="bi bi-gear"></i>
@@ -143,3 +145,35 @@
         </div>               
     </nav>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="attendanceModal" tabindex="-1" aria-labelledby="attendanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="attendanceModalLabel">Peringatan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        @if (auth()->user()->status())     
+        <div class="modal-body">
+          Harap Absensi Terlebih Dahulu sebelum melakukan Order!
+        </div>
+        @else
+        <div class="modal-body">
+          Anda Sedang Tidak Dalam Aktifitas Bekerja
+        </div>
+            
+        @endif
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Oke</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+      function showAttendanceWarning() {
+          var attendanceModal = new bootstrap.Modal(document.getElementById('attendanceModal'));
+          attendanceModal.show();
+      }
+  </script>
+  

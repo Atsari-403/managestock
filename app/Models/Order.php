@@ -37,5 +37,4 @@ class Order extends Model
     {
         return $this->belongsTo(PacketCategory::class, 'paket_id', 'id');
     }
-    
 }

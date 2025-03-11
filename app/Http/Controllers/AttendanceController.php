@@ -148,7 +148,7 @@ class AttendanceController extends Controller
                 'id' => Str::uuid(),
                 'user_id' => $user,
                 'status' => 'Izin',
-                'check_in' => now(),
+                'check_in' => null,
                 'latitude' => null,
                 'longitude' => null,
                 'reason' => $request->input('reason'), // Ambil alasan dari request

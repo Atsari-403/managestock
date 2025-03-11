@@ -20,7 +20,7 @@
                     <p class="text-muted">Klik tombol di bawah untuk absen masuk.</p>
                     <button class="btn btn-primary w-100 mb-2 fw-bold btn-hover-primary" 
                         onclick="getLocationAndSubmit('checkin')" 
-                        @if($attendance && $attendance->check_in) disabled @endif>
+                        @if($attendance && $attendance->check_in||(optional($attendance)->status == 'Izin')) disabled @endif>
                         Absen Masuk
                     </button>
                 </div>
@@ -31,7 +31,7 @@
                     <p class="text-muted">Klik tombol di bawah untuk mencatat kepulangan.</p>
                     <button class="btn btn-danger w-100 fw-bold btn-hover-danger" 
                         onclick="getLocationAndSubmit('checkout')" 
-                        @if(!$attendance || $attendance->check_out) disabled @endif>
+                        @if(!$attendance || $attendance->check_out||$attendance->status != 'Hadir') disabled @endif>
                         Absen Pulang
                     </button>
                 </div>

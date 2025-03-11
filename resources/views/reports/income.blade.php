@@ -75,11 +75,11 @@
             <div class="card main-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title m-0"><i class="bi bi-bar-chart-line me-2"></i>Laporan Pendapatan</h4>
-                    <div class="d-flex align-items-center">
+                    {{-- <div class="d-flex align-items-center">
                         <button type="button" class="btn btn-primary btn-custom">
                             <i class="bi bi-envelope me-1"></i> Lapor ke Admin
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-body">
                     <!-- Filter Section -->
