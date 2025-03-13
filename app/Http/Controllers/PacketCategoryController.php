@@ -17,7 +17,7 @@ class PacketCategoryController extends Controller
     {
         // dd(session()->all()); // Debugging untuk melihat isi session
 
-        $pakets = PacketCategory::where('category_product_id', $idCategory)->get();
+        $pakets = PacketCategory::where('category_product_id', $idCategory)->where('static', false)->get();
         $category = CategoryProduct::where('id', $idCategory)->first();
         $product = Product::where('id', $idProduct)->first();
         return view('order.packet.index', compact('pakets', 'category', 'product'));

@@ -153,16 +153,14 @@
           <h5 class="modal-title" id="attendanceModalLabel">Peringatan</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        @if (auth()->user()->status())     
+        @php
+        $isOnLeave = auth()->user()->status();
+        @endphp
+
         <div class="modal-body">
-          Harap Absensi Terlebih Dahulu sebelum melakukan Order!
+            {{ $isOnLeave ? 'Anda Sedang Tidak Dalam Aktifitas Bekerja Izin/Sakit' : 'Harap Absensi Terlebih Dahulu sebelum melakukan Order!' }}
         </div>
-        @else
-        <div class="modal-body">
-          Anda Sedang Tidak Dalam Aktifitas Bekerja
-        </div>
-            
-        @endif
+
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Oke</button>
         </div>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('stock')->nullable();
             $table->bigInteger('price')->default(0);
+            $table->bigInteger('margin')->default(0);
             $table->boolean('static')->default(false);
             $table->timestamps();
             $table->foreign('category_product_id')->references('id')->on('category_product')->onDelete('cascade');

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -83,13 +84,13 @@ class User extends Authenticatable
     public function hasAttendedToday(): bool
     {
         return $this->attendance()
-            ->whereDate('check_in', now()->toDateString())
+        ->where('status','Hadir')->whereDate('check_in', Carbon::today())
             ->exists();
     }
     public function status():bool
     {
         return $this->attendance()
-        ->where('status','Hadir')
+        ->where('status','Izin')->whereDate('check_in', Carbon::today())
         ->exists();
     }
 }

@@ -26,6 +26,7 @@ class PacketCategory extends Model
         'name',
         'stock',
         'price',
+        'margin',
         'static',
     ];
 
