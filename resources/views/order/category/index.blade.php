@@ -113,6 +113,10 @@
                             <label for="paketPrice" class="form-label">Harga</label>
                             <input type="number" class="form-control" id="paketPrice" name="price" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="paketPrice" class="form-label">Admin</label>
+                            <input type="number" class="form-control" id="paketMargin" name="margin" required>
+                        </div>
                     
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Simpan Paket</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -113,6 +114,11 @@ class AttendanceController extends Controller
                 'longitude' => $data['long'],
                 'status'    => 'Hadir',
                 'reason'    => 'Hadir',
+            ]);
+
+            Transaksi::create([
+                'user_id'   => $user->id,
+                'total_cash'=>250000,
             ]);
 
             return response()->json(['success' => 'Check-in berhasil dicatat.'], 200);

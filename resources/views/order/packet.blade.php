@@ -101,6 +101,26 @@
             @if (isset($product) && !in_array($product->name, ["Aksesoris", "Kartu", "Voucher"]))
             <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm">
+                    @if (in_array($product->name,["E-Wallet","Transaksi"]))    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ "Custome " . ($category->name ?? 'Paket Custom') }}</h5>
+                        <div class="mb-3">
+                            <span class="badge badge-stock">Alpin Cell</span>
+                        </div>
+                        <div class="row g-2 mb-1">
+                            <div class="col-md-6" style="width: 35%">
+                                <input type="number" class="form-control custom-price-input" name="harga" placeholder="harga" oninput="validatePriceMargin(this)" required>
+                            </div>
+                            <div class="col-md-6" style="width: 35%">
+                                <input type="number" class="form-control custom-price-input" name="margin" placeholder="margin" oninput="validatePriceMargin(this)" required>
+                            </div>
+                        </div>
+                        <button class="btn btn-buy" data-bs-toggle="modal" data-paketName="custome.{{$product->name}}" 
+                            data-productName="{{$product->name}}" data-idCategory="{{$category->id}}" data-bs-target="#purchaseModal" disabled>
+                            <i class="bi bi-cart"></i> Beli
+                        </button>
+                    </div>                    
+                    @else
                     <div class="card-body">
                         <h5 class="card-title">{{ "Custome " . ($category->name ?? 'Paket Custom') }}</h5>
                         <div class="mb-3">
@@ -113,6 +133,7 @@
                             <i class="bi bi-cart"></i> Beli
                         </button>
                     </div>
+                    @endif
                 </div>
             </div>
             @endif
@@ -136,9 +157,9 @@
                             @endif
                         </p>
                         <p class="card-text">
-                            <strong>Harga:</strong> Rp {{ number_format($paket->price, 0, ',', '.') }}
+                            <strong>Harga:</strong> Rp {{ number_format($paket->price+$paket->margin, 0, ',', '.') }}
                         </p>
-                        <button class="btn btn-buy" data-bs-toggle="modal" data-idPacket="{{$paket->id}}" data-productName="{{$product->name}}" data-idCategory="{{$category->id}}" data-bs-target="#purchaseModal" data-harga="{{ $paket->price }}">
+                        <button class="btn btn-buy" data-bs-toggle="modal" data-idPacket="{{$paket->id}}" data-productName="{{$product->name}}" data-idCategory="{{$category->id}}" data-bs-target="#purchaseModal" data-harga="{{ $paket->price }}" data-margin="{{$paket->margin}}">
                             <i class="bi bi-cart"></i> Beli
                         </button>
                     </div>
@@ -158,35 +179,62 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('Order')}}" method="POST">
+                <form action="{{ route('Order') }}" method="POST" novalidate>
                     @csrf
                     <input type="hidden" id="paket_id" name="paket_id">
                     <input type="hidden" id="qty" name="qty">
                     <input type="hidden" id="paket_name" name="paket_name">
                     <input type="hidden" id="category_product_id" name="category_product_id">
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Harga</label>
-                        <input type="text" class="form-control" id="price" name="price" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="payment_method" class="form-label">Metode Pembayaran</label>
-                        <select class="form-select" name="payment_method" id="payment_method" required>
-                            <option value="" disabled selected>Pilih metode pembayaran</option>
-                            <option value=0>Transfer</option>
-                            <option value=1>Tunai</option>
-                        </select>
+                        
+                   
+                        <!-- Harga & Margin -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="price" class="form-label">Harga</label>
+                                <input type="text" class="form-control" id="price" name="price" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="margin" class="form-label">Admin</label>
+                                <input type="text" class="form-control" id="margin" name="margin" readonly>
+                            </div>
+                        </div>
+    
+                        <!-- Total Harga -->
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label for="totalharga" class="form-label">Total Harga</label>
+                                <input type="text" class="form-control" id="totalharga" name="totalharga" readonly>
+                            </div>
+                        </div>
+                    
+                    
+
+                    <!-- Metode Pembayaran -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label for="payment_method" class="form-label">Metode Pembayaran</label>
+                            <select class="form-select" name="payment_method" id="payment_method" required>
+                                <option value="" disabled selected>Pilih metode pembayaran</option>
+                                <option value="0">Transfer</option>
+                                <option value="1">Tunai</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <!-- Aksi -->
-                    <div class="mb-3" id="money">
-                        <label for="action" class="form-label">Aksi</label>
-                        <select class="form-select" name="action" id="action" required>
-                            <option value="" disabled selected>Pilih aksi</option>
-                            <option value=1>Tarik Tunai</option>
-                            <option value=0>Transfer</option>
-                        </select>
+                    <!-- Aksi (Hanya Muncul Jika Tunai) -->
+                    <div class="row mt-3" id="money">
+                        <div class="col-12">
+                            <label for="action" class="form-label">Aksi</label>
+                            <select class="form-select" name="action" id="action">
+                                <option value="" disabled selected>Pilih aksi</option>
+                                <option value="1">Tarik Tunai</option>
+                                <option value="0">Transfer</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="d-grid gap-2">
+
+                    <!-- Tombol Submit -->
+                    <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-check-circle"></i> Submit Pembelian
                         </button>
@@ -215,6 +263,8 @@
             let paketId = button.getAttribute("data-idPacket");
             let categoryId = button.getAttribute("data-idCategory");
             let namaPaket = button.getAttribute("data-paketName");
+            let harga = button.dataset.harga;
+            let margin = button.dataset.margin;
 
             // Cek apakah productName termasuk dalam daftar bank
             if (!bank.includes(productName)) {
@@ -237,23 +287,41 @@
             document.getElementById("paket_name").value = namaPaket;
             document.getElementById("paket_id").value = paketId;
             document.getElementById("category_product_id").value = categoryId;
-            document.getElementById("price").value = button.dataset.harga;
+            document.getElementById("margin").value = margin;
+            document.getElementById("price").value = harga;
+            document.getElementById("totalharga").value = parseInt(margin, 10) + parseInt(harga, 10);
         });
     });
 
     // Event listener untuk input harga
     document.querySelectorAll(".custom-price-input").forEach(input => {
-        input.addEventListener("input", function () {
-            let harga = Math.max(0, parseFloat(input.value) || 0);
-            let btnBeli = input.closest(".card-body").querySelector(".btn-buy");
+    input.addEventListener("input", function () {
+        let cardBody = input.closest(".card-body");
+        let hargaInput = cardBody.querySelector("input[name='harga']");
+        let marginInput = cardBody.querySelector("input[name='margin']");
+        let btnBeli = cardBody.querySelector(".btn-buy");
 
-            // Pastikan btnBeli tidak null sebelum mengaksesnya
-            if (btnBeli) {
-                btnBeli.disabled = harga <= 0;
-                btnBeli.dataset.harga = harga;
-            }
-        });
+        let harga = Math.max(0, parseFloat(hargaInput.value) || 0);
+        let margin = Math.max(0, parseFloat(marginInput.value) || 0);
+        let totalHarga = harga + margin;
+
+        if (btnBeli) {
+            btnBeli.disabled = harga <= 0;
+            btnBeli.dataset.harga = harga;
+            btnBeli.dataset.margin = margin;
+        }
+
+        
+
+        if (harga > 0 || margin > 0) {
+            document.getElementById("price").value = harga;
+            document.getElementById("margin").value = margin;
+            document.getElementById("totalharga").value = totalHarga;
+           
+        } 
     });
+});
+
 });
 
 </script>

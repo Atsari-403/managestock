@@ -33,7 +33,7 @@
                 <div class="stats-card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-0 fw-bold">RP {{$netDigital}}</h3>
+                            <h3 class="mb-0 fw-bold">RP {{$transaksi->total_digital ?? 0}}</h3>
                             <p class="text-white-70 mb-0">Transaksi QRIS Hari Ini</p>
                         </div>
                         <div class="stats-icon">
@@ -43,13 +43,12 @@
                 </div>
             </div>
         </div>
-        
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="stats-card bg-success text-white">
                 <div class="stats-card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-0 fw-bold">RP {{$netCash}}</h3>
+                            <h3 class="mb-0 fw-bold">RP {{$transaksi->total_cash ?? 0}}</h3>
                             <p class="text-white-70 mb-0">Transaksi Cash Hari Ini</p>
                         </div>
                         <div class="stats-icon">
@@ -65,8 +64,8 @@
                 <div class="stats-card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-0 fw-bold">Rp {{$totalPendapatanBersih}}</h3>
-                            <p class="text-white-70 mb-0">Pendapatan Hari Ini</p>
+                            <h3 class="mb-0 fw-bold">Rp {{$transaksi->total_stor ?? 0}}</h3>
+                            <p class="text-white-70 mb-0">Setoran hari Ini</p>
                         </div>
                         <div class="stats-icon">
                             <i class="bi bi-currency-dollar"></i>

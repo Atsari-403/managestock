@@ -116,7 +116,7 @@
                             @endif
                         </p>
                         <p class="card-text">
-                            <strong>Harga:</strong> Rp {{ number_format($paket->price, 0, ',', '.') }} <br>
+                            <strong>Harga:</strong> Rp {{ number_format($paket->price+$paket->margin, 0, ',', '.') }} <br>
                         </p>
                         <div class="d-flex justify-content-between mt-3">
                             <div class="d-flex justify-content-between">
@@ -128,6 +128,7 @@
                                     data-name="{{ $paket->name }}"
                                     data-stock="{{ $paket->stock }}"
                                     data-price="{{ $paket->price }}"
+                                    data-margin="{{ $paket->margin }}"
                                     data-nameProduct="{{$product->name}}">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
@@ -218,6 +219,11 @@
                             <label for="paketPrice" class="form-label">Harga</label>
                             <input type="number" class="form-control" id="paketPrice" name="price" required>
                         </div>
+
+                        <div class="mb-3" id="InputMargin">
+                            <label for="paketMargin" class="form-label">Admin</label>
+                            <input type="number" class="form-control" id="paketMargin" name="margin" required>
+                        </div>
                     
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Simpan Paket</button>
@@ -257,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const editButtons = document.querySelectorAll('.edit-paket');
     const modalForm = document.getElementById('paketForm');
     const kategoriPakaiStok = ["Aksesoris", "Kartu", "Voucher"];
+    const kategoriPakaiMargin = ['E-Wallet', 'Transaksi'];
 
     editButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -266,18 +273,24 @@ document.addEventListener('DOMContentLoaded', function () {
             const name = this.getAttribute('data-name');
             const stock = this.getAttribute('data-stock');
             const price = this.getAttribute('data-price');
+            const margin = this.getAttribute('data-margin');
             const productName = this.getAttribute('data-nameProduct');
-            console.log(productName);
             if(!kategoriPakaiStok.includes(productName)){
                 StockInput.style.display = "none";
                 paketStock.removeAttribute("required");
             }
+            if(!kategoriPakaiMargin.includes(productName)){
+                InputMargin.style.display = "none";
+                paketStock.removeAttribute("required");
+            }
+            
 
             // Isi modal dengan data paket yang dipilih
             document.getElementById('id').value = id;
             document.getElementById('paketName').value = name;
             document.getElementById('paketStock').value = stock;
             document.getElementById('paketPrice').value = price;
+            document.getElementById('paketMargin').value = margin;
             // document.getElementById('productName').value = productName;
             
             

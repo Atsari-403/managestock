@@ -84,13 +84,18 @@ class User extends Authenticatable
     public function hasAttendedToday(): bool
     {
         return $this->attendance()
-        ->where('status','Hadir')->whereDate('check_in', Carbon::today())
+            ->where('status', 'Hadir')->whereDate('check_in', Carbon::today())
             ->exists();
     }
-    public function status():bool
+    public function status(): bool
     {
         return $this->attendance()
-        ->where('status','Izin')->whereDate('check_in', Carbon::today())
-        ->exists();
+            ->where('status', 'Izin')->whereDate('check_in', Carbon::today())
+            ->exists();
+    }
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class, 'user_id', 'id');
     }
 }
