@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\TransactionsExport;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CategoryProductController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('login', [LoginController::class, 'loginform'])->name('login')->middleware('guest');
 Route::post('login', [LoginController::class, 'authenticate'])->name('login')->middleware('guest', 'throttle:5,1');
@@ -69,6 +71,11 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::post('/store/create', [StoreController::class, 'store'])->name('storeStore');
     Route::delete('/store/destroy/{id}', [StoreController::class, 'destroy'])->name('storeDestroy');
     Route::get('/store/index', [OrderController::class, 'indexStore'])->name('indexStore');
+    Route::get('/export-transactions', function (\Illuminate\Http\Request $request) {
+        $filters = $request->only(['user_id', 'date_from']);
+        return Excel::download(new TransactionsExport($filters), 'laporan_setoran.xlsx');
+    })->name('transactions.export');
+    Route::get('/attendance/export', [AttendanceController::class, 'exportExcel'])->name('attendance.export');
 
 
 });

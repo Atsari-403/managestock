@@ -16,6 +16,8 @@
     
     <!-- Main Report Card -->
     <div class="row fade-in-up" style="animation-delay: 0.5s">
+        
+        
         <div class="col-12">
             <div class="card main-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -25,6 +27,11 @@
                             <i class="bi bi-envelope me-1"></i> Lapor ke Admin
                         </button>
                     </div> --}}
+                    <div class="text-end mb-3">
+                        <a href="{{ route('transactions.export', request()->all()) }}" class="btn btn-success btn-custom">
+                            <i class="bi bi-file-earmark-excel me-1"></i> Export ke Excel
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- Filter Section -->

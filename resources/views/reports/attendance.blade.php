@@ -19,9 +19,11 @@
                 <div class="card-header bg-gradient-primary text-white py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title mb-0"><i class="bi bi-calendar-check me-2"></i>Laporan Absensi</h4>
-                        <button id="exportBtn" class="btn btn-sm btn-light">
-                            <i class="bi bi-download me-1"></i> Export
-                        </button>
+                        <button id="exportBtn" class="btn btn-sm btn-light"
+                        onclick="window.location.href='{{ route('attendance.export', request()->all()) }}'">
+                        <i class="bi bi-download me-1"></i> Export
+                     </button>
+                    
                     </div>
                 </div>
                 <div class="card-body">

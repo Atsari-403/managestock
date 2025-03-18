@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AttendanceExport;
 use App\Models\Attendance;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceController extends Controller
 {
@@ -198,4 +200,14 @@ class AttendanceController extends Controller
     {
         //
     }
+    public function exportExcel(Request $request)
+{
+    $filters = [
+        'user_id' => $request->user_id,
+        'status' => $request->status,
+        'date_from' => $request->date_from,
+    ];
+
+    return Excel::download(new AttendanceExport($filters), 'Attendance_Report.xlsx');
+}
 }
