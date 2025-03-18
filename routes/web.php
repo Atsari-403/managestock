@@ -69,22 +69,12 @@ Route::middleware(['isAdmin', 'auth'])->group(function () {
     Route::post('/store/create', [StoreController::class, 'store'])->name('storeStore');
     Route::delete('/store/destroy/{id}', [StoreController::class, 'destroy'])->name('storeDestroy');
     Route::get('/store/index', [OrderController::class, 'indexStore'])->name('indexStore');
+
+
 });
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
-
-
-Route::get('/reports/daily', function () {
-    return view('reports.daily');
-})->name('reports.daily')->middleware('auth');
-
-Route::get('/absensi', function () {
-    return view('absenteeism.absenteeism');
-})->name('absenteeism.absenteeism')->middleware('auth');
-
-Route::get('/reports/attendance', [ReportController::class, 'attendance'])->name('reports.attendance');
-Route::get('/reports/attendance/export', [ReportController::class, 'exportAttendance'])->name('reports.attendance.export');
 
 // Routes untuk Laporan Pendapatan
 Route::get('/reports/attendance', [ReportController::class, 'attendance'])->name('reports.attendance');

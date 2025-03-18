@@ -29,35 +29,33 @@
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <div class="card bg-light border-0 shadow-sm rounded-3">
-                                <div class="card-body">
+                                <div class="card-body md-6">
                                     <h5 class="text-primary mb-3"><i class="bi bi-funnel me-2"></i>Filter Data</h5>
                                     <form action="#" method="GET" class="row g-3">
                                         <div class="col-md-3">
                                             <label for="user_id" class="form-label fw-bold"><i class="bi bi-person me-1"></i>User</label>
                                             <select name="user_id" id="user_id" class="form-select shadow-sm">
                                                 <option value="">Semua User</option>
-                                                <option value="1">joko</option>
-                                                <option value="2">haryanto</option>
-                                            </select>
+                                                @foreach($users as $user)
+                                                    <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
+                                                        {{ $user->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>                                            
                                         </div>
                                         <div class="col-md-3">
                                             <label for="status" class="form-label fw-bold"><i class="bi bi-check-circle me-1"></i>Status</label>
                                             <select name="status" id="status" class="form-select shadow-sm">
                                                 <option value="">Semua Status</option>
-                                                <option value="present">Masuk</option>
-                                                <option value="late">Pulang</option>
-                                                <option value="absent">Izin</option>
+                                                <option value="Hadir">Masuk</option>
+                                                <option value="Izin">Izin</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <label for="date_from" class="form-label fw-bold"><i class="bi bi-calendar-minus me-1"></i>Dari Tanggal</label>
+                                            <label for="date_from" class="form-label fw-bold"><i class="bi bi-calendar-minus me-1"></i>Tanggal</label>
                                             <input type="date" class="form-control shadow-sm" id="date_from" name="date_from">
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="date_to" class="form-label fw-bold"><i class="bi bi-calendar-plus me-1"></i>Sampai Tanggal</label>
-                                            <input type="date" class="form-control shadow-sm" id="date_to" name="date_to">
-                                        </div>
-                                        <div class="col-12 mt-3 text-end">
+                                        <div class="col-md-3 text-end">
                                             <button type="submit" class="btn btn-primary btn-gradient">
                                                 <i class="bi bi-search me-1"></i> Filter
                                             </button>
@@ -84,31 +82,33 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="align-middle">
-                                                    <td>2022-01-01</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">JD</div>
-                                                            John Doe
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-success rounded-pill px-3"><i class="bi bi-check-circle me-1"></i>Masuk</span></td>
-                                                    <td><span class="text-success"><i class="bi bi-clock-fill me-1"></i>08:00</span></td>
-                                                    <td><span class="text-danger"><i class="bi bi-clock-fill me-1"></i>17:00</span></td>
-                                                </tr>
-                                                <tr class="align-middle">
-                                                    <td>2022-01-02</td>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar bg-info text-white rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">JD</div>
-                                                            Jane Doe
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-warning rounded-pill px-3"><i class="bi bi-exclamation-circle me-1"></i>Pulang</span></td>
-                                                    <td><span class="text-success"><i class="bi bi-clock-fill me-1"></i>08:00</span></td>
-                                                    <td><span class="text-danger"><i class="bi bi-clock-fill me-1"></i>17:00</span></td>
-                                                </tr>
-                                            </tbody>
+                                                @forelse($attendances as $attendance)
+                                                    <tr class="align-middle">
+                                                        <td>{{ $attendance->created_at->format('Y-m-d') }}</td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                                                    {{ strtoupper(substr($attendance->user->name, 0, 2)) }}
+                                                                </div>
+                                                                {{ $attendance->user->name }}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge 
+                                                                {{ $attendance->status == 'Hadir' ? 'bg-success' :  'bg-danger' }} 
+                                                                rounded-pill px-3">
+                                                                <i class="bi bi-check-circle me-1"></i> {{ ucfirst($attendance->status) }}
+                                                            </span>
+                                                        </td>
+                                                        <td><span class="text-success"><i class="bi bi-clock-fill me-1"></i>{{ $attendance->check_in ?? '-' }}</span></td>
+                                                        <td><span class="text-danger"><i class="bi bi-clock-fill me-1"></i>{{ $attendance->check_out ?? '-' }}</span></td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center text-muted">Tidak ada data absensi.</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>                                            
                                         </table>
                                     </div>
                                 </div>
@@ -116,6 +116,30 @@
                         </div>
                     </div>
                 </div>
+                <nav aria-label="Page navigation" class="mx-4">
+                    <ul class="pagination">
+                        {{-- Tombol Previous --}}
+                        <li class="page-item {{ $attendances->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $attendances->previousPageUrl() }}" aria-label="Previous">
+                                <i class="bi bi-chevron-left"></i>
+                            </a>
+                        </li>
+            
+                        {{-- Tombol Angka Halaman --}}
+                        @for ($i = 1; $i <= $attendances->lastPage(); $i++)
+                            <li class="page-item {{ $attendances->currentPage() == $i ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $attendances->url($i) }}">{{ $i }}</a>
+                            </li>
+                        @endfor
+            
+                        {{-- Tombol Next --}}
+                        <li class="page-item {{ $attendances->hasMorePages() ? '' : 'disabled' }}">
+                            <a class="page-link" href="{{ $attendances->nextPageUrl() }}" aria-label="Next">
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -134,12 +158,7 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
         
-        // Export functionality
-        $('#exportBtn').on('click', function() {
-            let params = new URLSearchParams(window.location.search);
-            params.append('export', 'excel');
-            window.location.href = "{{ route('reports.attendance.export') }}?" + params.toString();
-        });
+      
     });
 </script>
 @endsection

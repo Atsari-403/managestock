@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'local') {
             URL::forceScheme('https');
         }
+        Paginator::useBootstrapFive();
     }
 }

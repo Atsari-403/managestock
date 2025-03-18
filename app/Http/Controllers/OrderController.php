@@ -180,6 +180,9 @@ class OrderController extends Controller
                 'total_digital' => $transaksi->total_digital + $total_harga,
             ]);
         }
+        $transaksi->update([
+            'total_stor' => $transaksi->total_cash - 250000,
+        ]);
         Order::create([
             'user_id' => Auth::id(),
             'paket_id' => $paket->id,
