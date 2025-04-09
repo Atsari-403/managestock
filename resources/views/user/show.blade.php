@@ -53,16 +53,16 @@
                     <div class="mb-3">
                         <label for="picture" class="form-label">Profile Picture</label>
                         @if($user->picture)
-                            <p class="text-muted">You have uploaded a profile picture. To update, upload a new image.</p>
+                            <p class="text-muted">Anda telah mengunggah foto profil. Untuk memperbarui, unggah gambar baru.</p>
                         @else
-                            <p class="text-muted">No profile picture uploaded yet. You can upload one now!</p>
+                            <p class="text-muted">Belum ada foto profil yang diunggah. Anda dapat mengunggahnya sekarang!</p>
                         @endif
                     </div>
 
                     <!-- Back Button -->
                     <div class="d-flex justify-content-between">
                         <button onclick="window.history.back();" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-arrow-left me-2"></i> Back
+                            <i class="fas fa-arrow-left me-2"></i> Kembali
                         </button>
                     </div>                    
                 </div>

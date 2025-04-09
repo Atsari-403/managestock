@@ -65,10 +65,6 @@
                         </div>
                     @endif
 
-                    <div class="text-center mt-3">
-                        <span class="auth-text">Belum punya akun?</span>
-                        <a class="auth-link ms-2" href="/register">Daftar di sini</a>
-                    </div>
                 </form>
             </div>
         </div>

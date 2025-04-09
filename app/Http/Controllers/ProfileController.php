@@ -106,7 +106,7 @@ class ProfileController extends Controller
         // Update data user
         $user->update($validatedData);
 
-        session()->flash('status', 'Your profile has been updated successfully.');
+        session()->flash('status', 'Profil Anda berhasil diperbarui.');
 
         return redirect()->route('setting', $id)->with('success', 'Profile berhasil diperbarui.');
     }

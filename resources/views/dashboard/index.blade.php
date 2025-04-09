@@ -17,7 +17,7 @@
                         <h3 class="card-title mb-0 d-flex align-items-center">
                             <i class="bi bi-graph-up me-2 text-primary"></i> Dashboard
                         </h3>
-                        <p class="text-muted mt-2 mb-0">Aktivitas dan transaksi terkini</p>
+                        <p class="text-muted mt-2">Aktivitas dan transaksi terkini</p>
                     </div>
                     @if(auth()->user()->role == 1)
                     <div class="badge bg-danger p-3">
@@ -39,7 +39,7 @@
         <div class="row mb-4">
             <!-- Seluruh Pendapatan Hari Ini -->
             <div class="col-xl-6 col-md-6 mb-4">
-                <div class="stats-card bg-primary text-white">
+                <div class="stats-card bg-primary text-white ">
                     <div class="stats-card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
@@ -69,43 +69,57 @@
         </div>
     
     <!-- Pendapatan Per User Diletakkan di Bawah -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0 text-center">Pendapatan Per User Hari Ini</h5>
-                </div>
-                <div class="card-body p-3">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered align-middle">
-                            <thead class="table-dark text-center">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nama User</th>
-                                    <th>Email</th>
-                                    <th>Pendapatan Hari Ini (Rp)</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @foreach ($pendapatanPerUser as $index => $user)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td class="text-start">{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td class="fw-bold text-success">Rp {{ number_format($user->total_pendapatan, 0, ',', '.') }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-dark text-white py-3">
+                <h5 class="mb-0 text-center">
+                    <i class="fas fa-chart-line me-2"></i>Pendapatan Per User Hari Ini
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-admin table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 10%;">No</th>
+                                <th class="text-start" style="width: 30%;">Nama User</th>
+                                <th class="text-center" style="width: 30%;">Email</th>
+                                <th class="text-center" style="width: 30%;">Pendapatan Hari Ini</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($pendapatanPerUser as $index => $user)
+                            <tr>
+                                <td class="text-center fw-bold">{{ $index + 1 }}</td>
+                                <td class="text-start">
+                                    <span class="d-block">{{ $user->name }}</span>
+                                </td>
+                                <td class="text-center">{{ $user->email }}</td>
+                                <td class="text-center">
+                                    <span class="badge badge-income bg-success text-white">
+                                        Rp {{ number_format($user->total_pendapatan, 0, ',', '.') }}
+                                    </span>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center empty-state py-4">
+                                    <i class="fas fa-chart-pie me-2"></i>Tidak ada data pendapatan
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    
-    
+</div>
 @else
 <!-- Tampilan untuk staff tetap seperti sebelumnya -->
+ 
 <!-- Statistik Transaksi Staff -->
 <div class="row mb-4">
     <div class="col-xl-3 col-md-6 mb-4">
@@ -165,38 +179,46 @@
 </div>
 
 <!-- Tabel Transaksi Terakhir -->
-<div class="card shadow">
-    <div class="card-header bg-secondary text-white">
-        <h5 class="mb-0 text-center">Transaksi Terakhir</h5>
+ <div class="card shadow-lg border-0">
+    <div class="card-header bg-dark text-white py-3">
+        <h5 class="mb-0 text-center">
+            <i class="fas fa-receipt me-2"></i>Transaksi Terakhir
+        </h5>
     </div>
-    <div class="card-body p-3">
+    <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover align-middle">
-                <thead class="table-dark text-center">
+            <table class="table table-employee table-hover mb-0">
+                <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Paket</th>
-                        <th>Metode Pembayaran</th>
-                        <th>Total Pembayaran (Rp)</th>
-                        <th>Waktu Transaksi</th>
+                        <th class="text-center" style="width: 10%;">No</th>
+                        <th class="text-center" style="width: 25%;">Paket</th>
+                        <th class="text-center" style="width: 20%;">Metode Pembayaran</th>
+                        <th class="text-center" style="width: 25%;">Total Pembayaran (Rp)</th>
+                        <th class="text-center" style="width: 20%;">Waktu Transaksi</th>
                     </tr>
                 </thead>
-                <tbody class="text-center">
+                <tbody>
                     @forelse ($transaksiTerakhir as $index => $transaksi)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $transaksi->paket->name ?? '-' }}</td>
-                        <td>
-                            <span class="badge bg-{{ $transaksi->payment_method == 1 ? 'success' : 'primary' }}">
+                        <td class="text-center fw-bold">{{ $index + 1 }}</td>
+                        <td class="text-center">{{ $transaksi->paket->name ?? '-' }}</td>
+                        <td class="text-center">
+                            <span class="badge badge-method {{ $transaksi->payment_method == 1 ? 'bg-success' : 'bg-info' }}">
                                 {{ $transaksi->payment_method == 1 ? 'Tunai' : 'Transfer' }}
                             </span>                            
                         </td>
-                        <td class="fw-bold text-success">Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
-                        <td>{{ $transaksi->created_at->format('d M Y, H:i') }}</td>
+                        <td class="text-center fw-bold text-success">
+                            Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}
+                        </td>
+                        <td class="text-center">
+                            {{ $transaksi->created_at->format('d M Y, H:i') }}
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted">Belum ada transaksi</td>
+                        <td colspan="5" class="text-center empty-state py-4">
+                            <i class="fas fa-box-open me-2"></i>Belum ada transaksi
+                        </td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -204,8 +226,6 @@
         </div>
     </div>
 </div>
-
-
 @endif
 
 </div>

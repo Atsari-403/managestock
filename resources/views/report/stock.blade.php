@@ -78,7 +78,7 @@
                 <table class="table table-borderless table-hover custom-table align-middle">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">No</th>
                             <th scope="col">Paket</th>
                             <th scope="col" class="text-center">Stok Sebelumnya</th>
                             <th scope="col" class="text-center">Stok Baru</th>
@@ -92,9 +92,6 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-sm bg-secondary text-white rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                                        <i class="bi bi-box-seam"></i>
-                                    </div>
                                     {{ $history->packet->name }}
                                 </div>
                             </td>
@@ -112,9 +109,8 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <i class="bi bi-calendar-check me-2 text-muted"></i>
                                     {{ $history->created_at->format('d M Y') }}
-                                    <span class="ms-2 text-muted small"><i class="bi bi-clock"></i> {{ $history->created_at->format('H:i') }}</span>
+                                    <span class="ms-2 text-muted small">{{ $history->created_at->format('H:i') }}</span>
                                 </div>
                             </td>
                         </tr>

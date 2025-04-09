@@ -4,95 +4,18 @@
 
 @section('styles')
 <link href="{{ asset('css/indexCategory.css') }}" rel="stylesheet">
-<style>
-    /* Styling untuk Card Paket */
-    .card {
-        transition: all 0.3s ease-in-out;
-        border-radius: 12px;
-        overflow: hidden;
-        border: none;
-        position: relative; /* Supaya tombol Beli bisa diposisikan di dalamnya */
-    }
-
-    /* Hover Efek */
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Judul Paket */
-    .card-title {
-        font-size: 18px;
-        font-weight: bold;
-        font-family: 'Poppins', sans-serif;
-        color: rgba(0, 123, 255, 0.85); /* Biru lebih soft */
-    }
-
-    /* Badge Stok */
-    .badge-stock {
-        background-color: #28a745;
-        color: rgba(255, 255, 255, 0.85);
-        padding: 6px 12px;
-        border-radius: 8px;
-        font-size: 14px;
-    }
-
-    /* Harga */
-    .card-text strong {
-        color: rgba(33, 37, 41, 0.85);
-        font-weight: 600;
-    }
-
-    /* Tombol Beli */
-    .btn-buy {
-        background: linear-gradient(135deg, #007bff, #00d4ff);
-        color: rgba(255, 255, 255, 0.9);
-        font-weight: bold;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        transition: all 0.3s ease-in-out;
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-    }
-
-    .btn-buy:hover {
-        background: linear-gradient(135deg, #0056b3, #00a3cc);
-        color: white;
-    }
-
-    /* Ikon dalam tombol */
-    .btn-buy i {
-        font-size: 18px;
-    }
-    .w-60 {
-        width: 60%;
-    }
-
-</style>
+<link href="{{ asset('css/order/packet/index.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
     <x-dashboard-header title="{{ $category->name }}"></x-dashboard-header>
+    
     @if(session()->has('success'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                title: "Berhasil!",
-                text: "{{ session('success') }}",
-                icon: "success",
-                confirmButtonText: "OK"
-            });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="alert alert-success d-none">{{ session('success') }}</div>
     @endif
+    
     @if ($pakets->isEmpty())
         <div class="alert alert-warning text-center">Tidak ada paket dalam kategori ini.</div>
     @else
@@ -159,6 +82,7 @@
             @endforeach
         </div>
     @endif
+    
     <!-- Modal Tambah Stok -->
     <div class="modal fade" id="tambahStockModal" tabindex="-1" aria-labelledby="tambahStockLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -236,69 +160,8 @@
     </div>
 </div>
 @endsection
+
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const addStockButtons = document.querySelectorAll('.add-stock');
-    const modalStockForm = document.getElementById('tambahStockForm');
-
-    addStockButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            // Ambil data dari tombol yang diklik
-            const id = this.getAttribute('data-id');
-            const name = this.getAttribute('data-name');
-
-            // Isi modal dengan data paket yang dipilih
-            document.getElementById('packet_id').value = id;
-            document.getElementById('paketNameDisplay').value = name;
-
-            // Ubah action form sesuai dengan ID paket (sesuaikan route di backend)
-            modalStockForm.setAttribute('action', `/product/category/paket/add-stock/${id}`);
-        });
-    });
-});
-// update
-document.addEventListener('DOMContentLoaded', function () {
-    const editButtons = document.querySelectorAll('.edit-paket');
-    const modalForm = document.getElementById('paketForm');
-    const kategoriPakaiStok = ["Aksesoris", "Kartu", "Voucher"];
-    const kategoriPakaiMargin = ['E-Wallet', 'Transaksi'];
-
-    editButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            // console.log("Tombol Edit diklik!");
-            // Ambil data dari tombol yang diklik
-            const id = this.getAttribute('data-id');
-            const name = this.getAttribute('data-name');
-            const stock = this.getAttribute('data-stock');
-            const price = this.getAttribute('data-price');
-            const margin = this.getAttribute('data-margin');
-            const productName = this.getAttribute('data-nameProduct');
-            if(!kategoriPakaiStok.includes(productName)){
-                StockInput.style.display = "none";
-                paketStock.removeAttribute("required");
-            }
-            if(!kategoriPakaiMargin.includes(productName)){
-                InputMargin.style.display = "none";
-                paketStock.removeAttribute("required");
-            }
-            
-
-            // Isi modal dengan data paket yang dipilih
-            document.getElementById('id').value = id;
-            document.getElementById('paketName').value = name;
-            document.getElementById('paketStock').value = stock;
-            document.getElementById('paketPrice').value = price;
-            document.getElementById('paketMargin').value = margin;
-            // document.getElementById('productName').value = productName;
-            
-            
-            // Ubah action form sesuai dengan ID paket
-            modalForm.setAttribute('action', `/product/category/paket/update/${id}`);
-        });
-    });
-});
-
-</script>
+<script src="{{ asset('js/order/packet/index.js') }}"></script>
 @endsection

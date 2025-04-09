@@ -105,7 +105,7 @@
                 <table class="table table-borderless table-hover custom-table align-middle">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">No</th>
                             <th scope="col">User</th>
                             <th scope="col">Paket</th>
                             <th scope="col" class="text-center">Qty</th>
@@ -127,7 +127,7 @@
                                         <span>{{ $order->user->name }}</span>
                                     </div>
                                 </td>
-                                <td>{{ $order->paket->name }}</td>
+                                <td>{{ $order->paket->name ?? 'Paket Tidak Tersedia' }}</td>
                                 <td class="text-center">
                                     <span class="badge bg-secondary">{{ $order->qty }}</span>
                                 </td>
@@ -155,9 +155,8 @@
                                 </td>                                
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <i class="bi bi-calendar-check me-2 text-muted"></i>
                                         {{ $order->created_at->format('d M Y') }}
-                                        <span class="ms-2 text-muted small"><i class="bi bi-clock"></i> {{ $order->created_at->format('H:i') }}</span>
+                                        <span class="ms-2 text-muted small">{{ $order->created_at->format('H:i') }}</span>
                                     </div>
                                 </td>
                             </tr>

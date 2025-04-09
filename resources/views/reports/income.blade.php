@@ -75,7 +75,7 @@
                         <table class="table table-custom table-hover">
                             <thead>
                                 <tr>
-                                    <th><i class="bi bi-person-badge me-2"></i>Nama Staff</th>
+                                    <th><i class="bi bi-person-badge me-2"></i>Nama</th>
                                     <th><i class="bi bi-calendar me-2"></i>Tanggal</th>
                                     <th><i class="bi bi-cash-stack me-2"></i>Setoran</th>
                                    

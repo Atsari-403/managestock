@@ -86,7 +86,7 @@ class CategoryProductController extends Controller
     {
         $pakets = PacketCategory::where('category_product_id', $id)->get();
         foreach ($pakets as $paket) {
-            StockHistories::where('paket_id', $paket->id)->delete();
+            StockHistories::where('packet_id', $paket->id)->delete();
         }
         PacketCategory::where('category_product_id', $id)->delete();
         CategoryProduct::destroy($id);

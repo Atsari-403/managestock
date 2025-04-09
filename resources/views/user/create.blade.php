@@ -21,7 +21,7 @@
         <div class="col-xl-8 col-lg-7">
             <div class="card border-0 shadow-sm rounded-4 animate-card">
                 <div class="card-header bg-gradient-primary text-white py-3 px-4">
-                    <h5 class="card-title mb-0 fw-bold"><i class="bi bi-person-plus me-2"></i>User Details</h5>
+                    <h5 class="card-title mb-0 fw-bold"><i class="bi bi-person-plus me-2"></i>Informasi Pengguna</h5>
                 </div>
                 <div class="card-body p-3">
                     <form method="POST" action="{{route('createuser')}}">
@@ -68,7 +68,7 @@
                                     <div class="text-danger small mt-2"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
                                 @enderror
                                 <div class="form-text mt-3" id="passwordHelp">
-                                    <i class="bi bi-info-circle me-1"></i> Password should be at least 8 characters long
+                                    <i class="bi bi-info-circle me-1"></i> Kata sandi harus minimal 8 karakter
                                 </div>
                             </div>
                             
@@ -145,7 +145,7 @@
                     <div class="p-3 bg-light border-top">
                         <span class="text-muted small">
                             <i class="bi bi-info-circle me-1"></i>
-                            Showing {{ count($registeredEmails) }} registered email{{ count($registeredEmails) != 1 ? 's' : '' }}
+                            Menampilkan {{ count($registeredEmails) }} email terdaftar{{ count($registeredEmails) != 1 ? 's' : '' }}
                         </span>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
         
             <!-- Button to Toggle Visibility of Registered Emails Section on Mobile -->
             <button class="btn btn-info text-white w-100 mt-3 d-block d-lg-none rounded-pill shadow-sm" id="toggleEmailsBtn">
-                <i class="bi bi-eye me-2"></i>View Registered Emails
+                <i class="bi bi-eye me-2"></i>Lihat Email Terdaftar
             </button>
         </div>
     </div>
@@ -168,88 +168,12 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-            User has been successfully created!
+            User berhasil dibuat!
         </div>
     </div>
 </div>
 @endsection
 
 @section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const roleSelect = document.getElementById('role');
-        const storeField = document.getElementById('store_id');
-        const storeContainer = storeField.closest('.col-md-6'); // Mengambil div parent untuk menyembunyikan seluruh field
-
-        function toggleStoreField() {
-            if (roleSelect.value === '1') { 
-                storeField.removeAttribute('required');
-                storeContainer.style.display = 'none'; // Sembunyikan field store
-            } else {
-                storeField.setAttribute('required', 'required');
-                storeContainer.style.display = 'block'; // Tampilkan field store
-            }
-        }
-
-        // Jalankan saat halaman dimuat (untuk mengakomodasi old() jika terjadi validasi gagal)
-        toggleStoreField();
-
-        // Jalankan setiap kali user mengganti role
-        roleSelect.addEventListener('change', toggleStoreField);
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Toggle password visibility
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        const toggleIcon = document.getElementById('toggleIcon');
-        
-        if (togglePassword) {
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                toggleIcon.classList.toggle('bi-eye');
-                toggleIcon.classList.toggle('bi-eye-slash');
-            });
-        }
-        
-        // Toggle email section visibility on mobile
-        const toggleEmailsBtn = document.getElementById('toggleEmailsBtn');
-        const emailSection = document.getElementById('email-section');
-        
-        if (toggleEmailsBtn) {
-            toggleEmailsBtn.addEventListener('click', function() {
-                if (emailSection.style.display === 'none' || emailSection.style.display === '') {
-                    emailSection.style.display = 'block';
-                    emailSection.classList.add('fade-in');
-                    toggleEmailsBtn.innerHTML = '<i class="bi bi-eye-slash me-2"></i>Hide Registered Emails';
-                } else {
-                    emailSection.style.display = 'none';
-                    toggleEmailsBtn.innerHTML = '<i class="bi bi-eye me-2"></i>View Registered Emails';
-                }
-            });
-        }
-        
-        // Form validation and toast notification
-        const form = document.querySelector('form');
-        
-        if (form) {
-            form.addEventListener('submit', function(event) {
-                // Form validation code would go here if needed
-                
-                // For demonstration, we'll show a toast on form submission in a real app
-                // You might want to trigger this only after successful submission
-                /*
-                const successToast = document.getElementById('successToast');
-                if (successToast) {
-                    const toast = new bootstrap.Toast(successToast);
-                    toast.show();
-                }
-                */
-            });
-        }
-    });
-</script>
+<script src="{{ asset('js/user/create.js') }}"></script>
 @endsection

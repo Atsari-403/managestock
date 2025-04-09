@@ -56,7 +56,7 @@ class UserController extends Controller
         // Create the user
         User::create($validatedData);
 
-        return redirect()->route('indexuser')->with('success', 'User created successfully.');
+        return redirect()->route('indexuser')->with('success', 'User berhasil ditambahkan');
     }
 
     /**

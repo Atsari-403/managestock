@@ -38,7 +38,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
         ]);
         Product::create($validateData);
-        return redirect()->route('indexuser')->with('success', 'User created successfully.');
+        return redirect()->route('indexuser')->with('success', 'User berhasil ditambahkan');
     }
 
     /**

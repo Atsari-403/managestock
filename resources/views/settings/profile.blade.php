@@ -44,7 +44,7 @@
                                 </label>
                                 <input type="file" name="picture" id="picture" class="d-none">
                             </div>
-                            <div class="small text-muted">Allowed JPG or PNG. Max size of 800K</div>
+                            <div class="small text-muted mt-2">Diperbolehkan format JPG atau PNG. Maksimal ukuran 800KB</div>
                         </div>
 
                         <div class="row">

@@ -6,6 +6,16 @@
 <link href="{{ asset('css/user/index.css') }}" rel="stylesheet">
 @endsection
 
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Mengoper data sesi ke JS
+    const sessionErrors = @json(session('error'));
+    const sessionSuccess = @json(session('success'));
+</script>
+<script src="{{ asset('js/user/index.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="container-fluid mt-4">
     <!-- Header -->
@@ -14,45 +24,6 @@
         description="kelola user yang terdaftar di sistem"  
         icon="people">
     </x-dashboard-header>
-    
-    <!-- Alert Scripts -->
-    @if(session()->has('error'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                title: "Gagal!",
-                text: "{{ session('error') }}",
-                icon: "error",
-                confirmButtonText: "OK",
-                customClass: {
-                    confirmButton: 'btn btn-danger px-4',
-                    popup: 'animated fadeInDown faster rounded-lg'
-                },
-                buttonsStyling: false
-            });
-        });
-    </script>
-    @endif
-    
-    @if(session()->has('success'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                title: "Berhasil!",
-                text: "{{ session('success') }}",
-                icon: "success",
-                confirmButtonText: "OK",
-                customClass: {
-                    confirmButton: 'btn btn-success px-4',
-                    popup: 'animated fadeInDown faster rounded-lg'
-                },
-                buttonsStyling: false
-            });
-        });
-    </script>
-    @endif
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- User Table -->
     <div class="row">
@@ -80,7 +51,7 @@
                                     </button>
                                     
                                     <ul class="dropdown-menu dropdown-menu-end shadow-lg animated fadeInUp faster" aria-labelledby="perPageDropdown">
-                                        <li><h6 class="dropdown-header">Show entries</h6></li>
+                                        <li><h6 class="dropdown-header">Tampilkan entri</h6></li>
                                         <li><button type="submit" name="perPage" value="5" class="dropdown-item {{ request()->get('perPage') == '5' ? 'active' : '' }}">5 items</button></li>
                                         <li><button type="submit" name="perPage" value="10" class="dropdown-item {{ request()->get('perPage') == '10' || !request()->has('perPage') ? 'active' : '' }}">10 items</button></li>
                                         <li><button type="submit" name="perPage" value="15" class="dropdown-item {{ request()->get('perPage') == '15' ? 'active' : '' }}">15 items</button></li>
@@ -97,7 +68,7 @@
                         <table class="table table-hover table-striped align-middle">
                             <thead class="thead-light">
                                 <tr>
-                                    <th class="py-2">Name</th>
+                                    <th class="py-2">Nama</th>
                                     <th class="py-2">Email</th>
                                     <th class="py-2">Role</th>
                                     <th class="text-center py-2">Actions</th>
@@ -148,42 +119,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    // Initialize tooltips
-    document.addEventListener('DOMContentLoaded', function() {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
-        
-        // Delete confirmation with SweetAlert2
-        const deleteButtons = document.querySelectorAll('.delete-confirm');
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const form = this.closest('form');
-                Swal.fire({
-                    title: 'Hapus user ini?',
-                    text: "Tindakan ini tidak dapat dibatalkan!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#dc3545',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal',
-                    customClass: {
-                        confirmButton: 'btn btn-danger me-2',
-                        cancelButton: 'btn btn-secondary',
-                        popup: 'animated fadeInDown faster rounded-lg'
-                    },
-                    buttonsStyling: false
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            });
-        });
-    });
-</script>
 @endsection

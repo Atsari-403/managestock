@@ -1,0 +1,67 @@
+/* Styling untuk Card Paket */
+    .card {
+        transition: all 0.3s ease-in-out;
+        border-radius: 12px;
+        overflow: hidden;
+        border: none;
+        position: relative; /* Supaya tombol Beli bisa diposisikan di dalamnya */
+    }
+
+    /* Hover Efek */
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Judul Paket */
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        color: rgba(0, 123, 255, 0.85); /* Biru lebih soft */
+    }
+
+    /* Badge Stok */
+    .badge-stock {
+        background-color: #28a745;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    /* Harga */
+    .card-text strong {
+        color: rgba(33, 37, 41, 0.85);
+        font-weight: 600;
+    }
+
+    /* Tombol Beli */
+    .btn-buy {
+        background: linear-gradient(135deg, #007bff, #00d4ff);
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: bold;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s ease-in-out;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .btn-buy:hover {
+        background: linear-gradient(135deg, #0056b3, #00a3cc);
+        color: white;
+    }
+
+    /* Ikon dalam tombol */
+    .btn-buy i {
+        font-size: 18px;
+    }
+    .w-60 {
+        width: 60%;
+    }

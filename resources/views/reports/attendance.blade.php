@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label for="date_from" class="form-label fw-bold"><i class="bi bi-calendar-minus me-1"></i>Tanggal</label>
-                                            <input type="date" class="form-control shadow-sm" id="date_from" name="date_from">
+                                            <input type="date" class="form-control shadow-sm" id="date_from" name="date_from" placeholder="mm/dd/yy">
                                         </div>
                                         <div class="col-md-3 text-end">
                                             <button type="submit" class="btn btn-primary btn-gradient">
@@ -71,7 +71,6 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card border-0 shadow-sm rounded-3">
-                                <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-hover table-striped">
                                             <thead class="table-primary text-primary">
@@ -113,7 +112,6 @@
                                             </tbody>                                            
                                         </table>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>

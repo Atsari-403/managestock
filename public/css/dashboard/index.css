@@ -1,76 +1,179 @@
-/* Card Styling */
-    .stats-card {
-        border-radius: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        height: 100%;
-        overflow: hidden;
-    }
+.badge {
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+}
+
+.stats-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    overflow: hidden;
     
-    .stats-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+.stats-card-body {
+    padding: 1.25rem;
+}
+
+.stats-icon {
+    font-size: 2rem;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Table Styling */
+.data-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    margin-bottom: 2rem;
+}
+
+.custom-table th {
+    background-color: #343a40;
+    color: white;
+    border-bottom: 2px solid #495057;
+}
+
+.custom-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+    transform: translateY(-2px);
+}
+
+.badge-status {
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-right: 5px;
+}
+
+.action-btn:hover {
+    background-color: #e9ecef;
+}
+
+/* Progress Bar */
+.progress {
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* style untuk tabel admin */
+.table-admin {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table-admin thead {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table-admin th {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+.table-admin tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+.table-admin .badge-income {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.3rem 0.5rem;
+    border-radius: 20px;
+}
+
+.table-admin td {
+    vertical-align: middle;
+}
+
+.empty-state {
+    color: #6c757d;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
     }
-    
-    .stats-card-body {
-        padding: 1.25rem;
+}
+
+/* style untuk tabel karyawan */
+.table-employee {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table-employee thead {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table-employee th {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+.table-employee tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+.table-employee .badge-method {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.3rem 0.5rem;
+    border-radius: 20px;
+}
+
+.table-employee td {
+    vertical-align: middle;
+}
+
+.empty-state {
+    color: #6c757d;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
     }
-    
-    .stats-icon {
-        font-size: 2rem;
-        width: 55px;
-        height: 55px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-    }
-    
-    /* Table Styling */
-    .data-card {
-        border-radius: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border: none;
-        margin-bottom: 2rem;
-    }
-    
-    .custom-table th {
-        background-color: #343a40;
-        color: white;
-        border-bottom: 2px solid #495057;
-    }
-    
-    .custom-table tbody tr {
-        transition: all 0.2s ease;
-    }
-    
-    .custom-table tbody tr:hover {
-        background-color: rgba(0, 123, 255, 0.1) !important;
-        transform: translateY(-2px);
-    }
-    
-    .badge-status {
-        padding: 6px 10px;
-        border-radius: 20px;
-    }
-    
-    .action-btn {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-        margin-right: 5px;
-    }
-    
-    .action-btn:hover {
-        background-color: #e9ecef;
-    }
-    
-    /* Progress Bar */
-    .progress {
-        height: 4px;
-        background-color: rgba(0,0,0,0.1);
-    }
+}
+
+
+

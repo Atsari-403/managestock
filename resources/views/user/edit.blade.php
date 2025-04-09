@@ -135,7 +135,7 @@
             </div>
 
             <button class="btn btn-outline-primary d-block d-md-none mt-3 btn-hover" id="toggleEmailsBtn">
-                <i class="fas fa-eye me-2"></i>View Registered Emails
+                <i class="fas fa-eye me-2"></i>Lihat Email Terdaftar
             </button>
         </div>
     </div>
@@ -149,11 +149,11 @@
         if (emailSection.style.display === "none" || emailSection.style.display === "") {
             emailSection.style.display = "block";
             emailSection.classList.add('mt-3');
-            this.textContent = "Hide Registered Emails";
+            this.textContent = "Sembunyikan Email Terdaftar";
         } else {
             emailSection.style.display = "none";
             emailSection.classList.remove('mt-3');  
-            this.textContent = "View Registered Emails";
+            this.textContent = "Lihat Email Terdaftar";
         }
     });
 </script>
