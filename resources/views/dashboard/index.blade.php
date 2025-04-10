@@ -87,14 +87,19 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                @foreach ($pendapatanPerUser as $index => $user)
+                                @forelse ($pendapatanPerUser as $index => $user)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td class="text-start">{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td class="fw-bold text-success">Rp {{ number_format($user->total_pendapatan, 0, ',', '.') }}</td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                    <td class="text-center bg-warning">Tidak Ada Aktifitas</td>
+                                    <td class="text-center bg-warning">Tidak Ada Aktifitas</td>
+                                    <td class="text-center bg-warning">Tidak Ada Aktifitas</td>
+                                    <td class="text-center bg-warning">Tidak Ada Aktifitas</td>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -201,6 +206,42 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <div>
+                @if ($transaksiTerakhir->count() > 0)
+                    <span class="text-muted">
+                        Menampilkan {{ $transaksiTerakhir->firstItem() }}-{{ $transaksiTerakhir->lastItem() }} dari {{ $transaksiTerakhir->total() }} data
+                    </span>
+                @else
+                    <span class="text-muted">Tidak ada data yang tersedia.</span>
+                @endif
+        
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {{-- Tombol Previous --}}
+                    <li class="page-item {{ $transaksiTerakhir->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $transaksiTerakhir->previousPageUrl() }}" aria-label="Previous">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+        
+                    {{-- Tombol Angka Halaman --}}
+                    @for ($i = 1; $i <= $transaksiTerakhir->lastPage(); $i++)
+                        <li class="page-item {{ $transaksiTerakhir->currentPage() == $i ? 'active' : '' }}">
+                            <a class="page-link" href="{{ $transaksiTerakhir->url($i) }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+        
+                    {{-- Tombol Next --}}
+                    <li class="page-item {{ $transaksiTerakhir->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $transaksiTerakhir->nextPageUrl() }}" aria-label="Next">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

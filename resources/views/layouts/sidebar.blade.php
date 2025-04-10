@@ -98,24 +98,29 @@
         </div>
         @endif
       
-        @if (auth()->check()&&auth()->user()->role == 1)    
-                <a class="nav-link {{ Request::routeIs('indexStore') ? 'active' : '' }}" href="{{ route('indexStore') }}">
+        @if (auth()->check()&&auth()->user()->role == 0)    
+                {{-- <a class="nav-link {{ Request::routeIs('indexStore') ? 'active' : '' }}" href="{{ route('indexStore') }}">
                         <i class="bi bi-boxes"></i>
                         <span>Orders</span>
                 </a>
-        @else    
+        @else     --}}
                 <!-- Orders CRUD Section -->
-                <a class="nav-link {{ Request::routeIs('indexorder') ? 'active' : '' }}" 
-                    href="{{ auth()->user()->hasAttendedToday() ? route('indexorder') : 'javascript:void(0)' }}" 
-                    onclick="{{ !auth()->user()->hasAttendedToday() ? 'showAttendanceWarning()' : '' }}">
-                        <i class="bi bi-boxes"></i>
-                        <span>Orders</span>
+                @php
+                    $canOrder = auth()->user()->hasAttendedToday() && !auth()->user()->hasCheckedOutToday();
+                @endphp
+                
+                <a class="nav-link {{ Request::routeIs('indexorder') ? 'active' : '' }}"
+                href="{{ $canOrder ? route('indexorder') : 'javascript:void(0)' }}"
+                onclick="{{ $canOrder ? '' : 'showAttendanceWarning()' }}">
+                    <i class="bi bi-boxes"></i>
+                    <span>Orders</span>
+                </a>
+            
+                <a class="nav-link {{ Request::routeIs('attendance') ? 'active' : '' }}" href="{{ route('attendance') }}">
+                    <i class="bi bi-clock"></i><span>Absensi</span>
                 </a>
         @endif
       
-        <a class="nav-link {{ Request::routeIs('attendance') ? 'active' : '' }}" href="{{ route('attendance') }}">
-            <i class="bi bi-clock"></i><span>Absensi</span>
-        </a>
         
         
         <a class="nav-link {{ Request::routeIs('setting') ? 'active' : '' }}" href="{{ route('setting', ['id' => Auth::user()->id]) }}">
@@ -154,11 +159,19 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         @php
-        $isOnLeave = auth()->user()->status();
+            $user = auth()->user();
+            $isOnLeave = $user->status();
+            $hasCheckedOut = $user->hasCheckedOutToday();
         @endphp
 
         <div class="modal-body">
-            {{ $isOnLeave ? 'Anda Sedang Tidak Dalam Aktifitas Bekerja Izin/Sakit' : 'Harap Absensi Terlebih Dahulu sebelum melakukan Order!' }}
+            @if ($isOnLeave)
+                Anda Sedang Tidak Dalam Aktifitas Bekerja (Izin/Sakit)
+            @elseif ($hasCheckedOut)
+                Anda Sudah Absen Pulang, Tidak Bisa Melakukan Order
+            @else
+                Harap Absensi Terlebih Dahulu Sebelum Melakukan Order!
+            @endif
         </div>
 
         <div class="modal-footer">

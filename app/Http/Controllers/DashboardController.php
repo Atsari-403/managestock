@@ -40,9 +40,9 @@ class DashboardController extends Controller
         ->sum('total_stor');
         $transaksiTerakhir = Order::with('paket')
         ->where('user_id',Auth::id())
+        ->whereDate('created_at',Carbon::today())
         ->orderBy('created_at', 'desc')
-        ->limit(5)
-        ->get();
+        ->paginate(4);
 
 
         return view('dashboard.index', compact('productTerjual', 'transaksi','pendapatanPerUser','transaksiTerakhir','produkTerjualHariIni','pendapatanHariIni'));

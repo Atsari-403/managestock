@@ -150,12 +150,11 @@
                     <div>
                         <h3 class="card-title mb-0 d-flex align-items-center">
                             <i class="bi bi-shop me-2 text-primary"></i>
-                            Store Management
+                            Management
                         </h3>
-                        <p class="text-muted mt-2 mb-0">Kelola toko Anda dengan mudah</p>
                     </div>
                     <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#addStoreModal">
-                        <i class="bi bi-plus-lg me-2"></i> Tambah Store
+                        <i class="bi bi-plus-lg me-2"></i>Store
                     </button>
                 </div>
                 <div class="progress">
