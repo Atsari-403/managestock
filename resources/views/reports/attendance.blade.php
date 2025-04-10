@@ -23,7 +23,6 @@
                         onclick="window.location.href='{{ route('attendance.export', request()->all()) }}'">
                         <i class="bi bi-download me-1"></i> Export
                      </button>
-                    
                     </div>
                 </div>
                 <div class="card-body">
