@@ -9,6 +9,32 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Fungsi untuk menangani tombol hapus dengan SweetAlert
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const id = this.getAttribute("data-id");
+            const name = this.getAttribute("data-name");
+            const form = this.closest("form");
+
+            Swal.fire({
+                title: "Hapus paket ini?",
+                text: `Anda akan menghapus paket "${name}"`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, hapus!",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+
     // Fungsi untuk menangani tambah stok
     const addStockButtons = document.querySelectorAll(".add-stock");
     const modalStockForm = document.getElementById("tambahStockForm");

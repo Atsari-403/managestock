@@ -4,6 +4,52 @@
 
 @section('styles')
 <link href="{{ asset('css/riwayatOrder.css') }}" rel="stylesheet">
+<style>
+    /* Custom pagination styles */
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .pagination .page-item {
+        margin: 2px;
+    }
+    
+    .pagination .page-item .page-link {
+        border-radius: 4px;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        font-size: 0.875rem;
+    }
+    
+    /* Hide page numbers on smaller screens, just keep prev/next and active */
+    @media (max-width: 576px) {
+        .pagination .page-item:not(.active):not(.disabled):not(.prev):not(.next) {
+            display: none;
+        }
+        
+        .pagination .page-item.active {
+            order: 2;
+        }
+        
+        .pagination .page-item.prev {
+            order: 1;
+        }
+        
+        .pagination .page-item.next {
+            order: 3;
+        }
+        
+        .pagination .page-item.active .page-link:after {
+            content: " / {{ $orders->lastPage() }}";
+        }
+    }
+</style>
 @endsection
 
 @section('content')
@@ -175,11 +221,58 @@
                 </table>
             </div>
 
-            <!-- Pagination with enhanced styling -->
+            <!-- Pagination dengan kemampuan responsif -->
             @if($orders->hasPages())
             <div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation">
-                    {{ $orders->appends(request()->input())->links('pagination::bootstrap-4') }}
+                    <ul class="pagination">
+                        {{-- Tombol Previous --}}
+                        <li class="page-item prev {{ $orders->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $orders->previousPageUrl() }}" aria-label="Previous">
+                                <i class="bi bi-chevron-left"></i>
+                            </a>
+                        </li>
+                        
+                        {{-- Tampilkan halaman pertama jika tidak di halaman pertama dan dengan jarak lebih dari 2 --}}
+                        @if($orders->currentPage() > 3)
+                            <li class="page-item d-none d-sm-flex">
+                                <a class="page-link" href="{{ $orders->url(1) }}">1</a>
+                            </li>
+                            
+                            @if($orders->currentPage() > 4)
+                                <li class="page-item disabled d-none d-sm-flex">
+                                    <span class="page-link">...</span>
+                                </li>
+                            @endif
+                        @endif
+                        
+                        {{-- Tampilkan halaman sebelum, halaman aktif, dan halaman setelah --}}
+                        @for($i = max(1, $orders->currentPage() - 1); $i <= min($orders->lastPage(), $orders->currentPage() + 1); $i++)
+                            <li class="page-item {{ $i == $orders->currentPage() ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $orders->url($i) }}">{{ $i }}</a>
+                            </li>
+                        @endfor
+                        
+                        {{-- Tampilkan halaman terakhir jika tidak di halaman terakhir dan dengan jarak lebih dari 2 --}}
+                        @if($orders->currentPage() < $orders->lastPage() - 2)
+                            @if($orders->currentPage() < $orders->lastPage() - 3)
+                                <li class="page-item disabled d-none d-sm-flex">
+                                    <span class="page-link">...</span>
+                                </li>
+                            @endif
+                            
+                            <li class="page-item d-none d-sm-flex">
+                                <a class="page-link" href="{{ $orders->url($orders->lastPage()) }}">{{ $orders->lastPage() }}</a>
+                            </li>
+                        @endif
+                        
+                        {{-- Tombol Next --}}
+                        <li class="page-item next {{ $orders->currentPage() == $orders->lastPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $orders->nextPageUrl() }}" aria-label="Next">
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </nav>
             </div>
             @endif

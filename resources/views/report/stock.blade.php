@@ -4,6 +4,52 @@
 
 @section('styles')
 <link href="{{ asset('css/historyStock.css') }}" rel="stylesheet">
+<style>
+    /* Custom pagination styles */
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .pagination .page-item {
+        margin: 2px;
+    }
+    
+    .pagination .page-item .page-link {
+        border-radius: 4px;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        font-size: 0.875rem;
+    }
+    
+    /* Hide page numbers on smaller screens, just keep prev/next and active */
+    @media (max-width: 576px) {
+        .pagination .page-item:not(.active):not(.disabled):not(.prev):not(.next) {
+            display: none;
+        }
+        
+        .pagination .page-item.active {
+            order: 2;
+        }
+        
+        .pagination .page-item.prev {
+            order: 1;
+        }
+        
+        .pagination .page-item.next {
+            order: 3;
+        }
+        
+        .pagination .page-item.active .page-link:after {
+            content: " / {{ $stockHistories->lastPage() }}";
+        }
+    }
+</style>
 @endsection
 
 @section('content')
@@ -129,11 +175,58 @@
                 </table>
             </div>
             
-            <!-- Pagination block if available -->
+            <!-- Pagination dengan kemampuan responsif -->
             @if(method_exists($stockHistories, 'hasPages') && $stockHistories->hasPages())
             <div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation">
-                    {{ $stockHistories->appends(request()->input())->links('pagination::bootstrap-4') }}
+                    <ul class="pagination">
+                        {{-- Tombol Previous --}}
+                        <li class="page-item prev {{ $stockHistories->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $stockHistories->previousPageUrl() }}" aria-label="Previous">
+                                <i class="bi bi-chevron-left"></i>
+                            </a>
+                        </li>
+                        
+                        {{-- Tampilkan halaman pertama jika tidak di halaman pertama dan dengan jarak lebih dari 2 --}}
+                        @if($stockHistories->currentPage() > 3)
+                            <li class="page-item d-none d-sm-flex">
+                                <a class="page-link" href="{{ $stockHistories->url(1) }}">1</a>
+                            </li>
+                            
+                            @if($stockHistories->currentPage() > 4)
+                                <li class="page-item disabled d-none d-sm-flex">
+                                    <span class="page-link">...</span>
+                                </li>
+                            @endif
+                        @endif
+                        
+                        {{-- Tampilkan halaman sebelum, halaman aktif, dan halaman setelah --}}
+                        @for($i = max(1, $stockHistories->currentPage() - 1); $i <= min($stockHistories->lastPage(), $stockHistories->currentPage() + 1); $i++)
+                            <li class="page-item {{ $i == $stockHistories->currentPage() ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $stockHistories->url($i) }}">{{ $i }}</a>
+                            </li>
+                        @endfor
+                        
+                        {{-- Tampilkan halaman terakhir jika tidak di halaman terakhir dan dengan jarak lebih dari 2 --}}
+                        @if($stockHistories->currentPage() < $stockHistories->lastPage() - 2)
+                            @if($stockHistories->currentPage() < $stockHistories->lastPage() - 3)
+                                <li class="page-item disabled d-none d-sm-flex">
+                                    <span class="page-link">...</span>
+                                </li>
+                            @endif
+                            
+                            <li class="page-item d-none d-sm-flex">
+                                <a class="page-link" href="{{ $stockHistories->url($stockHistories->lastPage()) }}">{{ $stockHistories->lastPage() }}</a>
+                            </li>
+                        @endif
+                        
+                        {{-- Tombol Next --}}
+                        <li class="page-item next {{ $stockHistories->currentPage() == $stockHistories->lastPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $stockHistories->nextPageUrl() }}" aria-label="Next">
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </nav>
             </div>
             @endif

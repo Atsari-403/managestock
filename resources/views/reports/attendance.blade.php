@@ -4,6 +4,53 @@
 
 @section('styles')
 <link href="{{ asset('css/reports/attendance.css') }}" rel="stylesheet">
+<style>
+    /* Custom pagination styles */
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .pagination .page-item {
+        margin: 2px;
+    }
+    
+    .pagination .page-item .page-link {
+        border-radius: 4px;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        font-size: 0.875rem;
+    }
+    
+    /* Hide page numbers on smaller screens, just keep prev/next and active */
+    @media (max-width: 576px) {
+        .pagination .page-item:not(.active):not(.disabled):not(.prev):not(.next) {
+            display: none;
+        }
+        
+        .pagination .page-item.active {
+            order: 2;
+        }
+        
+        .pagination .page-item.prev {
+            order: 1;
+        }
+        
+        .pagination .page-item.next {
+            order: 3;
+        }
+        
+        .pagination .page-item.active .page-link:after {
+            content: " / {{ $attendances->lastPage() }}";
+        }
+    }
+</style>
 @endsection
 
 <div class="container-fluid mt-4">
@@ -23,6 +70,7 @@
                         onclick="window.location.href='{{ route('attendance.export', request()->all()) }}'">
                         <i class="bi bi-download me-1"></i> Export
                      </button>
+                    
                     </div>
                 </div>
                 <div class="card-body">
@@ -54,7 +102,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label for="date_from" class="form-label fw-bold"><i class="bi bi-calendar-minus me-1"></i>Tanggal</label>
-                                            <input type="date" class="form-control shadow-sm" id="date_from" name="date_from" placeholder="mm/dd/yy">
+                                            <input type="date" class="form-control shadow-sm" id="date_from" name="date_from">
                                         </div>
                                         <div class="col-md-3 text-end">
                                             <button type="submit" class="btn btn-primary btn-gradient">
@@ -115,30 +163,60 @@
                         </div>
                     </div>
                 </div>
-                <nav aria-label="Page navigation" class="mx-4">
-                    <ul class="pagination">
-                        {{-- Tombol Previous --}}
-                        <li class="page-item {{ $attendances->onFirstPage() ? 'disabled' : '' }}">
-                            <a class="page-link" href="{{ $attendances->previousPageUrl() }}" aria-label="Previous">
-                                <i class="bi bi-chevron-left"></i>
-                            </a>
-                        </li>
-            
-                        {{-- Tombol Angka Halaman --}}
-                        @for ($i = 1; $i <= $attendances->lastPage(); $i++)
-                            <li class="page-item {{ $attendances->currentPage() == $i ? 'active' : '' }}">
-                                <a class="page-link" href="{{ $attendances->url($i) }}">{{ $i }}</a>
+                
+                <!-- Pagination yang responsif-->
+                <div class="d-flex justify-content-center mt-3 mb-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {{-- Tombol Previous --}}
+                            <li class="page-item prev {{ $attendances->onFirstPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $attendances->previousPageUrl() }}" aria-label="Previous">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
                             </li>
-                        @endfor
-            
-                        {{-- Tombol Next --}}
-                        <li class="page-item {{ $attendances->hasMorePages() ? '' : 'disabled' }}">
-                            <a class="page-link" href="{{ $attendances->nextPageUrl() }}" aria-label="Next">
-                                <i class="bi bi-chevron-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                            
+                            {{-- Tampilkan halaman pertama jika tidak di halaman pertama dan dengan jarak lebih dari 2 --}}
+                            @if($attendances->currentPage() > 3)
+                                <li class="page-item d-none d-sm-flex">
+                                    <a class="page-link" href="{{ $attendances->url(1) }}">1</a>
+                                </li>
+                                
+                                @if($attendances->currentPage() > 4)
+                                    <li class="page-item disabled d-none d-sm-flex">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                @endif
+                            @endif
+                            
+                            {{-- Tampilkan halaman sebelum, halaman aktif, dan halaman setelah --}}
+                            @for($i = max(1, $attendances->currentPage() - 1); $i <= min($attendances->lastPage(), $attendances->currentPage() + 1); $i++)
+                                <li class="page-item {{ $i == $attendances->currentPage() ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $attendances->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            
+                            {{-- Tampilkan halaman terakhir jika tidak di halaman terakhir dan dengan jarak lebih dari 2 --}}
+                            @if($attendances->currentPage() < $attendances->lastPage() - 2)
+                                @if($attendances->currentPage() < $attendances->lastPage() - 3)
+                                    <li class="page-item disabled d-none d-sm-flex">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                @endif
+                                
+                                <li class="page-item d-none d-sm-flex">
+                                    <a class="page-link" href="{{ $attendances->url($attendances->lastPage()) }}">{{ $attendances->lastPage() }}</a>
+                                </li>
+                            @endif
+                            
+                            {{-- Tombol Next --}}
+                            <li class="page-item next {{ $attendances->currentPage() == $attendances->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $attendances->nextPageUrl() }}" aria-label="Next">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -156,8 +234,6 @@
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
-        
-      
     });
 </script>
 @endsection

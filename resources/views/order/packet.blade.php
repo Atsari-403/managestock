@@ -172,7 +172,7 @@
 
 <!-- Modal Form Pembelian -->
 <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-topped">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="purchaseModalLabel">Form Pembelian</h5>
@@ -214,7 +214,6 @@
                         <div class="col-12">
                             <label for="payment_method" class="form-label">Metode Pembayaran</label>
                             <select class="form-select" name="payment_method" id="payment_method" required>
-                                <option value="" disabled selected>Pilih metode pembayaran</option>
                                 <option value="0">Transfer</option>
                                 <option value="1">Tunai</option>
                             </select>
@@ -226,7 +225,6 @@
                         <div class="col-12">
                             <label for="action" class="form-label">Aksi</label>
                             <select class="form-select" name="action" id="action">
-                                <option value="" disabled selected>Pilih aksi</option>
                                 <option value="1">Tarik Tunai</option>
                                 <option value="0">Transfer</option>
                             </select>

@@ -12,12 +12,9 @@
        description="Laporan Setoran karyawan"
        icon="bi bi-currency-dollar">
     </x-dashboard-header>
-
     
     <!-- Main Report Card -->
     <div class="row fade-in-up" style="animation-delay: 0.5s">
-        
-        
         <div class="col-12">
             <div class="card main-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -75,7 +72,7 @@
                         <table class="table table-custom table-hover">
                             <thead>
                                 <tr>
-                                    <th><i class="bi bi-person-badge me-2"></i>Nama</th>
+                                    <th><i class="bi bi-person-badge me-2"></i>Nama Staff</th>
                                     <th><i class="bi bi-calendar me-2"></i>Tanggal</th>
                                     <th><i class="bi bi-cash-stack me-2"></i>Setoran</th>
                                    
@@ -144,12 +141,6 @@
             </li>
         </ul>
     </nav>
-</div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
 

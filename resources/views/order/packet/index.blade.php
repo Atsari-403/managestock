@@ -68,10 +68,10 @@
                                 @endif
                             </div>                            
 
-                            <form action="{{route('destroypaket',['id'=>$paket->id])}}" method="post" onsubmit="return confirm('Hapus paket ini?')">
+                            <form action="{{ route('destroypaket', ['id' => $paket->id]) }}" method="post" class="delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="button" class="btn btn-danger btn-sm delete-btn" data-id="{{ $paket->id }}" data-name="{{ $paket->name }}">
                                     <i class="bi bi-trash"></i> Hapus
                                 </button>
                             </form>
@@ -118,7 +118,7 @@
 
     <!-- Modal Form Update Paket -->
     <div class="modal fade" id="form" tabindex="-1" aria-labelledby="modalPulsaLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalPulsaLabel">Tambah Paket Baru</h5>
@@ -158,7 +158,6 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @section('scripts')
