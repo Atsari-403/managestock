@@ -101,7 +101,7 @@
             @if (isset($product) && !in_array($product->name, ["Aksesoris", "Kartu", "Voucher"]))
             <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm">
-                    @if (in_array($product->name,["E-Wallet","Transaksi"]))    
+                    @if (in_array($product->name,["E-Wallet","Transaksi","Prabayar","Pascabayar","Pulsa","Paket Data","Top Up Game"]))    
                     <div class="card-body">
                         <h5 class="card-title">{{ "Custome " . ($category->name ?? 'Paket Custom') }}</h5>
                         <div class="mb-3">
@@ -172,7 +172,7 @@
 
 <!-- Modal Form Pembelian -->
 <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-topped">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="purchaseModalLabel">Form Pembelian</h5>
@@ -214,6 +214,7 @@
                         <div class="col-12">
                             <label for="payment_method" class="form-label">Metode Pembayaran</label>
                             <select class="form-select" name="payment_method" id="payment_method" required>
+                                <option value="" disabled selected>Pilih metode pembayaran</option>
                                 <option value="0">Transfer</option>
                                 <option value="1">Tunai</option>
                             </select>
@@ -225,6 +226,7 @@
                         <div class="col-12">
                             <label for="action" class="form-label">Aksi</label>
                             <select class="form-select" name="action" id="action">
+                                <option value="" disabled selected>Pilih aksi</option>
                                 <option value="1">Tarik Tunai</option>
                                 <option value="0">Transfer</option>
                             </select>

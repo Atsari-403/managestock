@@ -61,7 +61,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll(".edit-paket");
     const modalForm = document.getElementById("paketForm");
     const kategoriPakaiStok = ["Aksesoris", "Kartu", "Voucher"];
-    const kategoriPakaiMargin = ["E-Wallet", "Transaksi"];
+    const kategoriPakaiMargin = ["Pulsa",
+            "E-Wallet",
+            "Transaksi",
+            "Prabayar",
+            "Pascabayar",
+            "Top Up Game",
+            "Voucher",
+            "Aksesoris",
+            "Kartu",
+            "Paket Data"];
 
     editButtons.forEach((button) => {
         button.addEventListener("click", function () {
