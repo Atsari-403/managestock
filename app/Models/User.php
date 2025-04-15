@@ -87,10 +87,19 @@ class User extends Authenticatable
             ->where('status', 'Hadir')->whereDate('check_in', Carbon::today())
             ->exists();
     }
+
+    public function hasCheckedOutToday(): bool
+    {
+        return $this->attendance()
+            ->whereDate('created_at', Carbon::today())
+            ->whereNotNull('check_out')
+            ->exists();
+    }
     public function status(): bool
     {
         return $this->attendance()
-            ->where('status', 'Izin')->whereDate('check_in', Carbon::today())
+            ->where('status', 'Izin')
+            ->whereDate('check_in', Carbon::today())
             ->exists();
     }
 
